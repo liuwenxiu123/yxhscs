@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hscsm.core.itf.mapper.QueryUtilMapper">
+    <resultMap id="BaseResultMap" type="hscsm.core.itf.dto.QueryUtilDto">
+        <result column="INTERFACE_NAME" property="attribute1" jdbcType="VARCHAR" />
+        <result column="VALUE2" property="attribute2" jdbcType="VARCHAR" />
+        <result column="VALUE3" property="attribute3" jdbcType="VARCHAR" />
+        <result column="VALUE4" property="attribute4" jdbcType="VARCHAR" />
+        <result column="VALUE5" property="attribute5" jdbcType="VARCHAR" />
+        <result column="VALUE6" property="attribute6 " jdbcType="VARCHAR" />
+    </resultMap>
+
+    <select id="queryAttrData" parameterType="hscsm.core.itf.dto.QueryUtilDto" resultMap="BaseResultMap">
+
+        SELECT
+            h.INTERFACE_NAME,
+            l.value2
+        FROM
+            hscs_itf_imp_lines l
+        JOIN hscs_itf_imp_headers h ON l.HEADER_ID = h.HEADER_ID
+        GROUP BY
+          h.INTERFACE_NAME,
+          l.value2
+        HAVING
+            h.INTERFACE_NAME in ('ALIX_CONTRACT_INTERFACE', 'OPL_CONTRACT_INTERFACE')
+        <if test="attribute2!=null">
+            AND  l.VALUE2 = #{attribute2,jdbcType=VARCHAR};
+        </if>
+
+    </select>
+
+    <resultMap id="BaseResultMap1" type="hscsm.core.itf.dto.QueryUtilDto">
+        <result column="VALUE2" property="attribute1" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <select id="queryCollectDate" parameterType="hscsm.core.itf.dto.QueryUtilDto" resultMap="BaseResultMap1">
+
+        SELECT
+            l.VALUE2
+        FROM
+            hscs_itf_imp_lines l
+        JOIN hscs_itf_imp_headers h ON l.HEADER_ID = h.HEADER_ID
+        WHERE
+              l.VALUE3 = #{attribute2, jdbcType=VARCHAR}
+            AND  h.INTERFACE_NAME = #{attribute1, jdbcType=VARCHAR}
+        <if test="attribute3!=null">
+            AND l.VALUE6 = #{attribute3, jdbcType=VARCHAR}
+        </if>
+
+        ORDER BY LINE_ID DESC LIMIT 1
+
+    </select>
+
+
+    <resultMap id="BaseResultMap2" type="hscsm.core.itf.dto.QueryUtilDto">
+        <result column="VALUE7" property="attribute1" jdbcType="VARCHAR" />
+        <result column="VALUE15" property="attribute2" jdbcType="VARCHAR" />
+        <result column="VALUE67" property="attribute3" jdbcType="VARCHAR" />
+        <result column="VALUE10" property="attribute4" jdbcType="VARCHAR" />
+        <result column="VALUE11" property="attribute5" jdbcType="VARCHAR" />
+        <result column="VALUE83" property="attribute6" jdbcType="VARCHAR" />
+        <result column="INTERFACE_NAME" property="attribute6" jdbcType="VARCHAR" />
+        <result column="VALUE2" property="attribute7" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <select id="getAttrByTwoInterface" resultMap="BaseResultMap2" parameterType="java.lang.String">
+
+        SELECT
+            l.VALUE7,
+            l.VALUE15,
+            l.VALUE67,
+            l.VALUE10,
+            l.VALUE11,
+            h.INTERFACE_NAME
+            FROM
+            hscs_itf_imp_lines l
+            JOIN hscs_itf_imp_headers h ON l.HEADER_ID = h.HEADER_ID
+            WHERE
+           h.INTERFACE_NAME in ('ALIX_CONTRACT_INTERFACE', 'OPL_CONTRACT_INTERFACE')
+           and l.VALUE2 =#{applyNum,jdbcType=VARCHAR}
+           order by l.LINE_ID DESC limit 1
+
+    </select>
+
+
+    <select id="getAttrByTwoInterfaceByList" resultMap="BaseResultMap2" parameterType="java.util.List">
+
+        SELECT tt.* FROM (
+
+        SELECT
+        l.VALUE7,
+        l.VALUE15,
+        l.VALUE67,
+        l.VALUE10,
+        l.VALUE11,
+        h.INTERFACE_NAME,
+        l.VALUE2
+        FROM
+        hscs_itf_imp_lines l
+        JOIN hscs_itf_imp_headers h ON l.HEADER_ID = h.HEADER_ID
+        WHERE
+        EXISTS (
+        SELECT 1 FROM (
+            SELECT
+            'ALIX_CONTRACT_INTERFACE' AS a1,
+            'OPL_CONTRACT_INTERFACE' AS b1
+            ) h1
+            WHERE h.INTERFACE_NAME = h1.a1
+            OR  h.INTERFACE_NAME = h1.b1
+        )
+
+        and
+        EXISTS (
+        SELECT temp.aa FROM
+            (
+                <foreach collection="list" item="item" index="index" separator="union all">
+                  SELECT   #{item.attribute1,jdbcType=DECIMAL} aa
+                </foreach>
+            ) temp
+            WHERE l.VALUE2 =temp.aa
+        )
+
+        ORDER BY l.CREATION_DATE DESC limit 500000
+        ) tt
+
+        GROUP BY tt.VALUE2
+
+    </select>
+
+
+
+    <select id="getSeriveFunction"  resultMap="BaseResultMap2" parameterType="java.lang.String">
+        SELECT
+            l.VALUE83
+            FROM
+            hscs_itf_imp_lines l
+            JOIN hscs_itf_imp_headers h ON l.HEADER_ID = h.HEADER_ID
+            WHERE
+           h.INTERFACE_NAME ='ALIX_CONTRACT_INTERFACE'
+           and l.VALUE2 IN
+            <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+                #{item.attribute1,jdbcType=DECIMAL}
+            </foreach>
+           order by l.LINE_ID DESC limit 1
+    </select>
+
+    <select id="getSeriveFunctionList"  resultMap="BaseResultMap2" parameterType="java.util.List">
+        SELECT tt.* FROM (
+            SELECT
+                l.VALUE83,
+                l.VALUE2
+                FROM
+                hscs_itf_imp_lines l
+                JOIN hscs_itf_imp_headers h ON l.HEADER_ID = h.HEADER_ID
+                WHERE
+               h.INTERFACE_NAME ='ALIX_CONTRACT_INTERFACE'
+                and EXISTS (
+                SELECT temp.aa FROM
+                (
+                    <foreach collection="list" item="item" index="index" separator="union all">
+                        SELECT   #{item.attribute1,jdbcType=DECIMAL} aa
+                    </foreach>
+                ) temp
+                WHERE l.VALUE2 =temp.aa
+                )
+               order by l.LINE_ID
+               DESC) tt
+                GROUP BY tt.VALUE2
+
+    </select>
+
+
+    <resultMap id="BaseResultMap3" type="hscsm.core.itf.dto.QueryUtilDto">
+        <result column="VALUE4" property="attribute1" jdbcType="VARCHAR" />
+        <result column="VALUE8" property="attribute2" jdbcType="VARCHAR" />
+        <result column="VALUE7" property="attribute3" jdbcType="VARCHAR" />
+    </resultMap>
+
+
+    <select id="getContractStatus" resultMap="BaseResultMap3" parameterType="java.lang.String">
+        SELECT
+		l.VALUE4
+		FROM
+		hscs_itf_imp_lines l
+		JOIN hscs_itf_imp_headers h ON l.HEADER_ID = h.HEADER_ID
+		WHERE
+	 h.INTERFACE_NAME ='MAL_STATUS_INTERFACE'
+		and l.VALUE2 = #{applyNum,jdbcType=VARCHAR}
+    union
+    SELECT
+		l.VALUE8
+		FROM
+		hscs_itf_imp_lines l
+		JOIN hscs_itf_imp_headers h ON l.HEADER_ID = h.HEADER_ID
+		WHERE
+	 h.INTERFACE_NAME ='ALIX_CANCEL_INTERFACE'
+		and l.VALUE2 = #{applyNum,jdbcType=VARCHAR}
+    </select>
+
+
+    <select id="getApplicateStatus" resultMap="BaseResultMap3" parameterType="java.lang.String">
+        SELECT
+            l.VALUE7
+            FROM
+            hscs_itf_imp_lines l
+            JOIN hscs_itf_imp_headers h ON l.HEADER_ID = h.HEADER_ID
+            WHERE
+           h.INTERFACE_NAME in ('ALIX_CANCEL_INTERFACE')
+            and l.VALUE2 = #{applyNum,jdbcType=VARCHAR}
+            order by l.LINE_ID DESC limit 1
+    </select>
+
+    <update id="updateContractStatus" parameterType="hscsm.core.itf.dto.QueryUtilDto">
+        <foreach collection="list" item="item" index="index" separator=";">
+            UPDATE yxhscs_itf_ar_interface
+            SET CONTRACT_STATUS = #{item.attribute2}
+                <if test="item.attribute2 != '生效' and item.attribute2 != '合同已生效' and item.attribute3 != 'GENERATED' ">
+                  , ACTUAL_INCOME = '0',
+                   ACTUAL_MONTHLY_INCOME = '0',
+                   ACTUAL_CARRY_INTEREST = '0',
+                   ACTUAL_SERVICE_CHARGE = '0'
+                </if>
+                <if test="item.attribute2 == '取消' || item.attribute2 == '结清'">
+                    , PAYMENT_STATUS = #{item.attribute2}
+                </if>
+              WHERE
+            AR_INTERFACE_ID = #{item.attribute1}
+
+        </foreach>
+    </update>
+
+
+
+    <update id="updateCollectDate" parameterType="hscsm.core.itf.dto.QueryUtilDto">
+        <foreach collection="list" item="item" index="index" separator=";">
+            UPDATE yxhscs_itf_ar_interface
+            SET COLLECT_DATE = #{item.attribute2}
+            WHERE
+            APPLY_NUM = #{item.attribute1}
+        </foreach>
+    </update>
+
+
+    <update id="updateApplicationStatus" parameterType="hscsm.core.itf.dto.QueryUtilDto">
+        <foreach collection="list" item="item" index="index" separator=";">
+            UPDATE yxhscs_itf_ar_interface
+            SET APPLY_STATUS = #{item.attribute2}
+              WHERE
+            APPLY_NUM = #{item.attribute1}
+        </foreach>
+    </update>
+
+    <update id="updateReapplyStatus" parameterType="hscsm.core.itf.dto.QueryUtilDto">
+        <foreach collection="list" item="item" index="index" separator=";">
+            UPDATE yxhscs_itf_ar_interface
+            SET PAYMENT_STATUS = #{item.attribute2}
+            <choose>
+                <when test="item.attribute2 != '逾期'">
+                    ,
+                    OVERDUE_START_DATE = NULL ,
+                    OVERDUE_DAYS = NULL ,
+                    OVERDUE_90_DATE = NULL
+                </when>
+                <otherwise>
+                    ,
+                    OVERDUE_START_DATE =(
+                    SELECT
+                    t.OVERDUE_START_DATE
+                    FROM
+                    (
+                    SELECT
+                    IFNULL(
+                    (
+                    SELECT
+                    ai.OVERDUE_START_DATE
+                    FROM
+                    yxhscs_itf_ar_interface ai
+                    WHERE
+                    ai.APPLY_NUM = #{item.attribute3}
+                    AND ai.PAYMENT_STATUS = '逾期'
+                    LIMIT 1
+                    ),
+                    #{item.attribute5}
+                    ) OVERDUE_START_DATE
+                    ) AS t
+                    ),
+                    OVERDUE_DAYS = datediff(#{item.attribute6}, (
+                    SELECT
+                    t.OVERDUE_START_DATE
+                    FROM
+                    (
+                    SELECT
+                    IFNULL(
+                    (
+                    SELECT
+                    ai.OVERDUE_START_DATE
+                    FROM
+                    yxhscs_itf_ar_interface ai
+                    WHERE
+                    ai.APPLY_NUM = #{item.attribute3}
+                    AND ai.PAYMENT_STATUS = '逾期'
+                    LIMIT 1
+                    ),
+                    #{item.attribute5}
+                    ) OVERDUE_START_DATE
+                    ) AS t
+                    )) +1 ,
+                    OVERDUE_90_DATE =  timestampadd(day, 90, (
+                    SELECT
+                    t.OVERDUE_START_DATE
+                    FROM
+                    (
+                    SELECT
+                    IFNULL(
+                    (
+                    SELECT
+                    ai.OVERDUE_START_DATE
+                    FROM
+                    yxhscs_itf_ar_interface ai
+                    WHERE
+                    ai.APPLY_NUM = #{item.attribute3}
+                    AND ai.PAYMENT_STATUS = '逾期'
+                    LIMIT 1
+                    ),
+                    #{item.attribute5}
+                    ) OVERDUE_START_DATE
+                    ) AS t
+                    ))
+                </otherwise>
+            </choose>
+              WHERE
+            AR_INTERFACE_ID = #{item.attribute1}
+        </foreach>
+    </update>
+
+    <select id="getArToatl" resultMap="BaseResultMap">
+         SELECT
+                count(1) VALUE2
+            FROM
+                (
+                    SELECT
+                        tt.value2
+                    FROM
+                        (
+                            SELECT
+                                l.value2
+                            FROM
+                                hscs_itf_imp_headers h
+                            JOIN hscs_itf_imp_lines l ON h.HEADER_ID = l.HEADER_ID
+                            WHERE
+                                EXISTS (
+                                    SELECT
+                                        1
+                                    FROM
+                                        (
+                                            SELECT
+                                                'ALIX_AR_INTERFACE' AS a1,
+                                                'OPL_AR_INTERFACE' AS b1
+                                        ) h1
+                                    WHERE
+                                        h.INTERFACE_NAME = h1.a1
+                                    OR h.INTERFACE_NAME = h1.b1
+                                )
+                            AND h.PROCESS_STATUS = 'S'
+                            AND l.PROCESS_STATUS = 'S'
+                            AND l.IMPORT_STATUS != 'S'
+                            AND h.DISABLE_FLAG = 'N'
+                            AND NOT EXISTS (
+                                SELECT
+                                    apply_num
+                                FROM
+                                    yxhscs_itf_ar_interface
+                                WHERE
+                                    l.value2 = apply_num
+                                GROUP BY
+                                    apply_num
+                            )
+                            LIMIT 50000
+                        ) tt
+                    GROUP BY
+                        tt.VALUE2
+                ) bb
+    </select>
+
+    <update id="disabledData">
+        UPDATE hscs_itf_imp_lines ttt
+            SET ttt.IMPORT_STATUS = 'S'
+            WHERE
+                ttt.line_id IN (
+                    SELECT
+                        tt.line_id
+                    FROM
+                        (
+                            SELECT
+                                l.*, h.INTERFACE_NAME
+                            FROM
+                                hscs_itf_imp_headers h
+                            JOIN hscs_itf_imp_lines l ON h.HEADER_ID = l.HEADER_ID
+                            WHERE
+                                h.INTERFACE_NAME IN (
+                                    'OPL_AR_INTERFACE',
+                                    'ALIX_AR_INTERFACE'
+                                )
+                            AND l.PROCESS_STATUS = 'S'
+                            AND l.IMPORT_STATUS != 'S'
+                            AND h.DISABLE_FLAG = 'N'
+                            AND l.VALUE2 NOT IN (
+                                SELECT
+                                    apply_num
+                                FROM
+                                    yxhscs_itf_ar_interface
+                                GROUP BY
+                                    apply_num
+                            )
+                            ORDER BY
+                                l.LINE_ID DESC
+                        ) tt
+                )
+
+    </update>
+</mapper>

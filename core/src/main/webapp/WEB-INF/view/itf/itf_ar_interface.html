@@ -1,0 +1,431 @@
+<#include "../include/header.html">
+    <style>
+        .panel {
+            padding: 30px;
+        }
+    </style>
+    <body>
+
+    <script>
+
+
+        function disabledData() {
+            $.ajax({
+                type: "get",
+                url: _basePath + "/test/disabledData",
+                beforeSend: function () {
+                    Hap.blockUI({message: '数据作废中,请耐心等待...'})
+                },
+                success: function (json) {
+                    Hap.unblockUI()
+                    var message = json.message;
+                    if (json.success) {
+                        kendo.ui.showInfoDialog({message: message})
+                    } else {
+                        kendo.ui.showErrorDialog({message: "数据作废失败!原因:" + message})
+                    }
+                },
+                error: function (data) {
+                    Hap.unblockUI()
+                    kendo.ui.showErrorDialog({message: data})
+                }
+            });
+        }
+        function addTargetInit() {
+            $.ajax({
+                type: "get",
+                url: _basePath + "/test/addToArInit",
+                data: {
+                    pageSize: viewModel.pageConfig.pageSize,
+                    time: viewModel.pageConfig.time
+                },
+                beforeSend: function () {
+                    Hap.blockUI({message: '初始化导入数据,请耐心等待...'})
+                },
+                success: function (json) {
+                    Hap.unblockUI()
+                    var message = json.message;
+                    if (json.success) {
+                        kendo.ui.showInfoDialog({message: message}).done(function (e) {
+                                if (e.button == 'OK') {
+                                    window.location.reload()
+                                }
+                            }
+                        )
+                    } else {
+                        kendo.ui.showErrorDialog({message: "导入失败!原因:" + message})
+                    }
+                },
+                error: function (data) {
+                    Hap.unblockUI()
+                    kendo.ui.showErrorDialog({message: data})
+                }
+            });
+        }
+        function addTarget() {
+            $.ajax({
+                type: "get",
+                url: _basePath + "/test/addToAr",
+                data: {pageSize: viewModel.pageConfig.pageSize},
+                beforeSend: function () {
+                    Hap.blockUI({message: '数据计算中,请耐心等待...'})
+                },
+                success: function (json) {
+                    Hap.unblockUI()
+                    var message = json.message;
+                    if (json.success) {
+                        kendo.ui.showInfoDialog({message: message})
+                    } else {
+                        kendo.ui.showErrorDialog({message: "失败!原因:" + message})
+                    }
+                },
+                error: function (data) {
+                    Hap.unblockUI()
+                    kendo.ui.showErrorDialog({message: data.message})
+                }
+            });
+        }
+        function updateEveryDay() {
+            $.ajax({
+                type: "get",
+                url: _basePath + "/test/updateEveryDay",
+                beforeSend: function () {
+                    Hap.blockUI({message: '数据计算中,请耐心等待...'})
+                },
+                success: function (json) {
+                    Hap.unblockUI()
+                    var message = json.message;
+                    if (json.success) {
+                        kendo.ui.showInfoDialog({message: message})
+                    } else {
+                        kendo.ui.showErrorDialog({message: "失败!原因:" + message})
+                    }
+                },
+                error: function (data) {
+                    Hap.unblockUI()
+                    kendo.ui.showErrorDialog({message: data.message})
+                }
+            });
+        }
+
+    </script>
+
+
+    <div id="page-content">
+
+        <h2 style="text-align: center;">收入计提操作内容</h2>
+        <div id="test" class="container">
+            <h5>
+                从需要插入的前500000行中查询出还有:<span style="font-size: 16px; color: red; " data-bind="text:pageConfig.total"></span>个合同待插入
+            </h5>
+            <div class="panel">
+                <h4>从行表中获取数据插入到目标中</h4>
+                <span>每次计算 <input required
+                                  class="k-textbox"
+                                  data-bind="enabled: isEnabled,
+                              value: pageConfig.pageSize,
+events: { change: changeRows}"/>条</span>
+                <span style="color: red; font-weight: bold;">最少需要计算<input required
+                                                                          class="k-textbox"
+                                                                          data-bind="enabled: isEnabled,
+                              value: pageConfig.time"/>次</span>
+                <button class="btn btn-danger pull-right" onclick="disabledData()">作废需要导入的数据</button>
+                <hr/>
+                <button class="btn btn-success" onclick="addTarget()">插入到目标表中</button>
+                <button class="btn btn-danger pull-right" onclick="addTargetInit()">初始化插入按钮</button>
+            </div>
+
+
+            <div class="panel">
+                <h4>每天更新</h4>
+                <button class="btn btn-success" onclick="updateEveryDay()">每天更新</button>
+            </div>
+
+            <div class="panel" id="test1">
+                <h4>更新每月数据</h4>
+                <span>选择更新的月份包含实收计算:</span>
+                <input required data-role="datepicker"
+                       data-bind="visible: isVisible,
+                              enabled: isEnabled,
+                              value: monthModel.date1">
+                <button class="btn btn-success" style="margin-left: 30px;" data-bind="click:updateMonth">每月更新/实收
+                </button>
+            </div>
+            <div class="panel" id="test2">
+                <h4>更新每月数据(按月范围更新)</h4>
+                <span>选择更新的月份包含实收计算:</span>
+                从
+                <input required data-role="datepicker"
+                       data-bind="visible: isVisible,
+                              enabled: isEnabled,
+                              value: monthModel.dateFrom">
+                <span style="font-size: 14px; color:darkgreen; font-weight: bold;">到</span>
+                <input required data-role="datepicker"
+                       data-bind="visible: isVisible,
+                              enabled: isEnabled,
+                              value: monthModel.dateTo">
+                <button class="btn btn-success" style="margin-left: 30px;" data-bind="click:updateRangeMonth">
+                    每月更新/实收(按月范围更新)
+                </button>
+            </div>
+
+            <div class="panel" id="test3">
+                <h4>指定申请编号导入</h4>
+                <span>指定申请编号导入:</span>
+                <input class="k-textbox"
+                       required="required"
+                       data-bind="visible: isVisible,
+                              value: data1.applyNum">
+                <button class="btn btn-success" style="margin-left: 30px;" data-bind="click:importByApplyNum">导入
+                </button>
+            </div>
+            <div class="panel" id="test4">
+                <h4>指定时间范围</h4>
+                <span>指定时间范围导入:</span>
+                <input required data-role="datetimepicker"
+                       data-bind="visible: isVisible,
+                              enabled: isEnabled,
+                              value: data2.time1">
+                <span style="font-size: 14px; color:darkgreen; font-weight: bold;">到</span>
+                <input required data-role="datetimepicker"
+                       data-bind="visible: isVisible,
+                              enabled: isEnabled,
+                              value: data2.time2">
+                <button class="btn btn-success" style="margin-left: 30px;" data-bind="click:importByTimeRange">导入
+                </button>
+            </div>
+            <div class="panel" id="test5">
+                <h4>更新预付租金最后一期</h4>
+                <span>更新预付租金最后一期:</span>
+                <input required
+                       class="k-textbox"
+                       data-bind="visible: isVisible,
+                              enabled: isEnabled,
+                              value: data3.dataStr">
+                <button class="btn btn-success" style="margin-left: 30px;" data-bind="click:updatePre">更新预付租金@分开
+                </button>
+            </div>
+            <div class="panel" id="test6">
+                <h4>更新预付租金批量请求</h4>
+                <span>更新预付租金批量请求:</span>
+                <textarea required
+                          style="min-width: 600px; min-height: 100px;"
+                          data-bind="visible: isVisible,
+                              enabled: isEnabled,
+                              value: data4.dataArea"></textarea>
+                <button class="btn btn-success" style="margin-left: 30px;" data-bind="click:updatePreBatch">
+                    更新预付租金批量请求@分开
+                </button>
+            </div>
+        </div>
+    </div>
+    <script>
+        var viewModel = kendo.observable({
+            data1: {
+                applyNum: ''
+            },
+            data2: {
+                time1: '',
+                time2: ''
+            },
+            data3: {
+                dataStr: ""
+            },
+            data4: {
+                dataArea: ""
+            },
+            pageConfig: {
+                total: 0,
+                pageSize: 10000,
+                time: 0
+            },
+            monthModel: {
+                date1: '',
+                dateFrom: '',
+                dateTo: ''
+            },
+            selectedDate: null,
+            isEnabled: true,
+            isVisible: true,
+            updatePreBatch: function () {
+                Hap.blockUI({message: '更新中请耐心等待...'})
+                var txt = viewModel.data4.dataArea.replace(/\ +/g, "").replace(/[\r\n]/g, "");
+                var applyArr = txt.split("@")
+                var counter = 0;
+                var timer = window.setInterval(function () {
+                    if (counter != applyArr.length) {
+                        for (var i = 0; i < 1; i++) {
+                            console.log('当前第:' + (counter + 1) + '请求,合同编号:' + applyArr[counter])
+                            $.ajax({
+                                type: "get",
+                                url: _basePath + "/test/updatePre",
+                                data: {
+                                    dataStr: applyArr[counter]
+                                },
+                                success: function (json) {
+                                    var message = json.message;
+                                    if (json.success) {
+                                        console.log("当前时间:"+ kendo.toString(new Date(), 'yyyy-MM-dd HH:mm:ss')+"   "+ message)
+                                    } else {
+                                        console.log('申请编号:'+applyArr[counter]+ 'error!!!!!!!!!!!!!!!!!!')
+                                    }
+                                }
+                            });
+                            counter++
+                        }
+                    } else {
+                        Hap.unblockUI()
+                        window.clearTimeout(timer)
+                    }
+                }, 10000) // 1秒1 请求
+
+            },
+            updatePre: function () {
+                $.ajax({
+                    type: "get",
+                    url: _basePath + "/test/updatePre",
+                    data: {
+                        dataStr: viewModel.data3.dataStr
+                    },
+                    beforeSend: function () {
+                        Hap.blockUI({message: '更新中请耐心等待...'})
+                    },
+                    success: function (json) {
+                        Hap.unblockUI()
+                        var message = json.message;
+                        if (json.success) {
+                            kendo.ui.showInfoDialog({message: message})
+                        } else {
+                            kendo.ui.showErrorDialog({message: "失败!原因:" + message})
+                        }
+                    }
+                });
+            },
+            importByTimeRange: function () {
+
+                var time1 = kendo.toString(new Date(viewModel.data2.time1), 'yyyy-MM-dd HH:mm:ss')
+                var time2 = kendo.toString(new Date(viewModel.data2.time2), 'yyyy-MM-dd HH:mm:ss')
+                console.log(time1 + " " + time2)
+                $.ajax({
+                    type: "get",
+                    url: _basePath + "/test/importByTimeRange",
+                    data: {
+                        timeRange: time1 + "@" + time2
+                    },
+                    beforeSend: function () {
+                        Hap.blockUI({message: time1 + ' - ' + time2 + '导入中请耐心等待...'})
+                    },
+                    success: function (json) {
+                        Hap.unblockUI()
+                        var message = json.message;
+                        if (json.success) {
+                            kendo.ui.showInfoDialog({message: message})
+                        } else {
+                            kendo.ui.showErrorDialog({message: "失败!原因:" + message})
+                        }
+                    }
+                });
+            },
+            importByApplyNum: function () {
+                $.ajax({
+                    type: "get",
+                    url: _basePath + "/test/importByApplyNum",
+                    data: {applyNum: viewModel.data1.applyNum},
+                    beforeSend: function () {
+                        Hap.blockUI({message: '申请编号:' + viewModel.data1.applyNum + '导入中请耐心等待...'})
+                    },
+                    success: function (json) {
+                        Hap.unblockUI()
+                        var message = json.message;
+                        if (json.success) {
+                            kendo.ui.showInfoDialog({message: message})
+                        } else {
+                            kendo.ui.showErrorDialog({message: "失败!原因:" + message})
+                        }
+                    }
+                });
+            },
+            updateRangeMonth: function () {
+                var validator = $("#test2").kendoValidator().data("kendoValidator")
+                if (validator.validate()) {
+                    $.ajax({
+                        type: "get",
+                        url: _basePath + "/test/updateRangeMonth",
+                        data: {
+                            dateFrom: kendo.toString(viewModel.monthModel.dateFrom, "yyyy-MM-dd"),
+                            dateTo: kendo.toString(viewModel.monthModel.dateTo, "yyyy-MM-dd")
+                        },
+                        beforeSend: function () {
+                            Hap.blockUI({message: '数据计算中,请耐心等待...'})
+                        },
+                        success: function (json) {
+                            Hap.unblockUI()
+                            var message = json.message;
+                            if (json.success) {
+                                kendo.ui.showInfoDialog({message: message})
+                            } else {
+                                kendo.ui.showErrorDialog({message: "失败!原因:" + message})
+                            }
+                        },
+                        error: function (data) {
+                            Hap.unblockUI()
+                            kendo.ui.showErrorDialog({message: data.message})
+                        }
+                    });
+                }
+            },
+            updateMonth: function () {
+                var validator = $("#test1").kendoValidator().data("kendoValidator")
+
+                if (validator.validate()) {
+                    $.ajax({
+                        type: "get",
+                        url: _basePath + "/test/monthAndActCalc",
+                        data: {date1: kendo.toString(viewModel.monthModel.date1, "yyyy-MM-dd")},
+                        beforeSend: function () {
+                            Hap.blockUI({message: '数据计算中,请耐心等待...'})
+                        },
+                        success: function (json) {
+                            Hap.unblockUI()
+                            var message = json.message;
+                            if (json.success) {
+                                kendo.ui.showInfoDialog({message: message})
+                            } else {
+                                kendo.ui.showErrorDialog({message: "失败!原因:" + message})
+                            }
+                        },
+                        error: function (data) {
+                            Hap.unblockUI()
+                            kendo.ui.showErrorDialog({message: data.message})
+                        }
+                    });
+                }
+            },
+            changeTime: function () {
+//            viewModel.pageConfig.set("pageSize", Math.ceil(viewModel.pageConfig.total/viewModel.pageConfig.time));
+            },
+            changeRows: function () {
+                viewModel.pageConfig.set("time", Math.ceil(viewModel.pageConfig.total / viewModel.pageConfig.pageSize));
+            }
+        });
+        kendo.bind($('#test'), viewModel)
+
+
+        $.ajax({
+            type: "get",
+            url: _basePath + "/test/getTotal",
+            beforeSend: function () {
+                Hap.blockUI({message: '总数查询中,请耐心等待...'})
+            },
+            success: function (total) {
+                Hap.unblockUI()
+                viewModel.pageConfig.set("total", total)
+                viewModel.pageConfig.set("time", Math.ceil(total / viewModel.pageConfig.pageSize))
+            }
+        });
+
+
+    </script>
+
+    </body>
+    </html>

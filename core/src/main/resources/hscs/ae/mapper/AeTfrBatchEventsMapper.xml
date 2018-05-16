@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hscs.ae.mapper.AeTfrBatchEventsMapper">
+    <resultMap id="BaseResultMap" type="hscs.ae.dto.AeTfrBatchEvents">
+        <result column="EVENT_BATCH_ID" property="eventBatchId" jdbcType="DECIMAL" />
+        <result column="BASIC_TABLE" property="basicTable" jdbcType="VARCHAR" />
+        <result column="PRIMARY_KEY_FIELD" property="primaryKeyField" jdbcType="VARCHAR" />
+        <result column="PRIMARY_KEY_ID" property="primaryKeyId" jdbcType="DECIMAL" />
+        <result column="REFERENCE" property="reference" jdbcType="VARCHAR" />
+        <result column="REVERSAL_OBJECTS" property="reversalObjects" jdbcType="VARCHAR" />
+        <result column="ACCOUNTING_DATE" property="accountingDate" jdbcType="DATE" />
+        <result column="ACCOUNTING_STATUS" property="accountingStatus" jdbcType="VARCHAR" />
+        <result column="ACCOUNTING_REMARKS" property="accountingRemarks" jdbcType="VARCHAR" />
+        <result column="PROGRAM_ID" property="programId" jdbcType="DECIMAL" />
+        <result column="REQUEST_ID" property="requestId" jdbcType="DECIMAL" />
+
+        <result column="EVENT_HEADER_ID" property="eventHeaderId" jdbcType="DECIMAL" />
+        <result column="SOURCE_PRIMARY_KEY_ID" property="sourcePrimaryKeyId" jdbcType="DECIMAL" />
+
+        <result column="REVERSAL_FLAG" property="reversalFlag" jdbcType="VARCHAR" />
+        <result column="ACCOUNTING_REMARKS" property="accountingRemarks" jdbcType="VARCHAR" />
+        <result column="BATCH_NO" property="batchNo" jdbcType="VARCHAR" />
+
+
+        <result column="CREATION_DATE" property="creationDate" jdbcType="DATE" />
+        <result column="ACCOUNTING_DATE_FROM" property="accountingDateFrom" jdbcType="DATE" />
+        <result column="ACCOUNTING_DATE_TO" property="accountingDateTo" jdbcType="DATE" />
+        <result column="CREATION_DATE_FROM" property="creationDateFrom" jdbcType="DATE" />
+        <result column="CREATION_DATE_TO" property="creationDateTo" jdbcType="DATE" />
+        <result column="EVENT_BATCH_NAME" property="eventBatchName" jdbcType="VARCHAR" />
+        <result column="PARTY_SITE_NUMBER" property="partySiteNumber" jdbcType="VARCHAR" />
+        <result column="MERCHANT_NAME" property="merchantName" jdbcType="VARCHAR" />
+        <result column="ACCOUNTING_STATUS_MEANING" property="accountingStatusMeaning" jdbcType="VARCHAR" />
+        <result column="SOURCE_TABLE_MEANING" property="sourceTableMeaning" jdbcType="VARCHAR" />
+        <result column="BASIC_TABLE_MEANING" property="basicTableMeaning" jdbcType="VARCHAR" />
+
+        <result column="TFR_EVENT_BATCH_ID" property="tfrEventBatchId" jdbcType="DECIMAL" />
+        <result column="REVERSAL_FLAG_MEANING" property="reversalFlagMeaning" jdbcType="VARCHAR" />
+
+        <result column="TFR_SUM_ACCOUNT_ID" property="tfrSumAccountId" jdbcType="DECIMAL" />
+        <result column="TFR_DTL_ACCOUNT_ID" property="tfrDtlAccountId" jdbcType="DECIMAL" />
+        <result column="ACCOUNT_HEADER_ID" property="accountHeaderId" jdbcType="DECIMAL" />
+
+        <result column="COMPAYN_CODE" property="compaynCode" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="findBatch" resultMap="BaseResultMap">
+        SELECT
+        i.TFR_EVENT_BATCH_ID,
+        i.EVENT_BATCH_ID,
+        z.TFR_SUM_ACCOUNT_ID,
+        i.PRIMARY_KEY_ID,
+        z.LINE_COUNTS,
+        i.TFR_EVENT_BATCH_ID,
+        j.ACCOUNT_HEADER_ID,
+        i.REFERENCE,
+        j.TFR_DTL_ACCOUNT_ID,
+        i.REVERSAL_FLAG,
+        I.REVERSAL_OBJECTS,
+        i.PRIMARY_KEY_ID
+        FROM
+        hscs_ae_tfr_batch_events i,
+        hscs_ae_tfr_dtl_accounts j,
+        hscs_ae_tfr_sum_accounts z
+        WHERE
+        i.TFR_EVENT_BATCH_ID = j.TFR_EVENT_BATCH_ID
+        AND j.TFR_SUM_ACCOUNT_ID = z.TFR_SUM_ACCOUNT_ID
+        and z.TFR_SUM_ACCOUNT_ID in ( ${ids} )
+        order by  case  i.REVERSAL_FLAG WHEN 'Y' then 1 WHEN 'N' THEN 2 ELSE 3 END
+    </select>
+    <select id="getAeTfrBatchEvents" parameterType="hscs.ae.dto.AeTfrBatchEvents" resultMap="BaseResultMap">
+        SELECT
+        be.TFR_EVENT_BATCH_ID TFR_EVENT_BATCH_ID,
+        eb.EVENT_BATCH_NAME EVENT_BATCH_NAME,
+        be.BASIC_TABLE BASIC_TABLE,
+        be.BATCH_NO BATCH_NO,
+        be.PRIMARY_KEY_ID,
+        be.EVENT_BATCH_ID,
+        be.REVERSAL_FLAG REVERSAL_FLAG,
+        be.ACCOUNTING_DATE ACCOUNTING_DATE,
+        be.REFERENCE REFERENCE,
+        be.CREATION_DATE CREATION_DATE,
+        be.ACCOUNTING_STATUS ACCOUNTING_STATUS,
+        be.ACCOUNTING_REMARKS ACCOUNTING_REMARKS,
+        te.SOURCE_PRIMARY_KEY_ID SOURCE_PRIMARY_KEY_ID,
+        be.REVERSAL_OBJECTS
+        FROM
+        hscs_ae_tfr_events te,
+        hscs_ae_event_batches eb,
+        hscs_ae_tfr_batch_events be
+        WHERE
+        te.TFR_EVENT_BATCH_ID = be.TFR_EVENT_BATCH_ID
+        AND be.EVENT_BATCH_ID = eb.EVENT_BATCH_ID
+        <if test="tfrEventBatchId!=null">
+            AND be.TFR_EVENT_BATCH_ID=#{tfrEventBatchId}
+        </if>
+        <if test="batchNo!=null">
+            AND be.BATCH_NO=#{batchNo}
+        </if>
+        <if test="accountingStatus!=null">
+            AND be.ACCOUNTING_STATUS=#{accountingStatus}
+        </if>
+        <if test="accountingDateFrom!=null">
+            AND be.ACCOUNTING_DATE>=#{accountingDateFrom}
+        </if>
+        <if test="accountingDateTo!=null">
+            AND #{accountingDateTo}>=be.ACCOUNTING_DATE
+        </if>
+        <if test="reversalFlag!=null">
+            AND be.REVERSAL_FLAG=#{reversalFlag}
+        </if>
+        <if test="creationDateFrom!=null">
+            AND be.CREATION_DATE>=#{creationDateFrom}
+        </if>
+        <if test="creationDateTo!=null">
+            AND #{creationDateTo}>=be.CREATION_DATE
+        </if>
+        <if test="eventBatchId!=null">
+            AND be.EVENT_BATCH_ID=#{eventBatchId}
+        </if>
+        <if test="basicTable!=null">
+            AND be.BASIC_TABLE=#{basicTable}
+        </if>
+        <if test="reference!=null">
+            AND be.REFERENCE LIKE #{reference}
+        </if>
+        ORDER BY be.CREATION_DATE DESC
+    </select>
+    <!--todo 覆盖原有的文件，下次更新删除-->
+    <select id="getAeTfrEventsSourceOrder" parameterType="hscs.ae.dto.AeTfrBatchEvents" resultMap="BaseResultMap">
+        SELECT
+        be.BASIC_TABLE BASIC_TABLE,
+        p.PARTY_SITE_NUMBER PARTY_SITE_NUMBER,
+        m.MERCHANT_NAME MERCHANT_NAME
+        FROM
+        hscs_ae_tfr_batch_events be,
+        hscs_ap_payment_headers pay,
+        hscs_ap_po_settle_orders ap,
+        hscs_ar_settle_orders ar,
+        hscs_pub_party_sites p,
+        hscs_pub_party_merchant m
+        WHERE   be.TFR_EVENT_BATCH_ID = #{tfrEventBatchId}
+        AND p.MERCHANT_ID = m.MERCHANT_ID
+        <if test="basicTable=='HSCS_AR_SETTLE_ORDERS'">
+            AND be.PRIMARY_KEY_ID = ar.SETTLE_ORDER_ID
+            AND ar.PARTY_SITE_ID = p.PARTY_SITE_ID
+            GROUP BY PARTY_SITE_NUMBER
+        </if>
+        <if test="basicTable=='HSCS_AP_PO_SETTLE_ORDERS'">
+            AND be.PRIMARY_KEY_ID = ap.PO_SETTLE_ID
+            AND ap.PARTY_SITE_ID = p.PARTY_SITE_ID
+            GROUP BY PARTY_SITE_NUMBER
+        </if>
+        <if test="basicTable=='HSCS_AP_PAYMENT_HEADERS'">
+            AND be.PRIMARY_KEY_ID = pay.PAYMENT_HEADER_ID
+            AND pay.PARTY_SITE_ID = p.PARTY_SITE_ID
+            GROUP BY PARTY_SITE_NUMBER
+        </if>
+    </select>
+    <select id="getBoNumberLov" parameterType="hscs.ae.dto.AeTfrBatchEvents" resultMap="BaseResultMap">
+        SELECT
+        be.BATCH_NO
+        FROM
+        hscs_ae_tfr_batch_events be
+        where 1=1
+        <if test="batchNo!=null and batchNo !=''">
+            AND be.BATCH_NO = #{batchNo}
+        </if>
+        GROUP BY be.BATCH_NO
+        ORDER BY be.BATCH_NO DESC
+    </select>
+    <select id="queryBasicTable" parameterType="hscs.ae.dto.AeTfrBatchEvents" resultMap="BaseResultMap">
+        SELECT
+        basic_table,
+        PRIMARY_key_id,
+        TFR_EVENT_BATCH_ID
+        FROM
+        hscs_ae_tfr_batch_events
+        WHERE
+        TFR_EVENT_BATCH_ID IN (
+        SELECT
+        TFR_EVENT_BATCH_ID
+        FROM
+        hscs_ae_tfr_dtl_accounts
+        WHERE
+        TFR_DTL_ACCOUNT_ID = #{tfrDtlAccountId}
+        )
+    </select>
+
+
+    <insert id="insertAll" useGeneratedKeys="true">
+        INSERT INTO hscs_ae_tfr_batch_events
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            TFR_EVENT_BATCH_ID,
+            EVENT_BATCH_ID,
+            BASIC_TABLE,
+            PRIMARY_KEY_FIELD,
+            PRIMARY_KEY_ID,
+            REFERENCE,
+            REVERSAL_FLAG,
+            REVERSAL_OBJECTS,
+            ACCOUNTING_DATE,
+            ACCOUNTING_STATUS,
+            ACCOUNTING_REMARKS,
+            BATCH_NO,
+            CREATED_BY,
+            LAST_UPDATED_BY,
+            LAST_UPDATE_LOGIN
+        </trim>
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                #{item.tfrEventBatchId},#{item.eventBatchId},#{item.basicTable},#{item.primaryKeyField},#{item.primaryKeyId},
+                #{item.reference},#{item.reversalFlag},#{item.reversalObjects},#{item.accountingDate},#{item.accountingStatus}
+                ,#{item.accountingRemarks},#{item.batchNo},#{item.createdBy},#{item.lastUpdatedBy},#{item.lastUpdateLogin}
+            </trim>
+        </foreach>
+    </insert>
+</mapper>

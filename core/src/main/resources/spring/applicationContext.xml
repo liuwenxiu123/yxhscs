@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+                           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+                           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+                           http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
+
+
+    <import resource="classpath:ureport-console-context.xml" />
+    <context:property-placeholder location="classpath:config.properties"/>
+
+    <bean id="coreApplicationListener" class="com.hand.hap.core.ApplicationListenerBean"/>
+
+    <bean id="dataBaseReportProvider" class="com.hand.hap.report.DataBaseReportProvider"/>
+    <bean id="buildinDataSourceImpl" class="com.hand.hap.report.BuildinDataSourceImpl">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+
+    <!-- middleware datasource  com.hand.hap.core.JndiObjectFactoryBean-->
+    <!-- jndi dataSource-->
+    <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName" value="${db.jndiName}"/>
+    </bean>
+    <!-- builtin datasource -->
+    <!--<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">-->
+    <!--<property name="driverClassName"-->
+    <!--value="com.mysql.jdbc.Driver"/>-->
+    <!--<property name="url" value="jdbc:mysql://127.0.0.1:3306/hap_dev"/>-->
+    <!--<property name="username" value="hap_dev"/>-->
+    <!--<property name="password" value="hap_dev"/>-->
+    <!--</bean>-->
+
+    <bean id="languageProvider" class="com.hand.hap.core.impl.LanguageProviderImpl"/>
+
+    <bean id="messageSource" class="com.hand.hap.core.i18n.CacheMessageSource"/>
+
+    <!-- config transactionManager -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="mapperLocations" value="classpath*:/**/*Mapper.xml"/>
+        <property name="plugins">
+            <array>
+
+                <bean class="com.hand.hap.core.interceptor.RequestContextInterceptor"/>
+                <bean class="com.hand.hap.core.interceptor.MultiLanguageInterceptor"/>
+                <bean class="com.hand.hap.core.interceptor.SecurityTokenInterceptor"/>
+                <bean class="com.hand.hap.core.interceptor.OvnInterceptor"/>
+                <bean class="com.hand.hap.core.interceptor.AuditInterceptor"/>
+                <bean class="com.github.pagehelper.PageHelper"/>
+                <bean class="com.hand.hap.core.interceptor.CacheJoinInterceptor">
+                    <property name="cacheJoinType" ref="cacheJoinType"></property>
+                </bean>
+            </array>
+        </property>
+        <property name="configLocation" value="classpath:mybatis-configuration.xml"/>
+    </bean>
+
+
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg index="0" name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
+
+    <!-- mapper definition -->
+    <bean id="mapperScannerConfigurer" class="com.hand.hap.mybatis.spring.MapperScannerConfigurer">
+        <property name="basePackage" value="*.**.mapper"/>
+        <property name="processPropertyPlaceHolders" value="true"/>
+        <property name="propertiesMap">
+            <map>
+                <entry key="mappers" value="com.hand.hap.mybatis.common.Mapper,com.hand.hap.mybatis.common.MySqlMapper,com.hand.hap.mybatis.common.special.UpdateListMapper"/>
+                <entry key="IDENTITY" value="${mybatis.identity}"/>
+                <entry key="dataBaseType" value="${db.type}"/>
+                <entry key="seqFormat" value="{3}_s.nextVal"/>
+                <entry key="enableMethodAnnotation" value="true"/>
+            </map>
+        </property>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+
+
+    <context:component-scan base-package="**.*.service"/>
+    <context:component-scan base-package="**.*.components"/>
+
+    <bean id="requestAD" class="com.hand.hap.core.impl.ServiceExecutionAdvice"/>
+
+    <bean id="apiInvokeExecutionAdvice" class="com.hand.hap.api.logs.service.impl.ApiInvokeExecutionAdvice"/>
+
+    <bean id="apiRequestExecutionAdvice" class="com.hand.hap.api.logs.service.impl.ApiRequestExecutionAdvice"/>
+
+    <aop:config expose-proxy="true">
+        <aop:pointcut id="servicePointcut" expression="execution(* *..*ServiceImpl.*(..))"/>
+        <aop:advisor advice-ref="requestAD" pointcut-ref="servicePointcut"/>
+    </aop:config>
+
+    <aop:config expose-proxy="true">
+        <aop:pointcut id="apiInvokePointcut" expression="execution(* com.hand.hap.api.gateway.service.IApiInvokeService.apiInvoke(..))"/>
+        <aop:advisor advice-ref="apiInvokeExecutionAdvice" pointcut-ref="apiInvokePointcut"/>
+    </aop:config>
+
+    <aop:config expose-proxy="true">
+        <aop:pointcut id="apiRequestPointcut" expression="execution(* com.hand.hap.api.gateway.controllers.ApiInvokeContoller.sentRequest(..))"/>
+        <aop:advisor advice-ref="apiRequestExecutionAdvice" pointcut-ref="apiRequestPointcut"/>
+    </aop:config>
+
+    <!-- 密码加密 PasswordEncoder-->
+    <bean id="passwordManager" class="com.hand.hap.security.PasswordManager">
+        <property name="siteWideSecret" value="Zxa1pO6S6uvBMlY"/>
+    </bean>
+
+
+    <!-- email发送服务器-->
+    <bean id="mailSender" class="com.hand.hap.mail.MailSender" scope="prototype">
+        <property name="environment" value="${env.code}"/>
+        <!-- <property name="tryTimes" value="${email.tryTimes}"/>
+        <property name="host" value="${email.host}" />
+        <property name="port" value="${email.port}" /> -->
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.auth">true</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- 线程池 -->
+    <bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <!-- 核心线程数 -->
+        <property name="corePoolSize" value="5"/>
+        <!-- 最大线程数 -->
+        <property name="maxPoolSize" value="250"/>
+        <!-- 队列最大长度 -->
+        <property name="queueCapacity" value="1000"/>
+        <!-- 线程池维护线程所允许的空闲时间，默认为60s -->
+        <property name="keepAliveSeconds" value="120"/>
+    </bean>
+
+    <bean id="freeMarkerBeanProvider" class="com.hand.hap.core.web.FreeMarkerBeanProvider"/>
+
+    <bean id="plsqlBean" class="com.hand.hap.intergration.service.impl.HapPLSQLApiServiceImpl"></bean>
+    <bean id="restBean" class="com.hand.hap.intergration.service.impl.HapRestApiServiceImpl"></bean>
+    <bean id="soapBean" class="com.hand.hap.intergration.service.impl.HapSoapApiServiceImpl"></bean>
+
+    <bean class="com.hand.hap.intergration.beans.HapJDBCSqlSessionFactory">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean id="distributeLockTemplate" class="com.hand.hap.lock.impl.DistributedLockFactoryBean">
+        <property name="mode" value="MULTIPLE"/>
+    </bean>
+
+
+    <context:component-scan base-package="hscs.ar.service.impl"/>
+    <context:component-scan base-package="hscs.ap.service.impl"/>
+    <!--fuchun.hu
+
+    @hand-china.com 2017年7月1日 21:27:42  添加了关于接口数据的校验类-->
+    <bean id="validationInterfaceData" class="hscs.utils.HscsItfUtils"/>
+
+    <!--xizhi.ding@hand-china.com 2  添加了会计引擎相关工具类-->
+    <bean id="aeUtils" class="hscs.ae.util.AeUtils"/>
+
+    <!-- add by hand 自定义配置：需要文件上传功能时，启用以下配置 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxInMemorySize">
+            <value>1638400</value>
+        </property>
+        <!--resolveLazily属性启用是为了推迟文件解析，以便在UploadController 中捕获文件大小异常-->
+        <property name="resolveLazily" value="true"/>
+    </bean>
+    <!--add end-->
+
+    <!--读config.Properties配置文件 by shuai.xie 20180322-->
+    <bean id="configProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="locations">
+            <list>
+                <value>classpath:*.properties</value>
+            </list>
+        </property>
+    </bean>
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
+        <property name="properties" ref="configProperties"/>
+    </bean>
+    <!--读config.Properties配置文件 END-->
+</beans>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hscsm.core.itf.mapper.PubInvoiceEntityMapper">
+    <resultMap id="BaseResultMap" type="hscsm.core.itf.dto.PubInvoiceEntity">
+        <result column="INVOICE_ENTITY_ID" property="invoiceEntityId" jdbcType="DECIMAL" />
+        <result column="INVOICE_ENTITY_NAME" property="invoiceEntityName" jdbcType="VARCHAR" />
+        <result column="INVOICE_ENTITY_VALUE" property="invoiceEntityValue" jdbcType="VARCHAR" />
+        <result column="BELONGCOM_NAME" property="belongcomName" jdbcType="VARCHAR" />
+        <result column="BELONGCOM_VALUE" property="belongcomValue" jdbcType="VARCHAR" />
+        <result column="LEDGER_NAME" property="ledgerName" jdbcType="VARCHAR" />
+        <result column="ENABLED_FLAG" property="enabledFlag" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <select id="pubInvoiceEntityLov" resultMap="BaseResultMap">
+        SELECT
+            ypie.INVOICE_ENTITY_NAME,
+            ypie.INVOICE_ENTITY_VALUE,
+            ypie.BELONGCOM_NAME,
+            ypie.BELONGCOM_VALUE,
+            ypie.LEDGER_NAME,
+            ypie.ENABLED_FLAG
+        FROM
+            YXHSCS_PUB_INVOICE_ENTITY ypie
+        WHERE
+            1 = 1
+        AND ypie.ENABLED_FLAG = 'Y'
+        <if test="invoiceEntityName != null">
+            AND ypie.INVOICE_ENTITY_NAME LIKE concat('%',#{invoiceEntityName},'%')
+        </if>
+        <if test="invoiceEntityValue != null">
+            AND ypie.INVOICE_ENTITY_VALUE LIKE concat('%',#{invoiceEntityValue},'%')
+        </if>
+        <if test="belongcomName != null">
+            AND ypie.BELONGCOM_NAME LIKE concat('%',#{belongcomName},'%')
+        </if>
+    </select>
+
+    <select id="pubInvoiceEntityAllLov" resultMap="BaseResultMap">
+        SELECT
+            ypie.INVOICE_ENTITY_NAME,
+            ypie.INVOICE_ENTITY_VALUE,
+            ypie.BELONGCOM_NAME,
+            ypie.BELONGCOM_VALUE,
+            ypie.LEDGER_NAME,
+            ypie.ENABLED_FLAG
+        FROM
+            YXHSCS_PUB_INVOICE_ENTITY ypie
+        WHERE
+            1 = 1
+        <if test="invoiceEntityName != null">
+            AND ypie.INVOICE_ENTITY_NAME LIKE concat('%',#{invoiceEntityName},'%')
+        </if>
+        <if test="invoiceEntityValue != null">
+            AND ypie.INVOICE_ENTITY_VALUE LIKE concat('%',#{invoiceEntityValue},'%')
+        </if>
+        <if test="belongcomName != null">
+            AND ypie.BELONGCOM_NAME LIKE concat('%',#{belongcomName},'%')
+        </if>
+    </select>
+</mapper>

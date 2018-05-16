@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hscsm.core.itf.mapper.MalValiWithholdMapper">
+    <resultMap id="BaseResultMap" type="hscsm.core.itf.dto.MalValiWithhold">
+        <result column="MAL_ACCCOUNT_ID" property="malAcccountId" jdbcType="DECIMAL" />
+        <result column="ACCOUNT_NUMBER" property="accountNumber" jdbcType="VARCHAR" />
+        <result column="COMPANY_FULLNAME" property="companyFullname" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <select id="malValiWithholdLov" resultMap="BaseResultMap">
+        SELECT
+            ACCOUNT_NUMBER,
+            COMPANY_FULLNAME
+        FROM
+            yxhscs_mal_vali_withhold
+        WHERE
+            1 = 1
+        <if test="accountNumber != null">
+            AND ACCOUNT_NUMBER LIKE concat('%',#{accountNumber},'%')
+        </if>
+        <if test="companyFullname != null">
+            AND COMPANY_FULLNAME LIKE concat('%',#{companyFullname},'%')
+        </if>
+    </select>
+</mapper>

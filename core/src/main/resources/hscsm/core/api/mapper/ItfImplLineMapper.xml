@@ -1,0 +1,909 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hscsm.core.fnd.mq.mapper.ItfImplLineMapper">
+    <resultMap id="BaseResultMap" type="hscsm.core.fnd.mq.dto.ItfImpLines">
+        <result column="LINE_ID" property="lineId" jdbcType="DECIMAL"/>
+        <result column="HEADER_ID" property="headerId" jdbcType="DECIMAL"/>
+        <result column="PROCESS_DATE" property="processDate" jdbcType="DATE"/>
+        <result column="IMPORT_STATUS" property="importStatus" jdbcType="VARCHAR"/>
+        <result column="PROCESS_STATUS" property="processStatus" jdbcType="VARCHAR"/>
+        <result column="PROCESS_GROUP" property="processGroup" jdbcType="DECIMAL"/>
+        <result column="STATEMENT_STATUS" property="statementStatus" jdbcType="VARCHAR"/>
+        <result column="STATEMENT_DATE" property="statementDate" jdbcType="DATE"/>
+        <result column="PROCESS_MESSAGE" property="processMessage" jdbcType="VARCHAR"/>
+        <result column="SOURCE_ITERFACE_ID" property="sourceIterfaceId" jdbcType="DECIMAL"/>
+        <result column="VALUE1" property="value1" jdbcType="VARCHAR"/>
+        <result column="VALUE2" property="value2" jdbcType="VARCHAR"/>
+        <result column="VALUE3" property="value3" jdbcType="VARCHAR"/>
+        <result column="VALUE4" property="value4" jdbcType="VARCHAR"/>
+        <result column="VALUE5" property="value5" jdbcType="VARCHAR"/>
+        <result column="VALUE6" property="value6" jdbcType="VARCHAR"/>
+        <result column="VALUE7" property="value7" jdbcType="VARCHAR"/>
+        <result column="VALUE8" property="value8" jdbcType="VARCHAR"/>
+        <result column="VALUE9" property="value9" jdbcType="VARCHAR"/>
+        <result column="VALUE10" property="value10" jdbcType="VARCHAR"/>
+        <result column="VALUE11" property="value11" jdbcType="VARCHAR"/>
+        <result column="VALUE12" property="value12" jdbcType="VARCHAR"/>
+        <result column="VALUE13" property="value13" jdbcType="VARCHAR"/>
+        <result column="VALUE14" property="value14" jdbcType="VARCHAR"/>
+        <result column="VALUE15" property="value15" jdbcType="VARCHAR"/>
+        <result column="VALUE16" property="value16" jdbcType="VARCHAR"/>
+        <result column="VALUE17" property="value17" jdbcType="VARCHAR"/>
+        <result column="VALUE18" property="value18" jdbcType="VARCHAR"/>
+        <result column="VALUE19" property="value19" jdbcType="VARCHAR"/>
+        <result column="VALUE20" property="value20" jdbcType="VARCHAR"/>
+        <result column="VALUE21" property="value21" jdbcType="VARCHAR"/>
+        <result column="VALUE22" property="value22" jdbcType="VARCHAR"/>
+        <result column="VALUE23" property="value23" jdbcType="VARCHAR"/>
+        <result column="VALUE24" property="value24" jdbcType="VARCHAR"/>
+        <result column="VALUE25" property="value25" jdbcType="VARCHAR"/>
+        <result column="VALUE26" property="value26" jdbcType="VARCHAR"/>
+        <result column="VALUE27" property="value27" jdbcType="VARCHAR"/>
+        <result column="VALUE28" property="value28" jdbcType="VARCHAR"/>
+        <result column="VALUE29" property="value29" jdbcType="VARCHAR"/>
+        <result column="VALUE30" property="value30" jdbcType="VARCHAR"/>
+        <result column="VALUE31" property="value31" jdbcType="VARCHAR"/>
+        <result column="VALUE32" property="value32" jdbcType="VARCHAR"/>
+        <result column="VALUE33" property="value33" jdbcType="VARCHAR"/>
+        <result column="VALUE34" property="value34" jdbcType="VARCHAR"/>
+        <result column="VALUE35" property="value35" jdbcType="VARCHAR"/>
+        <result column="VALUE36" property="value36" jdbcType="VARCHAR"/>
+        <result column="VALUE37" property="value37" jdbcType="VARCHAR"/>
+        <result column="VALUE38" property="value38" jdbcType="VARCHAR"/>
+        <result column="VALUE39" property="value39" jdbcType="VARCHAR"/>
+        <result column="VALUE40" property="value40" jdbcType="VARCHAR"/>
+        <result column="VALUE41" property="value41" jdbcType="VARCHAR"/>
+        <result column="VALUE42" property="value42" jdbcType="VARCHAR"/>
+        <result column="VALUE43" property="value43" jdbcType="VARCHAR"/>
+        <result column="VALUE44" property="value44" jdbcType="VARCHAR"/>
+        <result column="VALUE45" property="value45" jdbcType="VARCHAR"/>
+        <result column="VALUE46" property="value46" jdbcType="VARCHAR"/>
+        <result column="VALUE47" property="value47" jdbcType="VARCHAR"/>
+        <result column="VALUE48" property="value48" jdbcType="VARCHAR"/>
+        <result column="VALUE49" property="value49" jdbcType="VARCHAR"/>
+        <result column="VALUE50" property="value50" jdbcType="VARCHAR"/>
+        <result column="VALUE51" property="value51" jdbcType="VARCHAR"/>
+        <result column="VALUE52" property="value52" jdbcType="VARCHAR"/>
+        <result column="VALUE53" property="value53" jdbcType="VARCHAR"/>
+        <result column="VALUE54" property="value54" jdbcType="VARCHAR"/>
+        <result column="VALUE55" property="value55" jdbcType="VARCHAR"/>
+        <result column="VALUE56" property="value56" jdbcType="VARCHAR"/>
+        <result column="VALUE57" property="value57" jdbcType="VARCHAR"/>
+        <result column="VALUE58" property="value58" jdbcType="VARCHAR"/>
+        <result column="VALUE59" property="value59" jdbcType="VARCHAR"/>
+        <result column="VALUE60" property="value60" jdbcType="VARCHAR"/>
+        <result column="VALUE61" property="value61" jdbcType="VARCHAR"/>
+        <result column="VALUE62" property="value62" jdbcType="VARCHAR"/>
+        <result column="VALUE63" property="value63" jdbcType="VARCHAR"/>
+        <result column="VALUE64" property="value64" jdbcType="VARCHAR"/>
+        <result column="VALUE65" property="value65" jdbcType="VARCHAR"/>
+        <result column="VALUE66" property="value66" jdbcType="VARCHAR"/>
+        <result column="VALUE67" property="value67" jdbcType="VARCHAR"/>
+        <result column="VALUE68" property="value68" jdbcType="VARCHAR"/>
+        <result column="VALUE69" property="value69" jdbcType="VARCHAR"/>
+        <result column="VALUE70" property="value70" jdbcType="VARCHAR"/>
+        <result column="VALUE71" property="value71" jdbcType="VARCHAR"/>
+        <result column="VALUE72" property="value72" jdbcType="VARCHAR"/>
+        <result column="VALUE73" property="value73" jdbcType="VARCHAR"/>
+        <result column="VALUE74" property="value74" jdbcType="VARCHAR"/>
+        <result column="VALUE75" property="value75" jdbcType="VARCHAR"/>
+        <result column="VALUE76" property="value76" jdbcType="VARCHAR"/>
+        <result column="VALUE77" property="value77" jdbcType="VARCHAR"/>
+        <result column="VALUE78" property="value78" jdbcType="VARCHAR"/>
+        <result column="VALUE79" property="value79" jdbcType="VARCHAR"/>
+        <result column="VALUE80" property="value80" jdbcType="VARCHAR"/>
+        <result column="VALUE81" property="value81" jdbcType="VARCHAR"/>
+        <result column="VALUE82" property="value82" jdbcType="VARCHAR"/>
+        <result column="VALUE83" property="value83" jdbcType="VARCHAR"/>
+        <result column="VALUE84" property="value84" jdbcType="VARCHAR"/>
+        <result column="VALUE85" property="value85" jdbcType="VARCHAR"/>
+        <result column="VALUE86" property="value86" jdbcType="VARCHAR"/>
+        <result column="VALUE87" property="value87" jdbcType="VARCHAR"/>
+        <result column="VALUE88" property="value88" jdbcType="VARCHAR"/>
+        <result column="VALUE89" property="value89" jdbcType="VARCHAR"/>
+        <result column="VALUE90" property="value90" jdbcType="VARCHAR"/>
+        <result column="VALUE91" property="value91" jdbcType="VARCHAR"/>
+        <result column="VALUE92" property="value92" jdbcType="VARCHAR"/>
+        <result column="VALUE93" property="value93" jdbcType="VARCHAR"/>
+        <result column="VALUE94" property="value94" jdbcType="VARCHAR"/>
+        <result column="VALUE95" property="value95" jdbcType="VARCHAR"/>
+        <result column="VALUE96" property="value96" jdbcType="VARCHAR"/>
+        <result column="VALUE97" property="value97" jdbcType="VARCHAR"/>
+        <result column="VALUE98" property="value98" jdbcType="VARCHAR"/>
+        <result column="VALUE99" property="value99" jdbcType="VARCHAR"/>
+        <result column="VALUE100" property="value100" jdbcType="VARCHAR"/>
+        <result column="VALUE101" property="value101" jdbcType="VARCHAR"/>
+        <result column="VALUE102" property="value102" jdbcType="VARCHAR"/>
+        <result column="VALUE103" property="value103" jdbcType="VARCHAR"/>
+        <result column="VALUE104" property="value104" jdbcType="VARCHAR"/>
+        <result column="VALUE105" property="value105" jdbcType="VARCHAR"/>
+        <result column="VALUE106" property="value106" jdbcType="VARCHAR"/>
+        <result column="VALUE107" property="value107" jdbcType="VARCHAR"/>
+        <result column="VALUE108" property="value108" jdbcType="VARCHAR"/>
+        <result column="VALUE109" property="value109" jdbcType="VARCHAR"/>
+        <result column="VALUE110" property="value110" jdbcType="VARCHAR"/>
+        <result column="VALUE111" property="value111" jdbcType="VARCHAR"/>
+        <result column="VALUE112" property="value112" jdbcType="VARCHAR"/>
+        <result column="VALUE113" property="value113" jdbcType="VARCHAR"/>
+        <result column="VALUE114" property="value114" jdbcType="VARCHAR"/>
+        <result column="VALUE115" property="value115" jdbcType="VARCHAR"/>
+        <result column="VALUE116" property="value116" jdbcType="VARCHAR"/>
+        <result column="VALUE117" property="value117" jdbcType="VARCHAR"/>
+        <result column="VALUE118" property="value118" jdbcType="VARCHAR"/>
+        <result column="VALUE119" property="value119" jdbcType="VARCHAR"/>
+        <result column="VALUE120" property="value120" jdbcType="VARCHAR"/>
+        <result column="VALUE121" property="value121" jdbcType="VARCHAR"/>
+        <result column="VALUE122" property="value122" jdbcType="VARCHAR"/>
+        <result column="VALUE123" property="value123" jdbcType="VARCHAR"/>
+        <result column="VALUE124" property="value124" jdbcType="VARCHAR"/>
+        <result column="VALUE125" property="value125" jdbcType="VARCHAR"/>
+        <result column="VALUE126" property="value126" jdbcType="VARCHAR"/>
+        <result column="VALUE127" property="value127" jdbcType="VARCHAR"/>
+        <result column="VALUE128" property="value128" jdbcType="VARCHAR"/>
+        <result column="VALUE129" property="value129" jdbcType="VARCHAR"/>
+        <result column="VALUE130" property="value130" jdbcType="VARCHAR"/>
+        <result column="VALUE131" property="value131" jdbcType="VARCHAR"/>
+        <result column="VALUE132" property="value132" jdbcType="VARCHAR"/>
+        <result column="VALUE133" property="value133" jdbcType="VARCHAR"/>
+        <result column="VALUE134" property="value134" jdbcType="VARCHAR"/>
+        <result column="VALUE135" property="value135" jdbcType="VARCHAR"/>
+        <result column="VALUE136" property="value136" jdbcType="VARCHAR"/>
+        <result column="VALUE137" property="value137" jdbcType="VARCHAR"/>
+        <result column="VALUE138" property="value138" jdbcType="VARCHAR"/>
+        <result column="VALUE139" property="value139" jdbcType="VARCHAR"/>
+        <result column="VALUE140" property="value140" jdbcType="VARCHAR"/>
+        <result column="VALUE141" property="value141" jdbcType="VARCHAR"/>
+        <result column="VALUE142" property="value142" jdbcType="VARCHAR"/>
+        <result column="VALUE143" property="value143" jdbcType="VARCHAR"/>
+        <result column="VALUE144" property="value144" jdbcType="VARCHAR"/>
+        <result column="VALUE145" property="value145" jdbcType="VARCHAR"/>
+        <result column="VALUE146" property="value146" jdbcType="VARCHAR"/>
+        <result column="VALUE147" property="value147" jdbcType="VARCHAR"/>
+        <result column="VALUE148" property="value148" jdbcType="VARCHAR"/>
+        <result column="VALUE149" property="value149" jdbcType="VARCHAR"/>
+        <result column="VALUE150" property="value150" jdbcType="VARCHAR"/>
+        <result column="VALUE151" property="value151" jdbcType="VARCHAR"/>
+        <result column="VALUE152" property="value152" jdbcType="VARCHAR"/>
+        <result column="VALUE153" property="value153" jdbcType="VARCHAR"/>
+        <result column="VALUE154" property="value154" jdbcType="VARCHAR"/>
+        <result column="VALUE155" property="value155" jdbcType="VARCHAR"/>
+        <result column="VALUE156" property="value156" jdbcType="VARCHAR"/>
+        <result column="VALUE157" property="value157" jdbcType="VARCHAR"/>
+        <result column="VALUE158" property="value158" jdbcType="VARCHAR"/>
+        <result column="VALUE159" property="value159" jdbcType="VARCHAR"/>
+        <result column="VALUE160" property="value160" jdbcType="VARCHAR"/>
+        <result column="VALUE161" property="value161" jdbcType="VARCHAR"/>
+        <result column="VALUE162" property="value162" jdbcType="VARCHAR"/>
+        <result column="VALUE163" property="value163" jdbcType="VARCHAR"/>
+        <result column="VALUE164" property="value164" jdbcType="VARCHAR"/>
+        <result column="VALUE165" property="value165" jdbcType="VARCHAR"/>
+        <result column="VALUE166" property="value166" jdbcType="VARCHAR"/>
+        <result column="VALUE167" property="value167" jdbcType="VARCHAR"/>
+        <result column="VALUE168" property="value168" jdbcType="VARCHAR"/>
+        <result column="VALUE169" property="value169" jdbcType="VARCHAR"/>
+        <result column="VALUE170" property="value170" jdbcType="VARCHAR"/>
+        <result column="VALUE171" property="value171" jdbcType="VARCHAR"/>
+        <result column="VALUE172" property="value172" jdbcType="VARCHAR"/>
+        <result column="VALUE173" property="value173" jdbcType="VARCHAR"/>
+        <result column="VALUE174" property="value174" jdbcType="VARCHAR"/>
+        <result column="VALUE175" property="value175" jdbcType="VARCHAR"/>
+        <result column="VALUE176" property="value176" jdbcType="VARCHAR"/>
+        <result column="VALUE177" property="value177" jdbcType="VARCHAR"/>
+        <result column="VALUE178" property="value178" jdbcType="VARCHAR"/>
+        <result column="VALUE179" property="value179" jdbcType="VARCHAR"/>
+        <result column="VALUE180" property="value180" jdbcType="VARCHAR"/>
+        <result column="VALUE181" property="value181" jdbcType="VARCHAR"/>
+        <result column="VALUE182" property="value182" jdbcType="VARCHAR"/>
+        <result column="VALUE183" property="value183" jdbcType="VARCHAR"/>
+        <result column="VALUE184" property="value184" jdbcType="VARCHAR"/>
+        <result column="VALUE185" property="value185" jdbcType="VARCHAR"/>
+        <result column="VALUE186" property="value186" jdbcType="VARCHAR"/>
+        <result column="VALUE187" property="value187" jdbcType="VARCHAR"/>
+        <result column="VALUE188" property="value188" jdbcType="VARCHAR"/>
+        <result column="VALUE189" property="value189" jdbcType="VARCHAR"/>
+        <result column="VALUE190" property="value190" jdbcType="VARCHAR"/>
+        <result column="VALUE191" property="value191" jdbcType="VARCHAR"/>
+        <result column="VALUE192" property="value192" jdbcType="VARCHAR"/>
+        <result column="VALUE193" property="value193" jdbcType="VARCHAR"/>
+        <result column="VALUE194" property="value194" jdbcType="VARCHAR"/>
+        <result column="VALUE195" property="value195" jdbcType="VARCHAR"/>
+        <result column="VALUE196" property="value196" jdbcType="VARCHAR"/>
+        <result column="VALUE197" property="value197" jdbcType="VARCHAR"/>
+        <result column="VALUE198" property="value198" jdbcType="VARCHAR"/>
+        <result column="VALUE199" property="value199" jdbcType="VARCHAR"/>
+        <result column="VALUE200" property="value200" jdbcType="VARCHAR"/>
+
+        <result column="PROGRAM_ID" property="programId" jdbcType="DECIMAL"/>
+        <result column="REQUEST_ID" property="requestId" jdbcType="DECIMAL"/>
+
+        <result column="BATCH_NUM" property="batchNum" jdbcType="VARCHAR"/>
+        <result column="SOURCE_SYSTEM_CODE" property="sourceSystemCode" jdbcType="VARCHAR"/>
+        <result column="INTERFACE_NAME" property="interfaceName" jdbcType="VARCHAR"/>
+        <result column="MODULE_CODE" property="moduleCode" jdbcType="VARCHAR"/>
+        <result column="DISABLE_FLAG" property="disableFlag" jdbcType="VARCHAR"/>
+        <result column="PROCESS_STATUS_MEANING" property="processMeaning" jdbcType="VARCHAR"/>
+        <result column="IMPORT_STATUS_MEANING" property="importMeaning" jdbcType="VARCHAR"/>
+        <result column="LINE_ID" property="lineId" jdbcType="DECIMAL"/>
+        <result column="HEADER_ID" property="headerId" jdbcType="DECIMAL"/>
+        <result column="PROCESS_DATE" property="processDate" jdbcType="DATE"/>
+        <result column="IMPORT_STATUS" property="importStatus" jdbcType="VARCHAR"/>
+        <result column="PROCESS_STATUS" property="processStatus" jdbcType="VARCHAR"/>
+        <result column="PROCESS_GROUP" property="processGroup" jdbcType="DECIMAL"/>
+        <result column="STATEMENT_STATUS" property="statementStatus" jdbcType="VARCHAR"/>
+        <result column="STATEMENT_DATE" property="statementDate" jdbcType="DATE"/>
+        <result column="PROCESS_MESSAGE" property="processMessage" jdbcType="VARCHAR"/>
+        <result column="SOURCE_ITERFACE_ID" property="sourceIterfaceId" jdbcType="DECIMAL"/>
+        <result column="VALUE1" property="value1" jdbcType="VARCHAR"/>
+        <result column="VALUE2" property="value2" jdbcType="VARCHAR"/>
+        <result column="VALUE3" property="value3" jdbcType="VARCHAR"/>
+        <result column="VALUE4" property="value4" jdbcType="VARCHAR"/>
+        <result column="VALUE5" property="value5" jdbcType="VARCHAR"/>
+        <result column="VALUE6" property="value6" jdbcType="VARCHAR"/>
+        <result column="VALUE7" property="value7" jdbcType="VARCHAR"/>
+        <result column="VALUE8" property="value8" jdbcType="VARCHAR"/>
+        <result column="VALUE9" property="value9" jdbcType="VARCHAR"/>
+        <result column="VALUE10" property="value10" jdbcType="VARCHAR"/>
+        <result column="VALUE11" property="value11" jdbcType="VARCHAR"/>
+        <result column="VALUE12" property="value12" jdbcType="VARCHAR"/>
+        <result column="VALUE13" property="value13" jdbcType="VARCHAR"/>
+        <result column="VALUE14" property="value14" jdbcType="VARCHAR"/>
+        <result column="VALUE15" property="value15" jdbcType="VARCHAR"/>
+        <result column="VALUE16" property="value16" jdbcType="VARCHAR"/>
+        <result column="VALUE17" property="value17" jdbcType="VARCHAR"/>
+        <result column="VALUE18" property="value18" jdbcType="VARCHAR"/>
+        <result column="VALUE19" property="value19" jdbcType="VARCHAR"/>
+        <result column="VALUE20" property="value20" jdbcType="VARCHAR"/>
+        <result column="VALUE21" property="value21" jdbcType="VARCHAR"/>
+        <result column="VALUE22" property="value22" jdbcType="VARCHAR"/>
+        <result column="VALUE23" property="value23" jdbcType="VARCHAR"/>
+        <result column="VALUE24" property="value24" jdbcType="VARCHAR"/>
+        <result column="VALUE25" property="value25" jdbcType="VARCHAR"/>
+        <result column="VALUE26" property="value26" jdbcType="VARCHAR"/>
+        <result column="VALUE27" property="value27" jdbcType="VARCHAR"/>
+        <result column="VALUE28" property="value28" jdbcType="VARCHAR"/>
+        <result column="VALUE29" property="value29" jdbcType="VARCHAR"/>
+        <result column="VALUE30" property="value30" jdbcType="VARCHAR"/>
+        <result column="VALUE31" property="value31" jdbcType="VARCHAR"/>
+        <result column="VALUE32" property="value32" jdbcType="VARCHAR"/>
+        <result column="VALUE33" property="value33" jdbcType="VARCHAR"/>
+        <result column="VALUE34" property="value34" jdbcType="VARCHAR"/>
+        <result column="VALUE35" property="value35" jdbcType="VARCHAR"/>
+        <result column="VALUE36" property="value36" jdbcType="VARCHAR"/>
+        <result column="VALUE37" property="value37" jdbcType="VARCHAR"/>
+        <result column="VALUE38" property="value38" jdbcType="VARCHAR"/>
+        <result column="VALUE39" property="value39" jdbcType="VARCHAR"/>
+        <result column="VALUE40" property="value40" jdbcType="VARCHAR"/>
+        <result column="VALUE41" property="value41" jdbcType="VARCHAR"/>
+        <result column="VALUE42" property="value42" jdbcType="VARCHAR"/>
+        <result column="VALUE43" property="value43" jdbcType="VARCHAR"/>
+        <result column="VALUE44" property="value44" jdbcType="VARCHAR"/>
+        <result column="VALUE45" property="value45" jdbcType="VARCHAR"/>
+        <result column="VALUE46" property="value46" jdbcType="VARCHAR"/>
+        <result column="VALUE47" property="value47" jdbcType="VARCHAR"/>
+        <result column="VALUE48" property="value48" jdbcType="VARCHAR"/>
+        <result column="VALUE49" property="value49" jdbcType="VARCHAR"/>
+        <result column="VALUE50" property="value50" jdbcType="VARCHAR"/>
+        <result column="VALUE51" property="value51" jdbcType="VARCHAR"/>
+        <result column="VALUE52" property="value52" jdbcType="VARCHAR"/>
+        <result column="VALUE53" property="value53" jdbcType="VARCHAR"/>
+        <result column="VALUE54" property="value54" jdbcType="VARCHAR"/>
+        <result column="VALUE55" property="value55" jdbcType="VARCHAR"/>
+        <result column="VALUE56" property="value56" jdbcType="VARCHAR"/>
+        <result column="VALUE57" property="value57" jdbcType="VARCHAR"/>
+        <result column="VALUE58" property="value58" jdbcType="VARCHAR"/>
+        <result column="VALUE59" property="value59" jdbcType="VARCHAR"/>
+        <result column="VALUE60" property="value60" jdbcType="VARCHAR"/>
+        <result column="VALUE61" property="value61" jdbcType="VARCHAR"/>
+        <result column="VALUE62" property="value62" jdbcType="VARCHAR"/>
+        <result column="VALUE63" property="value63" jdbcType="VARCHAR"/>
+        <result column="VALUE64" property="value64" jdbcType="VARCHAR"/>
+        <result column="VALUE65" property="value65" jdbcType="VARCHAR"/>
+        <result column="VALUE66" property="value66" jdbcType="VARCHAR"/>
+        <result column="VALUE67" property="value67" jdbcType="VARCHAR"/>
+        <result column="VALUE68" property="value68" jdbcType="VARCHAR"/>
+        <result column="VALUE69" property="value69" jdbcType="VARCHAR"/>
+        <result column="VALUE70" property="value70" jdbcType="VARCHAR"/>
+        <result column="VALUE71" property="value71" jdbcType="VARCHAR"/>
+        <result column="VALUE72" property="value72" jdbcType="VARCHAR"/>
+        <result column="VALUE73" property="value73" jdbcType="VARCHAR"/>
+        <result column="VALUE74" property="value74" jdbcType="VARCHAR"/>
+        <result column="VALUE75" property="value75" jdbcType="VARCHAR"/>
+        <result column="VALUE76" property="value76" jdbcType="VARCHAR"/>
+        <result column="VALUE77" property="value77" jdbcType="VARCHAR"/>
+        <result column="VALUE78" property="value78" jdbcType="VARCHAR"/>
+        <result column="VALUE79" property="value79" jdbcType="VARCHAR"/>
+        <result column="VALUE80" property="value80" jdbcType="VARCHAR"/>
+        <result column="VALUE81" property="value81" jdbcType="VARCHAR"/>
+        <result column="VALUE82" property="value82" jdbcType="VARCHAR"/>
+        <result column="VALUE83" property="value83" jdbcType="VARCHAR"/>
+        <result column="VALUE84" property="value84" jdbcType="VARCHAR"/>
+        <result column="VALUE85" property="value85" jdbcType="VARCHAR"/>
+        <result column="VALUE86" property="value86" jdbcType="VARCHAR"/>
+        <result column="VALUE87" property="value87" jdbcType="VARCHAR"/>
+        <result column="VALUE88" property="value88" jdbcType="VARCHAR"/>
+        <result column="VALUE89" property="value89" jdbcType="VARCHAR"/>
+        <result column="VALUE90" property="value90" jdbcType="VARCHAR"/>
+        <result column="VALUE91" property="value91" jdbcType="VARCHAR"/>
+        <result column="VALUE92" property="value92" jdbcType="VARCHAR"/>
+        <result column="VALUE93" property="value93" jdbcType="VARCHAR"/>
+        <result column="VALUE94" property="value94" jdbcType="VARCHAR"/>
+        <result column="VALUE95" property="value95" jdbcType="VARCHAR"/>
+        <result column="VALUE96" property="value96" jdbcType="VARCHAR"/>
+        <result column="VALUE97" property="value97" jdbcType="VARCHAR"/>
+        <result column="VALUE98" property="value98" jdbcType="VARCHAR"/>
+        <result column="VALUE99" property="value99" jdbcType="VARCHAR"/>
+        <result column="VALUE100" property="value100" jdbcType="VARCHAR"/>
+        <result column="VALUE101" property="value101" jdbcType="VARCHAR"/>
+        <result column="VALUE102" property="value102" jdbcType="VARCHAR"/>
+        <result column="VALUE103" property="value103" jdbcType="VARCHAR"/>
+        <result column="VALUE104" property="value104" jdbcType="VARCHAR"/>
+        <result column="VALUE105" property="value105" jdbcType="VARCHAR"/>
+        <result column="VALUE106" property="value106" jdbcType="VARCHAR"/>
+        <result column="VALUE107" property="value107" jdbcType="VARCHAR"/>
+        <result column="VALUE108" property="value108" jdbcType="VARCHAR"/>
+        <result column="VALUE109" property="value109" jdbcType="VARCHAR"/>
+        <result column="VALUE110" property="value110" jdbcType="VARCHAR"/>
+        <result column="VALUE111" property="value111" jdbcType="VARCHAR"/>
+        <result column="VALUE112" property="value112" jdbcType="VARCHAR"/>
+        <result column="VALUE113" property="value113" jdbcType="VARCHAR"/>
+        <result column="VALUE114" property="value114" jdbcType="VARCHAR"/>
+        <result column="VALUE115" property="value115" jdbcType="VARCHAR"/>
+        <result column="VALUE116" property="value116" jdbcType="VARCHAR"/>
+        <result column="VALUE117" property="value117" jdbcType="VARCHAR"/>
+        <result column="VALUE118" property="value118" jdbcType="VARCHAR"/>
+        <result column="VALUE119" property="value119" jdbcType="VARCHAR"/>
+        <result column="VALUE120" property="value120" jdbcType="VARCHAR"/>
+        <result column="VALUE121" property="value121" jdbcType="VARCHAR"/>
+        <result column="VALUE122" property="value122" jdbcType="VARCHAR"/>
+        <result column="VALUE123" property="value123" jdbcType="VARCHAR"/>
+        <result column="VALUE124" property="value124" jdbcType="VARCHAR"/>
+        <result column="VALUE125" property="value125" jdbcType="VARCHAR"/>
+        <result column="VALUE126" property="value126" jdbcType="VARCHAR"/>
+        <result column="VALUE127" property="value127" jdbcType="VARCHAR"/>
+        <result column="VALUE128" property="value128" jdbcType="VARCHAR"/>
+        <result column="VALUE129" property="value129" jdbcType="VARCHAR"/>
+        <result column="VALUE130" property="value130" jdbcType="VARCHAR"/>
+        <result column="VALUE131" property="value131" jdbcType="VARCHAR"/>
+        <result column="VALUE132" property="value132" jdbcType="VARCHAR"/>
+        <result column="VALUE133" property="value133" jdbcType="VARCHAR"/>
+        <result column="VALUE134" property="value134" jdbcType="VARCHAR"/>
+        <result column="VALUE135" property="value135" jdbcType="VARCHAR"/>
+        <result column="VALUE136" property="value136" jdbcType="VARCHAR"/>
+        <result column="VALUE137" property="value137" jdbcType="VARCHAR"/>
+        <result column="VALUE138" property="value138" jdbcType="VARCHAR"/>
+        <result column="VALUE139" property="value139" jdbcType="VARCHAR"/>
+        <result column="VALUE140" property="value140" jdbcType="VARCHAR"/>
+        <result column="VALUE141" property="value141" jdbcType="VARCHAR"/>
+        <result column="VALUE142" property="value142" jdbcType="VARCHAR"/>
+        <result column="VALUE143" property="value143" jdbcType="VARCHAR"/>
+        <result column="VALUE144" property="value144" jdbcType="VARCHAR"/>
+        <result column="VALUE145" property="value145" jdbcType="VARCHAR"/>
+        <result column="VALUE146" property="value146" jdbcType="VARCHAR"/>
+        <result column="VALUE147" property="value147" jdbcType="VARCHAR"/>
+        <result column="VALUE148" property="value148" jdbcType="VARCHAR"/>
+        <result column="VALUE149" property="value149" jdbcType="VARCHAR"/>
+        <result column="VALUE150" property="value150" jdbcType="VARCHAR"/>
+        <result column="VALUE151" property="value151" jdbcType="VARCHAR"/>
+        <result column="VALUE152" property="value152" jdbcType="VARCHAR"/>
+        <result column="VALUE153" property="value153" jdbcType="VARCHAR"/>
+        <result column="VALUE154" property="value154" jdbcType="VARCHAR"/>
+        <result column="VALUE155" property="value155" jdbcType="VARCHAR"/>
+        <result column="VALUE156" property="value156" jdbcType="VARCHAR"/>
+        <result column="VALUE157" property="value157" jdbcType="VARCHAR"/>
+        <result column="VALUE158" property="value158" jdbcType="VARCHAR"/>
+        <result column="VALUE159" property="value159" jdbcType="VARCHAR"/>
+        <result column="VALUE160" property="value160" jdbcType="VARCHAR"/>
+        <result column="VALUE161" property="value161" jdbcType="VARCHAR"/>
+        <result column="VALUE162" property="value162" jdbcType="VARCHAR"/>
+        <result column="VALUE163" property="value163" jdbcType="VARCHAR"/>
+        <result column="VALUE164" property="value164" jdbcType="VARCHAR"/>
+        <result column="VALUE165" property="value165" jdbcType="VARCHAR"/>
+        <result column="VALUE166" property="value166" jdbcType="VARCHAR"/>
+        <result column="VALUE167" property="value167" jdbcType="VARCHAR"/>
+        <result column="VALUE168" property="value168" jdbcType="VARCHAR"/>
+        <result column="VALUE169" property="value169" jdbcType="VARCHAR"/>
+        <result column="VALUE170" property="value170" jdbcType="VARCHAR"/>
+        <result column="VALUE171" property="value171" jdbcType="VARCHAR"/>
+        <result column="VALUE172" property="value172" jdbcType="VARCHAR"/>
+        <result column="VALUE173" property="value173" jdbcType="VARCHAR"/>
+        <result column="VALUE174" property="value174" jdbcType="VARCHAR"/>
+        <result column="VALUE175" property="value175" jdbcType="VARCHAR"/>
+        <result column="VALUE176" property="value176" jdbcType="VARCHAR"/>
+        <result column="VALUE177" property="value177" jdbcType="VARCHAR"/>
+        <result column="VALUE178" property="value178" jdbcType="VARCHAR"/>
+        <result column="VALUE179" property="value179" jdbcType="VARCHAR"/>
+        <result column="VALUE180" property="value180" jdbcType="VARCHAR"/>
+        <result column="VALUE181" property="value181" jdbcType="VARCHAR"/>
+        <result column="VALUE182" property="value182" jdbcType="VARCHAR"/>
+        <result column="VALUE183" property="value183" jdbcType="VARCHAR"/>
+        <result column="VALUE184" property="value184" jdbcType="VARCHAR"/>
+        <result column="VALUE185" property="value185" jdbcType="VARCHAR"/>
+        <result column="VALUE186" property="value186" jdbcType="VARCHAR"/>
+        <result column="VALUE187" property="value187" jdbcType="VARCHAR"/>
+        <result column="VALUE188" property="value188" jdbcType="VARCHAR"/>
+        <result column="VALUE189" property="value189" jdbcType="VARCHAR"/>
+        <result column="VALUE190" property="value190" jdbcType="VARCHAR"/>
+        <result column="VALUE191" property="value191" jdbcType="VARCHAR"/>
+        <result column="VALUE192" property="value192" jdbcType="VARCHAR"/>
+        <result column="VALUE193" property="value193" jdbcType="VARCHAR"/>
+        <result column="VALUE194" property="value194" jdbcType="VARCHAR"/>
+        <result column="VALUE195" property="value195" jdbcType="VARCHAR"/>
+        <result column="VALUE196" property="value196" jdbcType="VARCHAR"/>
+        <result column="VALUE197" property="value197" jdbcType="VARCHAR"/>
+        <result column="VALUE198" property="value198" jdbcType="VARCHAR"/>
+        <result column="VALUE199" property="value199" jdbcType="VARCHAR"/>
+        <result column="VALUE200" property="value200" jdbcType="VARCHAR"/>
+
+        <result column="PROGRAM_ID" property="programId" jdbcType="DECIMAL"/>
+        <result column="REQUEST_ID" property="requestId" jdbcType="DECIMAL"/>
+
+        <result column="BATCH_NUM" property="batchNum" jdbcType="VARCHAR"/>
+        <result column="SOURCE_SYSTEM_CODE" property="sourceSystemCode" jdbcType="VARCHAR"/>
+        <result column="INTERFACE_NAME" property="interfaceName" jdbcType="VARCHAR"/>
+        <result column="MODULE_CODE" property="moduleCode" jdbcType="VARCHAR"/>
+        <result column="DISABLE_FLAG" property="disableFlag" jdbcType="VARCHAR"/>
+
+    </resultMap>
+
+    <select id="getFailLineData" resultMap="BaseResultMap">
+        SELECT
+        h.SOURCE_SYSTEM_CODE,
+        h.BATCH_NUM,
+        h.INTERFACE_NAME,
+        h.MODULE_CODE,
+        h.SOURCE_SYSTEM_CODE,
+        l.PROCESS_MESSAGE,
+        l.VALUE1,
+        l.LINE_ID
+        FROM
+        hscs_itf_imp_headers h
+        JOIN hscs_itf_imp_lines l
+        ON l.HEADER_ID = h.HEADER_ID
+        WHERE
+        ( (
+        l.PROCESS_STATUS = 'E'
+        OR l.IMPORT_STATUS = 'E'
+        )
+        AND h.SOURCE_SYSTEM_CODE in ('ALIX_SYSTEM' ,'PSM_SYSTEM' , 'MAL_SYSTEM' , 'OPL_SYSTEM')
+        AND (l.ATTRIBUTE1 IS NULL
+        OR (
+        l.ATTRIBUTE1 IS NOT NULL
+        AND l.ATTRIBUTE1 != 'Y'
+        ))) limit 20000
+    </select>
+
+    <select id="getSuccessHeadersData" resultMap="BaseResultMap">
+        SELECT
+        h.SOURCE_SYSTEM_CODE,
+        h.BATCH_NUM,
+        h.INTERFACE_NAME,
+        h.MODULE_CODE,
+        h.SOURCE_SYSTEM_CODE,
+        h.HEADER_ID,
+        (select tl.value200 from hscs_itf_imp_lines tl where tl.HEADER_ID = h.HEADER_ID ORDER BY tl.LINE_ID desc limit 1) as VALUE200
+        FROM
+        hscs_itf_imp_headers h
+
+        WHERE
+        ( (
+        h.PROCESS_STATUS = 'S'
+        OR h.IMPORT_STATUS = 'S'
+        )
+        AND h.SOURCE_SYSTEM_CODE in ('ALIX_SYSTEM' ,'PSM_SYSTEM' , 'MAL_SYSTEM' , 'OPL_SYSTEM')
+        AND h.ATTRIBUTE1 IS NULL
+        OR (
+        h.ATTRIBUTE1 IS NOT NULL
+        AND h.ATTRIBUTE1 != 'Y'
+        )) limit 20000
+    </select>
+
+
+    <update id="batchUpdateFailDataFlags" parameterType="java.util.List">
+
+        update hscs_itf_imp_lines
+        SET
+        ATTRIBUTE1 = 'Y',
+        LAST_UPDATE_DATE = NOW()
+        where LINE_ID in
+        <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+            #{item.lineId,jdbcType=DECIMAL}
+        </foreach>
+    </update>
+
+    <update id="updateTimeFlag" parameterType="java.util.List">
+        update hscs_itf_imp_lines
+        SET
+        ATTRIBUTE10 = NOW(),
+        LAST_UPDATE_DATE = NOW()
+        where LINE_ID in
+        <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+            #{item.lineId,jdbcType=DECIMAL}
+        </foreach>
+    </update>
+
+    <update id="updateSuccessHeaderFlags" parameterType="java.util.List">
+
+        update hscs_itf_imp_headers
+        SET
+        ATTRIBUTE1 = 'Y',
+        LAST_UPDATE_DATE = NOW()
+        where HEADER_ID in
+        <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+            #{item.headerId,jdbcType=DECIMAL}
+        </foreach>
+    </update>
+
+    <select id="queryCalcedItfs" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT
+            l.value1,
+            l.value2,
+            l.value3,
+            l.value4,
+            l.value5,
+            l.value6,
+            l.value7,
+            l.value8,
+            l.value9,
+            l.value10,
+            l.value11,
+            l.value12,
+            l.value15,
+            l.value21,
+            l.value24,
+            l.value25,
+            l.value26,
+            l.value27,
+            l.value28,
+            l.value30,
+            l.value32,
+            l.value33,
+            l.value34,
+            l.value35,
+            l.value36,
+            l.value67,
+            l.value83,
+            l.HEADER_ID,
+            l.LINE_ID,
+            l.SOURCE_ITERFACE_ID,
+            h.INTERFACE_NAME
+        FROM
+            hscs_itf_imp_headers h
+        JOIN hscs_itf_imp_lines l ON h.HEADER_ID = l.HEADER_ID
+        AND EXISTS (
+            SELECT
+                1
+            FROM
+                (
+                    SELECT
+                        'ALIX_AR_INTERFACE' AS a1,
+                        'OPL_AR_INTERFACE' AS b1
+                ) h1
+            WHERE
+                h.INTERFACE_NAME = h1.a1
+            OR h.INTERFACE_NAME = h1.b1
+        )
+        AND h.PROCESS_STATUS = 'S'
+        AND l.PROCESS_STATUS = 'S'
+        AND l.IMPORT_STATUS != 'S'
+        AND h.DISABLE_FLAG = 'N'
+        AND NOT EXISTS (
+            SELECT
+                apply_num
+            FROM
+                yxhscs_itf_ar_interface
+            WHERE
+                l.value2 = apply_num
+            GROUP BY
+                apply_num
+        )
+        AND l.value2 IN (
+            SELECT
+                bb.value2
+            FROM
+                (
+                    SELECT
+                        tt.value2
+                    FROM
+                        (
+                            SELECT
+                                l.value2
+                            FROM
+                                hscs_itf_imp_headers h
+                            JOIN hscs_itf_imp_lines l ON h.HEADER_ID = l.HEADER_ID
+                            WHERE
+                                EXISTS (
+                                    SELECT
+                                        1
+                                    FROM
+                                        (
+                                            SELECT
+                                                'ALIX_AR_INTERFACE' AS a1,
+                                                'OPL_AR_INTERFACE' AS b1
+                                        ) h1
+                                    WHERE
+                                        h.INTERFACE_NAME = h1.a1
+                                    OR h.INTERFACE_NAME = h1.b1
+                                )
+                            AND h.PROCESS_STATUS = 'S'
+                            AND l.PROCESS_STATUS = 'S'
+                            AND l.IMPORT_STATUS != 'S'
+                            AND h.DISABLE_FLAG = 'N'
+                            AND NOT EXISTS (
+                                SELECT
+                                    apply_num
+                                FROM
+                                    yxhscs_itf_ar_interface
+                                WHERE
+                                    l.value2 = apply_num
+                                GROUP BY
+                                    apply_num
+                            )
+                            LIMIT #{pageSize}
+                        ) tt
+                    GROUP BY
+                        tt.VALUE2
+                ) bb
+        )
+        ORDER BY
+            l.VALUE2,
+            CONVERT (l.VALUE21, SIGNED)
+    </select>
+
+    <update id="batchUpdateLineFlag" parameterType="java.util.List">
+        update hscs_itf_imp_lines
+        SET
+        IMPORT_STATUS = 'S',
+        LAST_UPDATE_DATE = NOW()
+        where
+        LINE_ID in
+        <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+            #{item.id,jdbcType=DECIMAL}
+        </foreach>
+    </update>
+
+
+    <select id="getLineByAttr" parameterType="hscsm.core.itf.dto.QueryUtilDto">
+        SELECT
+        h.SOURCE_SYSTEM_CODE,
+        h.BATCH_NUM,
+        h.INTERFACE_NAME,
+        h.MODULE_CODE,
+        h.SOURCE_SYSTEM_CODE,
+        l.PROCESS_MESSAGE,
+        l.VALUE1,
+        l.LINE_ID,
+        l.VALUE2,
+        l.VALUE3,
+        l.VALUE6
+        FROM
+        hscs_itf_imp_headers h
+        JOIN hscs_itf_imp_lines l
+        ON l.HEADER_ID = h.HEADER_ID
+        WHERE
+        ATTRIBUTE10 is NULL OR datediff(now(),ATTRIBUTE10) > 0
+        <if test="attribute1!=null">
+            AND l.VALUE2 = #{attribute1, jdbcType=VARCHAR}
+        </if>
+        <if test="attribute2!=null">
+            AND h.INTERFACE_NAME = #{attribute2, jdbcType=VARCHAR}
+        </if>
+
+        ORDER BY
+        l.CREATION_DATE DESC
+
+    </select>
+
+    <select id="getAdd_MAL" resultMap="BaseResultMap">
+        select * from
+                      hscs_itf_imp_lines l
+            JOIN  hscs_itf_imp_headers h on l.HEADER_ID = h.HEADER_ID
+                       where
+                        (l.ATTRIBUTE10 IS NULL OR  datediff(now(),l.ATTRIBUTE10)  > 0 )
+                       AND  h.INTERFACE_NAME IN ('MAL_MONPAY_INTERFACE') limit 50000
+    </select>
+
+    <select id="getAdd_MALMonth" resultMap="BaseResultMap">
+        select * from
+        hscs_itf_imp_lines l
+        JOIN  hscs_itf_imp_headers h on l.HEADER_ID = h.HEADER_ID
+        where
+        (l.ATTRIBUTE11 IS NULL OR  datediff(now(),l.ATTRIBUTE11)  > 0 )
+        AND  datediff(now(),l.ATTRIBUTE10)  = 0
+    </select>
+
+    <select id="queryCalcedItfsByApplyNum" resultMap="BaseResultMap" parameterType="java.lang.String">
+          SELECT
+            l.value1,
+            l.value2,
+            l.value3,
+            l.value4,
+            l.value5,
+            l.value6,
+            l.value7,
+            l.value8,
+            l.value9,
+            l.value10,
+            l.value11,
+            l.value12,
+            l.value15,
+            l.value21,
+            l.value24,
+            l.value25,
+            l.value26,
+            l.value27,
+            l.value28,
+            l.value30,
+            l.value32,
+            l.value33,
+            l.value34,
+            l.value35,
+            l.value36,
+            l.value67,
+            l.value83,
+            l.HEADER_ID,
+            l.LINE_ID,
+            l.SOURCE_ITERFACE_ID,
+            h.INTERFACE_NAME
+        FROM
+            hscs_itf_imp_headers h
+        JOIN hscs_itf_imp_lines l ON h.HEADER_ID = l.HEADER_ID
+        AND EXISTS (
+            SELECT
+                1
+            FROM
+                (
+                    SELECT
+                        'ALIX_AR_INTERFACE' AS a1,
+                        'OPL_AR_INTERFACE' AS b1
+                ) h1
+            WHERE
+                h.INTERFACE_NAME = h1.a1
+            OR h.INTERFACE_NAME = h1.b1
+        )
+        AND h.PROCESS_STATUS = 'S'
+        AND l.PROCESS_STATUS = 'S'
+        AND l.IMPORT_STATUS != 'S'
+        AND h.DISABLE_FLAG = 'N'
+        AND l.VALUE2 =#{applyNum}
+        ORDER BY
+            l.VALUE2,
+            CONVERT (l.VALUE21, SIGNED)
+    </select>
+
+
+    <select id="queryCalcedItfsByTimeRange" resultMap="BaseResultMap" parameterType="hscsm.core.itf.dto.QueryUtilDto">
+          SELECT
+            l.value1,
+            l.value2,
+            l.value3,
+            l.value4,
+            l.value5,
+            l.value6,
+            l.value7,
+            l.value8,
+            l.value9,
+            l.value10,
+            l.value11,
+            l.value12,
+            l.value15,
+            l.value21,
+            l.value24,
+            l.value25,
+            l.value26,
+            l.value27,
+            l.value28,
+            l.value30,
+            l.value32,
+            l.value33,
+            l.value34,
+            l.value35,
+            l.value36,
+            l.value67,
+            l.value83,
+            l.HEADER_ID,
+            l.LINE_ID,
+            l.SOURCE_ITERFACE_ID,
+            h.INTERFACE_NAME
+        FROM
+            hscs_itf_imp_headers h
+        JOIN hscs_itf_imp_lines l ON h.HEADER_ID = l.HEADER_ID
+        AND EXISTS (
+            SELECT
+                1
+            FROM
+                (
+                    SELECT
+                        'ALIX_AR_INTERFACE' AS a1,
+                        'OPL_AR_INTERFACE' AS b1
+                ) h1
+            WHERE
+                h.INTERFACE_NAME = h1.a1
+            OR h.INTERFACE_NAME = h1.b1
+        )
+        AND h.PROCESS_STATUS = 'S'
+        AND l.PROCESS_STATUS = 'S'
+        AND l.IMPORT_STATUS != 'S'
+        AND h.DISABLE_FLAG = 'N'
+        AND l.CREATION_DATE BETWEEN   #{attribute1, jdbcType=VARCHAR} AND  #{attribute2, jdbcType=VARCHAR}
+        ORDER BY
+            l.VALUE2,
+            CONVERT (l.VALUE21, SIGNED)
+    </select>
+
+
+    <select id="queryUpdatePer" resultMap="BaseResultMap" parameterType="java.util.List">
+          SELECT
+        xx.*
+        FROM
+            (
+                SELECT
+                    l.CREATION_DATE,
+                    l.value1,
+                    l.value2,
+                    l.value3,
+                    l.value4,
+                    l.value5,
+                    l.value6,
+                    l.value7,
+                    l.value8,
+                    l.value9,
+                    l.value10,
+                    l.value11,
+                    l.value12,
+                    l.value15,
+                    l.value21,
+                    l.value24,
+                    l.value25,
+                    l.value26,
+                    l.value27,
+                    l.value28,
+                    l.value30,
+                    l.value32,
+                    l.value33,
+                    l.value34,
+                    l.value35,
+                    l.value36,
+                    l.value67,
+                    l.value83,
+                    l.HEADER_ID,
+                    l.LINE_ID,
+                    l.SOURCE_ITERFACE_ID,
+                    h.INTERFACE_NAME
+                FROM
+                    hscs_itf_imp_headers h
+                JOIN hscs_itf_imp_lines l ON h.HEADER_ID = l.HEADER_ID
+                AND h.PROCESS_STATUS = 'S'
+                AND l.PROCESS_STATUS = 'S'
+                AND l.IMPORT_STATUS = 'S'
+                AND h.DISABLE_FLAG = 'N'
+                AND EXISTS (
+                    SELECT
+                        1
+                    FROM
+                        (
+                            SELECT
+                                'ALIX_AR_INTERFACE' AS a1,
+                                'OPL_AR_INTERFACE' AS b1
+                        ) h1
+                    WHERE
+                        h.INTERFACE_NAME = h1.a1
+                    OR h.INTERFACE_NAME = h1.b1
+                )
+                AND l.VALUE2 IN
+                <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+                    #{item.attribute1,jdbcType=DECIMAL}
+                </foreach>
+                ORDER BY
+                    l.CREATION_DATE DESC
+                LIMIT 500000
+            ) xx
+        GROUP BY
+            xx.VALUE2,
+            xx.VALUE21
+        ORDER BY
+        xx.VALUE2,
+        CONVERT (xx.VALUE21, SIGNED)
+    </select>
+
+</mapper>

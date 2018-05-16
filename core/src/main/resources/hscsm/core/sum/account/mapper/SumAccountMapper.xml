@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hscsm.core.sum.account.mapper.SumAccountMapper">
+    <resultMap id="SumAccountResultMap" type="hscsm.core.sum.account.dto.SumAccount">
+        <result column="ATTRIBUTE1" property="hapGroupId"/>
+        <result column="TFR_SUM_ACCOUNT_ID" property="hapGlId"/>
+        <result column="TFR_SUM_ACCOUNT_NUM" property="sumAccNum"/>
+        <result column="VALUE1" property="ldgNm"/>
+        <result column="VALUE2" property="btNm"/>
+        <result column="VALUE3" property="btDesc"/>
+        <result column="VALUE4" property="jeNm"/>
+        <result column="VALUE5" property="jeDesc"/>
+        <result column="ACCOUNTING_DATE" property="acctDt"/>
+        <result column="VALUE6" property="ctgNm"/>
+        <result column="VALUE7" property="curyCd"/>
+        <result column="VALUE8" property="converTp"/>
+        <result column="ACCOUNTING_DATE" property="cunverDt"/>
+        <result column="VALUE9" property="curConverRt"/>
+        <result column="VALUE11" property="lineDesc"/>
+        <result column="VALUE12" property="seg1"/>
+        <result column="VALUE13" property="seg2"/>
+        <result column="VALUE14" property="seg3"/>
+        <result column="VALUE15" property="seg4"/>
+        <result column="VALUE16" property="seg5"/>
+        <result column="VALUE17" property="seg6"/>
+        <result column="VALUE18" property="seg7"/>
+        <result column="VALUE19" property="seg8"/>
+        <result column="VALUE20" property="seg9"/>
+        <result column="VALUE21" property="seg10"/>
+        <result column="VALUE22" property="seg11"/>
+        <result column="VALUE23" property="seg12"/>
+        <result column="VALUE24" property="seg13"/>
+        <result column="VALUE25" property="etrDr"/>
+        <result column="VALUE26" property="acctDr"/>
+        <result column="VALUE27" property="etrCr"/>
+        <result column="VALUE28" property="acctCr"/>
+    </resultMap>
+
+    <resultMap id="BatchParamResultMap" type="hscsm.core.sum.account.dto.BatchParam">
+        <result column="VALUE2" property="jeBatchName"/>
+        <result column="ACCOUNTING_DATE" property="accountingDate"/>
+    </resultMap>
+
+    <select id="getSumAccountsByStatus" resultType="hscsm.core.sum.account.dto.SumAccount" resultMap="SumAccountResultMap">
+      SELECT
+        hatsa.ATTRIBUTE1,
+        hatsa.TFR_SUM_ACCOUNT_ID,
+        hatsa.TFR_SUM_ACCOUNT_NUM,
+        hatsa.VALUE1,
+        hatsa.VALUE2,
+        hatsa.VALUE3,
+        hatsa.VALUE4,
+        hatsa.VALUE5,
+        hatsa.ACCOUNTING_DATE,
+        hatsa.VALUE6,
+        hatsa.VALUE7,
+        hatsa.VALUE8,
+        hatsa.VALUE9,
+        hatsa.VALUE11,
+        hatsa.VALUE12,
+        hatsa.VALUE13,
+        hatsa.VALUE14,
+        hatsa.VALUE15,
+        hatsa.VALUE16,
+        hatsa.VALUE17,
+        hatsa.VALUE18,
+        hatsa.VALUE19,
+        hatsa.VALUE20,
+        hatsa.VALUE21,
+        hatsa.VALUE22,
+        hatsa.VALUE23,
+        hatsa.VALUE24,
+        hatsa.VALUE25,
+        hatsa.VALUE26,
+        hatsa.VALUE27,
+        hatsa.VALUE28
+      FROM
+        hscs_ae_tfr_sum_accounts hatsa
+      WHERE hatsa.DELIVERY_STATUS = 'N'
+        AND hatsa.VALUE2 = #{jeBatchName}
+        AND hatsa.ACCOUNTING_DATE = #{accountingDate}
+        <if test="company != null">
+            AND hatsa.VALUE12 = #{company}
+        </if>
+        <if test="eventBatchId != null">
+            AND hatsa.EVENT_BATCH_ID = #{eventBatchId}
+        </if>
+        <if test="batchName != null">
+            AND hatsa.VALUE2 = #{batchName}
+        </if>
+    </select>
+
+    <update id="updateByResult" parameterType="java.util.List">
+        update hscs_ae_tfr_sum_accounts
+        set hscs_ae_tfr_sum_accounts.DELIVERY_STATUS = #{status},
+        hscs_ae_tfr_sum_accounts.ATTRIBUTE1 = #{groupId}
+        <if test='status != "S"'>
+            ,hscs_ae_tfr_sum_accounts.DELIVERY_REMARKS =
+            <foreach collection="resultMessages" item="item" index="index"
+                     separator=" " open="case TFR_SUM_ACCOUNT_ID" close="end">
+                when #{item.hapGlId} then #{item.xErrorMessage}
+            </foreach>
+        </if>
+        where hscs_ae_tfr_sum_accounts.TFR_SUM_ACCOUNT_ID in
+        <foreach collection="resultMessages" index="index" item="item" separator="," open="(" close=")">
+            #{item.hapGlId,jdbcType=BIGINT}
+        </foreach>
+    </update>
+
+    <!-- 批量插入异步回调结果，之后可能会用到 -->
+    <!--<insert id="insertByAsynResult" parameterType="java.util.List">-->
+        <!--INSERT INTO hscs_ae_feedback_message(-->
+            <!--TFR_SUM_ACCOUNT_ID,-->
+            <!--ACCOUNTING_STATUS,-->
+            <!--ACCOUNTING_REMARKS,-->
+            <!--DOCUMENT_HEADER_NO,-->
+            <!--DOCUMENT_LINE_NO,-->
+            <!--CERTIFICATE_HEADER_ID,-->
+            <!--CERTIFICATE_LINE_ID,-->
+            <!--PROCESS_FLAG-->
+        <!--)-->
+        <!--VALUES-->
+        <!--<foreach collection="feedbackMessages" item="item" index="index" separator="," >-->
+            <!--(-->
+                <!--#{item.tfrSumAccountId},-->
+                <!--#{item.accountingStatus},-->
+                <!--#{item.accountingRemarks},-->
+                <!--#{item.documentHeaderNo},-->
+                <!--#{item.documentLineNo},-->
+                <!--#{item.certificateHeaderId},-->
+                <!--#{item.certificateLineId},-->
+                <!--'N'-->
+            <!--)-->
+        <!--</foreach>-->
+        <!--ON DUPLICATE KEY UPDATE-->
+            <!--ACCOUNTING_STATUS = values(ACCOUNTING_STATUS),-->
+            <!--ACCOUNTING_REMARKS = values(ACCOUNTING_REMARKS),-->
+            <!--DOCUMENT_HEADER_NO = values(DOCUMENT_HEADER_NO),-->
+            <!--DOCUMENT_LINE_NO = values(DOCUMENT_LINE_NO),-->
+            <!--CERTIFICATE_HEADER_ID = values(CERTIFICATE_HEADER_ID),-->
+            <!--CERTIFICATE_LINE_ID = values(CERTIFICATE_LINE_ID),-->
+            <!--PROCESS_FLAG = values(PROCESS_FLAG)-->
+    <!--</insert>-->
+
+    <insert id="insertByAsynResult" parameterType="java.util.List">
+        INSERT INTO hscs_ae_feedback_message(
+            TFR_SUM_ACCOUNT_ID,
+            ACCOUNTING_STATUS,
+            ACCOUNTING_REMARKS,
+            DOCUMENT_HEADER_NO,
+            DOCUMENT_LINE_NO,
+            CERTIFICATE_HEADER_ID,
+            CERTIFICATE_LINE_ID,
+            PROCESS_FLAG,
+            ATTRIBUTE1
+        )
+        VALUES (
+            #{result.tfrSumAccountId},
+            #{result.accountingStatus},
+            #{result.accountingRemarks},
+            #{result.documentHeaderNo},
+            #{result.documentLineNo},
+            #{result.certificateHeaderId},
+            #{result.certificateLineId},
+            'N',
+            #{result.attribute1}
+        )
+        ON DUPLICATE KEY UPDATE
+            ACCOUNTING_STATUS = values(ACCOUNTING_STATUS),
+            ACCOUNTING_REMARKS = values(ACCOUNTING_REMARKS),
+            DOCUMENT_HEADER_NO = values(DOCUMENT_HEADER_NO),
+            DOCUMENT_LINE_NO = values(DOCUMENT_LINE_NO),
+            CERTIFICATE_HEADER_ID = values(CERTIFICATE_HEADER_ID),
+            CERTIFICATE_LINE_ID = values(CERTIFICATE_LINE_ID),
+            PROCESS_FLAG = values(PROCESS_FLAG)
+    </insert>
+    
+    <select id="selectBatchParams" resultMap="BatchParamResultMap">
+        SELECT DISTINCT VALUE2,ACCOUNTING_DATE
+        FROM hscs_ae_tfr_sum_accounts hatsa
+        WHERE hatsa.DELIVERY_STATUS = 'N'
+        <if test="company != null">
+            AND hatsa.VALUE12 = #{company}
+        </if>
+        <if test="eventBatchId != null">
+            AND hatsa.EVENT_BATCH_ID = #{eventBatchId}
+        </if>
+        <if test="accountingDate != null">
+            AND hatsa.ACCOUNTING_DATE &lt;= #{accountingDate}
+        </if>
+        <if test="accountingDate == null">
+            AND hatsa.ACCOUNTING_DATE &lt;= NOW()
+        </if>
+        <if test="batchName != null">
+            AND hatsa.VALUE2 = #{batchName}
+        </if>
+    </select>
+</mapper>

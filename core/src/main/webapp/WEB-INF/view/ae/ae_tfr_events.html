@@ -1,0 +1,708 @@
+<#--
+        * description:
+        * author: Yc@hand-china.com
+        * version: 1.0
+        * date: 2017/10/17
+        -->
+<#include "../include/header.html">
+<#include "../include/hscs_common.html">
+
+<script type="text/javascript">
+
+    var viewModel = kendo.observable({
+        model: {
+            accountingDateFrom:new Date(2016,0,1),
+            accountingDateTo:new Date()
+        },
+        resetForm: function () {
+            var formData = viewModel.model.toJSON();
+            for (var k in formData) {
+                viewModel.model.set(k, null);
+            }
+        },
+        exportExcelFunction: function () {
+            kendo.ui.showConfirmDialog({
+                title:$l('hap.tip.info'),
+                message:$l('<@spring.message "hscs.pub.tip.export_confirm"/>')
+            }).done(function(event){
+                if(event.button=='OK'){
+                    var json=Hap.prepareQueryParameter(viewModel.model.toJSON());
+                    var url=BaseUrl+"/hscs/ae/tfr/events/excel?";
+                    $.each(json,function (i,v) {
+                        if(v){
+                            var para=cealPara(v);
+                            url+=i+"="+para+"&";
+                        }
+                    });
+                    url=url.substring(0,url.length-1);
+                    window.open(url,"Download");
+                }
+            });
+        },
+        queryResource: function (e) {
+            if(validator1.validate()){
+                $('#Grid').data('kendoGrid').dataSource.page(1);
+            }else{
+                kendo.ui.showErrorDialog({
+                    message: '<@spring.message "hscs.ae.tfr.sum.accounts.confirmRequired"/>'
+                })
+            }
+        },
+        createAccountFunction: function () {
+
+            var window=$("#createAccount").kendoWindow({
+                iframe:true,
+                draggable: false,
+                width:"700px",
+                height:"400px",
+                content:'${base.contextPath}/ae/ae_tfr_events_createAccount.html',
+                close:function(){
+                }
+            }).data("kendoWindow");
+            window.title('创建账务');
+            window.center().open();
+
+        },
+        rollbackFunction: function () {
+            var window=$("#Rollback").kendoWindow({
+                iframe:true,
+                draggable: false,
+                width:"700px",
+                height:"400px",
+                content:'${base.contextPath}/ae/ae_tfr_events_errorValueRollback.html',
+                close:function(){
+                }
+            }).data("kendoWindow");
+            window.title('错误数据回滚');
+            window.center().open();
+
+        },
+        accountRollbackFunction:function () {
+            var selectItems=$('#Grid').data('kendoGrid').select();
+            var rows=new Array();
+            for(var i =0 ;i<selectItems.length;i++){
+                var row=$('#Grid').data('kendoGrid').dataItem(selectItems[i]);
+                rows.push(row);
+            }
+            if(selectItems.length>0){
+//                要执行的ajax
+                $.ajax({
+                    url: '${base.contextPath}/hscs/ae/tfr/events/prevalidate',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(rows),
+                    success: function (a) {
+                        if(a.success){
+                            kendo.ui.showConfirmDialog({
+                                message: '是否确认回滚已勾选数据'
+                            }).done(function(event){
+                                if (event.button == 'OK') {
+                                    $.ajax({
+                                        url: '${base.contextPath}/hscs/ae/tfr/events/runRollback',
+                                        type: 'POST',
+                                        contentType: 'application/json',
+                                        data: JSON.stringify(rows),
+                                        success:function(b){
+                                            kendo.ui.showInfoDialog({
+                                                message: b.message
+                                              });
+                                        }
+                                    })
+                                }
+                            })
+                        }else{
+                            kendo.ui.showInfoDialog({
+                                message: a.message
+                            });
+                        }
+
+                    }
+                })
+            }else{
+                kendo.ui.showErrorDialog({
+                    message: '<@spring.message "hscs.ce.selectdata"/>'
+                })
+            }
+
+
+        }
+    });
+
+    function cealPara(para){
+        if(para && typeof para =="string"){
+            return  para= para.replace(/%/g,"%25");
+        }else if(typeof para=="number"){
+            return para;
+        }else{
+            return para = '';
+        }
+    }
+</script>
+<body>
+<script src="${base.contextPath}/common/code?yesOrNo=SYS.YES_NO" type="text/javascript"></script>
+<script src="${base.contextPath}/common/code?sourceTable=HSCS.AE.SOURCE_TABLE" type="text/javascript"></script>
+<script src="${base.contextPath}/common/code?AccountingStatus=HSCS.AE.ACCOUNT_STATUS" type="text/javascript"></script>
+<script src="${base.contextPath}/common/code?ProgramType=HSCS.AE.PROGRAM_TYPE" type="text/javascript"></script>
+<script src="${base.contextPath}/common/code?RollbackRange=HSCS.AE.ERROR_ROLLBACK_RANGE" type="text/javascript"></script>
+<div id="batchDiv" style="display: none"></div>
+<div id="page-content">
+    <div id="query-form">
+    <div id="form" class="form-horizontal">
+        <div class="row" style="margin-bottom: 5px;">
+            <!-- 生成状态 -->
+            <div class="col-xs-4">
+                <div class="form-group">
+                    <label class="col-xs-4 control-label"><@spring.message "hscs.ae.AeTfrEvents.accountingStatus"/></label>
+                    <div class="col-xs-7">
+                        <input id="accountingStatus" name="accountingStatus"  type="text" width="100%"  data-bind="value:model.accountingStatus">
+                        <span class="k-invalid-msg" data-for="accountingStatus"></span>
+                    </div>
+                </div>
+                <script>
+                    $("#accountingStatus").kendoComboBox({
+                        optionLabel: ' ',
+                        valuePrimitive: true,
+                        dataTextField: "meaning",
+                        dataValueField: "value",
+                        dataSource: AccountingStatus
+                    });
+                </script>
+            </div>
+            <!--起始时间-->
+            <div class="col-xs-4">
+                <div class="form-group">
+                    <label class="col-xs-4 control-label"><@spring.message "hscs.ae.AeEventHeaders.accountDateStart"/></label>
+                    <div class="col-xs-7">
+                        <input id="accountDateFrom" required name="accountDateFrom"   width="100%" style="background: #ffffcc" onkeydown=Hscs.dateOnlySelect("accountDateFrom") data-bind="value:model.accountingDateFrom"/>
+                        <span class="k-invalid-msg" data-for="accountDateFrom"></span>
+                    </div>
+                    <script>
+                        var end = viewModel.model.accountingDateTo;
+                        var d;
+                        if (end) {
+                            d = end;
+                        }
+                        $("#accountDateFrom").kendoDatePicker({
+                            format: "yyyy-MM-dd",
+                            max: d,
+                            change: function () {
+                                if (this.value() != null) {
+                                    d = this.value();
+                                } else {
+                                    d = new Date(1900, 0, 1, 22, 0, 0);
+                                }
+                                $('#accountDateTo').data('kendoDatePicker').min(d)
+                            }
+                        }).data("kendoDatePicker");
+                    </script>
+                </div>
+            </div>
+            <!--结束时间-->
+            <div class="col-xs-4">
+                <div class="form-group">
+                    <label class="col-xs-4 control-label"><@spring.message "hscs.ae.AeEventHeaders.accountDateEnd"/></label>
+                    <div class="col-xs-7">
+                        <input id="accountDateTo" required name="accountDateTo"   width="100%" onkeydown=Hscs.dateOnlySelect("accountDateTo") style="background: #ffffcc" data-bind="value:model.accountingDateTo"/>
+                        <span class="k-invalid-msg" data-for="accountDateTo"></span>
+                    </div>
+                    <script>
+                        var From = viewModel.model.accountingDateFrom;
+                        var d;
+                        if (From) {
+                            d = From;
+                        }
+                        $("#accountDateTo").kendoDatePicker({
+                            format: "yyyy-MM-dd",
+                            min: d,
+                            change: function () {
+                                if (this.value() != null) {
+                                    d = this.value();
+                                } else {
+                                    d = new Date(2099, 0, 1, 22, 0, 0);
+                                }
+                                $('#accountDateFrom').data('kendoDatePicker').max(d)
+                            }
+                        }).data("kendoDatePicker");
+                    </script>
+                </div>
+            </div>
+        </div>
+        <div id="fold" style="display: block;">
+            <div class="row" style="margin-bottom: 5px;">
+                <!-- 是否冲销 -->
+                <div class="col-xs-4">
+                    <div class="form-group">
+                        <label class="col-xs-4 control-label"><@spring.message "hscs.ae.AeTfrEvents.reversalFlag"/></label>
+                        <div class="col-xs-7">
+                            <input id="reversalFlag" name="reversalFlag"   type="text" width="100%"  data-bind="value:model.reversalFlag">
+                            <span class="k-invalid-msg" data-for="reversalFlag"></span>
+                        </div>
+                    </div>
+                    <script>
+                        $("#reversalFlag").kendoComboBox({
+                            optionLabel: ' ',
+                            valuePrimitive: true,
+                            dataTextField: "meaning",
+                            dataValueField: "value",
+                            dataSource: yesOrNo
+                        });
+                    </script>
+                </div>
+                <!--创建日期从-->
+                <div class="col-xs-4">
+                    <div class="form-group">
+                        <label class="col-xs-4 control-label"><@spring.message "hscs.ae.creationdatestart"/></label>
+                        <div class="col-xs-7">
+                            <input id="creationDateFrom"  name="creationDateFrom"  width="100%" onkeydown=Hscs.dateOnlySelect("creationDateFrom") data-bind="value:model.creationDateFrom" />
+                            <span class="k-invalid-msg" data-for="creationDateFrom"></span>
+                        </div>
+                        <script>
+                            var end = viewModel.model.creationDateTo;
+                            var dd;
+                            if (end) {
+                                dd = end;
+                            }
+                            $("#creationDateFrom").kendoDatePicker({
+                                format: "yyyy-MM-dd",
+                                max: dd,
+                                change: function () {
+                                    if (this.value() != null) {
+                                        dd = this.value();
+                                    } else {
+                                        dd = new Date(1900, 0, 1, 22, 0, 0);
+                                    }
+                                    $('#creationDateTo').data('kendoDatePicker').min(dd)
+                                }
+                            }).data("kendoDatePicker");
+                        </script>
+                    </div>
+                </div>
+                <!--创建日期至-->
+                <div class="col-xs-4">
+                    <div class="form-group">
+                        <label class="col-xs-4 control-label"><@spring.message "hscs.ae.creationdateend"/></label>
+                        <div class="col-xs-7">
+                            <input id="creationDateTo"  name="creationDateTo"   width="100%" onkeydown=Hscs.dateOnlySelect("creationDateTo")  data-bind="value:model.creationDateTo"/>
+                            <span class="k-invalid-msg" data-for="creationDateTo"></span>
+                        </div>
+                        <script>
+                            var From = viewModel.model.creationDateFrom;
+                            var dd;
+                            if (From) {
+                                dd = From;
+                            }
+                            $("#creationDateTo").kendoDatePicker({
+                                format: "yyyy-MM-dd",
+                                min: dd,
+                                change: function () {
+                                    if (this.value() != null) {
+                                        dd = this.value();
+                                    } else {
+                                        dd = new Date(2099, 0, 1, 22, 0, 0);
+                                    }
+                                    $('#creationDateFrom').data('kendoDatePicker').max(dd)
+                                }
+                            }).data("kendoDatePicker");
+                        </script>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 5px;">
+                <!--事件名称-->
+                <div class="col-xs-4">
+                    <div class="form-group">
+                        <label class="col-xs-4 control-label"><@spring.message "hscs.ae.aeruleheaders.event.name"/></label>
+                        <div class="col-xs-7">
+                            <input id="eventBatchId"  type="text" width="100%" data-bind="value:model.eventBatchId" >
+                            <span class="k-invalid-msg" data-for="eventBatchId"></span>
+                        </div>
+                    </div>
+                    <script>
+                        $("#eventBatchId").kendoLov($.extend(${lovProvider.getLov(base.contextPath, base.locale, "HSCS_AE_EVENT_BATCH_NAME")}, {
+                        }))
+                    </script>
+                </div>
+                <!-- 入账基准表 -->
+                <div class="col-xs-4">
+                    <div class="form-group">
+                        <label class="col-xs-4 control-label"><@spring.message "hscs.ae.aeeventheaders.basictable"/></label>
+                        <div class="col-xs-7">
+                            <input id="basicTable"  type="text" width="100%" data-bind="value:model.basicTable" />
+                            <span class="k-invalid-msg" data-for="basicTable"></span>
+                        </div>
+                    </div>
+                    <script>
+                        $("#basicTable").kendoComboBox({
+                            optionLabel: ' ',
+                            valuePrimitive: true,
+                            dataTextField: "sqlName",
+                            dataValueField: "sqlCode",
+//                            dataTextField: "meaning",
+//                            dataValueField: "value",
+//                            dataSource: sourceTable
+                            dataSource: {
+                                transport: {
+                                    read: {
+                                        type: "POST",
+                                        dataType: "json",
+                                        url: _basePath + "/hscs/ae/source/sql/headers/getCodeDataSource"
+                                    }
+                                }
+                            }
+                        });
+                    </script>
+                </div>
+                <!-- 单据编码 -->
+                <div class="col-xs-4">
+                    <div class="form-group">
+                        <label class="col-xs-4 control-label"><@spring.message "hscs.ae.AeTfrEvents.sourceReference"/></label>
+                        <div class="col-xs-7">
+                            <input id="reference" name="reference"  class="k-textbox" type="text" width="100%" data-bind="value:model.reference" >
+                            <span class="k-invalid-msg" data-for="reference"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+            <!-- 批次号 -->
+            <div class="col-xs-4">
+                <div class="form-group">
+                    <label class="col-xs-4 control-label"><@spring.message "hscs.ap.appolines.batchno"/></label>
+                    <div class="col-xs-7">
+                        <input id="batchNo" name="batchNo"  class="k-textbox" type="text" width="100%" data-bind="value:model.batchNo" >
+                        <span class="k-invalid-msg" data-for="batchNo"></span>
+                    </div>
+                </div>
+            </div>
+            </div> </div>
+
+            <div class="pull-left" id="toolbar-btn" style="padding-bottom:10px;">
+
+                <span id="btn_query" class="btn btn-primary" style="float:left;margin-right:5px;width:100px" data-bind="click:queryResource" type="submit">
+                    <i class="fa fa-search" style="margin-right:3px;"></i> <@spring.message "hap.query"/></span>
+                <span id="btn_createAccount" data-bind="click:createAccountFunction" type="button" class="btn btn-primary" style="float:left;margin-right:5px;width:120px">
+                    <i class="fa fa-plus-square" style="margin-right:3px;"></i><@spring.message "hscs.ae.tfrevents.createaccounts"/></span>
+                <span id="btn_reset"  data-bind="click:resetForm" class="btn btn-default" style="float:left;margin-right:5px;width:120px">
+                    <i class="fa fa-eraser" style="margin-right:3px;"></i><@spring.message "hap.reset"/></span>
+                <span id="btn_rollback" data-bind="click:rollbackFunction" type="button" class="btn btn-default" style="float:left;margin-right:5px;width:150px">
+                    <i class="fa fa-mail-reply" style="margin-right:3px;"></i><@spring.message "hscs.ae.tfrevents.roleback"/></span>
+                <span id="btn_accountRollback" data-bind="click:accountRollbackFunction" type="button" class="btn btn-default" style="float:left;margin-right:5px;width:150px">
+                    <i class="fa fa-mail-reply" style="margin-right:3px;"></i><@spring.message "hscs.ae.tfrevents.accountroleback"/></span>
+                <span id="btn_export" data-bind="click:exportExcelFunction" class="btn btn-primary" style="float:left;margin-right:5px;width:120px">
+                    <i class="fa fa-share-square-o" style="margin-right:3px;"></i><@spring.message "hap.exportexcel"/></span>
+            </div>
+        </div>
+</div>
+    </div>
+
+    <script>kendo.bind($('#toolbar-btn'), viewModel);</script>
+
+    <script>kendo.bind($('#query-form'), viewModel);</script>
+    <div style="clear:both">
+        <div id="Grid"></div>
+    </div>
+    <div id="excel-grid" style="display:none"></div>
+<div id="createAccount"></div>
+<div id="Rollback"></div>
+<div id="lineWin"></div>
+</div>
+
+<script type="text/javascript">
+    var validator1=$("#form").kendoValidator({
+        messages:{
+            required: '<@spring.message "hscs.required"/>'
+        },
+        rules:{
+
+        }
+    }).data("kendoValidator");
+    var BaseUrl = _basePath;
+    dataSource = new kendo.data.DataSource({
+        transport: {
+            read: {
+                url: BaseUrl + "/hscs/ae/tfr/events/query",
+                type: "POST",
+                dataType: "json"
+            },
+            update: {
+                url: BaseUrl + "/hscs/ae/tfr/events/submit",
+                type: "POST",
+                contentType: "application/json"
+            },
+            destroy: {
+                url: BaseUrl + "/hscs/ae/tfr/events/remove",
+                type: "POST",
+                contentType: "application/json"
+            },
+            create: {
+                url: BaseUrl + "/hscs/ae/tfr/events/submit",
+                type: "POST",
+                contentType: "application/json"
+            },
+            parameterMap: function (options, type) {
+                if (type !== "read" && options.models) {
+                    var datas = Hap.prepareSubmitParameter(options, type)
+                    return kendo.stringify(datas);
+                } else if (type === "read") {
+                    return Hap.prepareQueryParameter(viewModel.model.toJSON(), options)
+                }
+            }
+        },
+        batch: true,
+        serverPaging: true,
+        pageSize: 10,
+        schema: {
+            data: 'rows',
+            total: 'total',
+            model: {
+                id: "tfrEventBatchId",
+                fields: {}
+            }
+        }
+    });
+
+    $("#Grid").kendoGrid({
+        dataSource: dataSource,
+        height: '100%',
+        resizable: true,
+        scrollable: true,
+        navigatable: false,
+        autoBind: false,
+        selectable: 'multiple, rowbox',
+        pageable: {
+            pageSizes: [5, 10, 20, 50,100,200],
+            refresh: true,
+            buttonCount: 5
+        },
+        columns: [
+
+                    {
+                field: "eventBatchName",
+                title: '<@spring.message "hscs.ae.aeruleheaders.event.name"/>',
+                width: 120,
+//                attributes: {style: "text-align:center"},
+//                headerAttributes: {style: "text-align:center"}
+            },
+                    {
+                field: "basicTable",
+                title: '<@spring.message "hscs.ae.aeeventheaders.basictable"/>',
+                width: 120,
+//                attributes: {style: "text-align:center"},
+//                headerAttributes: {style: "text-align:center"},
+
+                        template: function (dataItem) {
+                            var v = dataItem.basicTable || '';
+                            $.each(sourceTable, function (i, n) {
+                                if (n.value ==v){
+                                    v = n.meaning;
+                                    return v;
+                                }
+                            })
+                            return v;
+                        }
+            },
+                    {
+                field: "reference",
+                title: '<@spring.message "hscs.ae.AeTfrEvents.sourceReference"/>',
+                width: 120,
+//                attributes: {style: "text-align:center"},
+//                headerAttributes: {style: "text-align:center"}
+            },
+                    {
+                field: "reversalFlag",
+                title: '<@spring.message "hscs.ae.AeTfrEvents.reversalFlag"/>',
+                width: 80,
+//                attributes: {style: "text-align:center"},
+//                headerAttributes: {style: "text-align:center"},
+                        template: function (dataItem) {
+                            var v = dataItem.reversalFlag || '';
+                            $.each(yesOrNo, function (i, n) {
+                                if (n.value ==v){
+                                    v = n.meaning;
+                                    return v;
+                                }
+                            })
+                            return v;
+                        },
+            },
+                    {
+                field: "accountingDate",
+                title: '<@spring.message "hscs.ae.AeTfrEvents.accountingDate"/>',
+                width: 120,
+//                attributes: {style: "text-align:center"},
+//                headerAttributes: {style: "text-align:center"}
+            },
+            {
+                field: "creationDate",
+                title: '<@spring.message "hscs.ae.creationdate"/>',
+                width: 120,
+//                attributes: {style: "text-align:center"},
+//                headerAttributes: {style: "text-align:center"}
+            },
+            {
+                field: "batchNo",
+                title: '<@spring.message "hscs.ap.appolines.batchno"/>',
+                width: 120,
+//                attributes: {style: "text-align:center"},
+//                headerAttributes: {style: "text-align:center"}
+            },
+                    {
+                field: "accountingStatus",
+                title: '<@spring.message "hscs.ae.AeTfrEvents.accountingStatus"/>',
+                width: 120,
+//                attributes: {style: "text-align:center"},
+//                headerAttributes: {style: "text-align:center"}
+                template: function (dataItem) {
+                    var v = dataItem.accountingStatus || '';
+                    $.each(AccountingStatus, function (i, n) {
+                        if (n.value ==v){
+                            v = n.meaning;
+                            return v;
+                        }
+                    })
+                    return v;
+                },
+            },
+//            {
+//                field: "reversalAccountingFlagMeaning",
+//                title: '<@spring.message "hscs.ae.aetfrinterface.reversalaccountingflagmeaning"/>',
+//                width: 120,
+////                attributes: {style: "text-align:center"},
+////                headerAttributes: {style: "text-align:center"}
+//            },
+            {
+                field: "accountingRemarks",
+                title: '<@spring.message "hscs.ae.AeTfrEvents.accountingRemarks"/>',
+                width: 120,
+//                attributes: {style: "text-align:center"},
+//                headerAttributes: {style: "text-align:center"},
+
+            },
+            {
+                title:'<@spring.message "hscs.pub.PubOrgShareHeaders.action"/>',
+                width:190,
+                template:function(dataItem){
+                        var html='<a href="javascript:void(0);" onclick="toLine('+dataItem.tfrEventBatchId+')" style="text-decoration : underline;color : blue;cursor:pointer;float:left;margin-right: 10px">查看账务明细</a>'+
+                            '<a href="javascript:void(0);" onclick="toOrder('+dataItem.sourcePrimaryKeyId+',\''+dataItem.basicTable+'\',\''+dataItem.sourcePrimaryKeyField+'\'' +')"  style="text-decoration : underline;color : blue;cursor:pointer;float:left;margin-right: 10px">查看事务处理</a>';
+                        return html;
+
+                },
+//                attributes: {style:"text-align:center"},
+//                headerAttributes:{style:"text-align:center"}
+            }
+
+        ],
+        editable: false
+    });
+
+    function toLine(tfrEventBatchId) {
+        var win = $('#lineWin').kendoWindow({
+            iframe: true,
+            draggable: false,
+            content: '${base.contextPath}/ae/ae_tfr_dtl_accounts.html?tfrEventBatchId='+tfrEventBatchId,
+        }).data('kendoWindow');
+        win.title("查看事件-账务明细");
+        win.maximize().open();
+    }
+
+
+    function toOrder(sourcePrimaryKeyId,sourceTable,sourcePrimaryKeyField) {
+        if("HSCS_AR_SETTLE_ORDERS"==sourceTable){
+            var arSettleWin = $('#lineWin').kendoWindow({
+                iframe: true,
+                draggable: false,
+                content: '${base.contextPath}/ar/ar_sales_statement_dtl.html?settleOrderId='+sourcePrimaryKeyId+'&isLook=1&isEdit=0',
+            }).data('kendoWindow');
+            arSettleWin.title("营收结算单明细查看");
+            arSettleWin.maximize().open();
+        }else if("HSCS_AP_PO_SETTLE_ORDERS"==sourceTable){
+            var apSettleWin = $('#lineWin').kendoWindow({
+                iframe: true,
+                draggable: false,
+                content: '${base.contextPath}/ap/ap_po_settle_orders_details.html?look=1&poSettleId='+sourcePrimaryKeyId+'&hideButton=1',
+            }).data('kendoWindow');
+            apSettleWin.title("采付结算单明细查看");
+            apSettleWin.maximize().open();
+        }else if("HSCS_AP_PAYMENT_HEADERS"==sourceTable){
+            var paymentWin = $('#lineWin').kendoWindow({
+                iframe: true,
+                draggable: false,
+                content: '${base.contextPath}/ap/ap_payment_lines.html?look=1&paymentHeaderId='+sourcePrimaryKeyId+'&hideButton=1',
+            }).data('kendoWindow');
+            paymentWin.title("付款单明细查看");
+            paymentWin.maximize().open();
+        }else if ("HSCS_AP_RECEIPT_HEADERS"==sourceTable){
+            var receiptWin = $('#lineWin').kendoWindow({
+                iframe: true,
+                draggable: false,
+                content: '${base.contextPath}/ap/ap_receipt_lines.html?hideButton=1&look=1&receiptHeaderId='+ sourcePrimaryKeyId,
+            }).data('kendoWindow');
+            receiptWin.title("收款单明细查看");
+            receiptWin.maximize().open();
+
+        }else if ("HSCS_AR_RECEIPT_HEADERS"==sourceTable){
+            var aRreceiptWin = $('#lineWin').kendoWindow({
+                iframe: true,
+                draggable: false,
+                content: '${base.contextPath}/ar/ar_receipt_lines.html?look=1&receiptHeaderId='+sourcePrimaryKeyId+"&hideButton=1",
+            }).data('kendoWindow');
+            aRreceiptWin.title("收款单明细查看");
+            aRreceiptWin.maximize().open();
+
+        }else if ("HSCS_AR_ACT_PAYMENT_INF"==sourceTable){
+            var arPaymentWin = $('#lineWin').kendoWindow({
+                iframe: true,
+                draggable: false,
+                content: '${base.contextPath}/ar/ar_payment_lines.html?look=1&paymentHeaderId='+ sourcePrimaryKeyId+'&hideButton=1',
+
+            }).data('kendoWindow');
+            arPaymentWin.title("付款单明细查看");
+            arPaymentWin.maximize().open();
+
+        }else if("HSCS_AE_TFR_INTERFACE"==sourceTable){
+            var win = $('#lineWin').kendoWindow({
+                iframe: true,
+                draggable: false,
+                content: '${base.contextPath}/ae/ae_tfr_line_interface.html?tfrInterfaceId='+sourcePrimaryKeyId,
+            }).data('kendoWindow');
+            win.title("查看事件-账务明细");
+            win.maximize().open();
+
+        }else if ("HSCS_CE_FLOW_RECORD"==sourceTable){
+            var win = $('#lineWin').kendoWindow({
+                iframe: true,
+                draggable: false,
+                content: '${base.contextPath}${base.contextPath}/ce/ce_unknown_payment_claim.html?flowRecordId='+sourcePrimaryKeyId+"&isJump=1&hideButton=1",
+            }).data('kendoWindow');
+            win.title("不明到款信息");
+            win.maximize().open();
+
+        }else if ("HSCS_AP_ACT_PAYMENT_INF"==sourceTable){
+            var win = $('#lineWin').kendoWindow({
+                iframe: true,
+                draggable: false,
+                content: '${base.contextPath}/ap/ap_payment_lines.html?look=1&paymentHeaderId='+ sourcePrimaryKeyId+'&hideButton=1',
+            }).data('kendoWindow');
+            win.title('付款单信息');
+            win.maximize().open();
+
+        }else if ("HSCS_PUB_APPLY_RESULTS"==sourceTable){
+            alert("还没有页面哦！！！")
+        }
+
+    }
+
+    function deleteData() {
+
+        Hap.deleteGridSelection({
+            grid: $('#Grid')
+        });
+
+    }
+
+    Hap.autoResizeGrid("#Grid");
+
+
+</script>
+</body>
+</html>

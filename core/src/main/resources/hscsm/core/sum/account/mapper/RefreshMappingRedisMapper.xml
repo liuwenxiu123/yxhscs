@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hscsm.core.sum.account.mapper.RefreshMappingRedisMapper">
+    <select id="getInterfaceNames" resultType="java.lang.String">
+        SELECT DISTINCT interface_name
+        from hscs_itf_imp_interfaces
+        <if test="interfaceName != null">
+            WHERE interface_name LIKE concat('%',#{interfaceName},'%');
+        </if>
+    </select>
+</mapper>

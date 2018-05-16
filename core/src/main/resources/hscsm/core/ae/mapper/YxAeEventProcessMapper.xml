@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hscsm.core.ae.mapper.YxAeEventProcessMapper">
+    <select id="getReferenceList" resultType="java.lang.String">
+        SELECT ${referenceField}
+        FROM ${basicTable}
+        WHERE ${accStatusField} = 'NEW'
+        AND
+          MOD (ABS(${primaryKeyField}),#{batch}) = #{batchMod}
+        <if test="accountingDateTo!=null">
+            and #{accountingDateTo,jdbcType=DATE} &gt;= ${accDateField}
+        </if>
+    </select>
+    
+    <select id="getBasicTableByCategory" resultType="java.lang.String">
+        SELECT haec.BASIC_TABLE
+        FROM hscs_ae_event_category haec
+        LEFT JOIN hscs_ae_event_batches haeb
+                ON haeb.EVENT_CATEGORY_CODE = haec.EVENT_CATEGORY_CODE
+        WHERE haeb.EVENT_BATCH_NAME = #{eventBatchName}
+    </select>
+</mapper>

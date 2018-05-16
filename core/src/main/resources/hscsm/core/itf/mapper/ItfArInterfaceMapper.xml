@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hscsm.core.itf.mapper.ItfArInterfaceMapper">
+    <resultMap id="BaseResultMap" type="hscsm.core.itf.dto.ItfArInterface">
+        <result column="AR_INTERFACE_ID" property="arInterfaceId" jdbcType="DECIMAL"/>
+        <result column="ACCOUNTING_STATUS" property="accountingStatus" jdbcType="VARCHAR"/>
+        <result column="ACCOUNTING_DATE" property="accountingDate" jdbcType="DATE"/>
+        <result column="ACCOUNTING_REMARK" property="accountingRemark" jdbcType="VARCHAR"/>
+        <result column="UNIQUE_CODE" property="uniqueCode" jdbcType="VARCHAR"/>
+        <result column="APPLY_NUM" property="applyNum" jdbcType="VARCHAR"/>
+        <result column="CONTRACT_START_DATE" property="contractStartDate" jdbcType="VARCHAR"/>
+        <result column="CUSTOMER_NAME" property="customerName" jdbcType="VARCHAR"/>
+        <result column="PROD_SCHEME_NAME" property="prodSchemeName" jdbcType="VARCHAR"/>
+        <result column="LEASE_TYPE" property="leaseType" jdbcType="VARCHAR"/>
+        <result column="LEASE_COMPANY" property="leaseCompany" jdbcType="VARCHAR"/>
+        <result column="SUB_COMPANY" property="subCompany" jdbcType="VARCHAR"/>
+        <result column="SERIAL_NUMBER" property="serialNumber" jdbcType="VARCHAR"/>
+        <result column="SCHEDULED_REPAYMENT_DATE" property="scheduledRepaymentDate" jdbcType="VARCHAR"/>
+        <result column="INCOME_PERIOD" property="incomePeriod" jdbcType="VARCHAR"/>
+        <result column="RENTAL_INCOME_I1" property="rentalIncomeI1" jdbcType="VARCHAR"/>
+        <result column="RENTAL_INCOME_I2" property="rentalIncomeI2" jdbcType="VARCHAR"/>
+        <result column="RECE_PRINCIPAL" property="recePrincipal" jdbcType="VARCHAR"/>
+        <result column="RECE_INTEREST_I1" property="receInterestI1" jdbcType="VARCHAR"/>
+        <result column="RECE_INTEREST_I2" property="receInterestI2" jdbcType="VARCHAR"/>
+        <result column="PREPAID_RENT_PER_PERIOD" property="prepaidRentPerPeriod" jdbcType="VARCHAR"/>
+        <result column="SHALL_CARRY_INTEREST" property="shallCarryInterest" jdbcType="VARCHAR"/>
+        <result column="POST_FEE" property="postFee" jdbcType="VARCHAR"/>
+        <result column="SERVICE_CHARGE_I1" property="serviceChargeI1" jdbcType="VARCHAR"/>
+        <result column="SERVICE_CHARGE_I2" property="serviceChargeI2" jdbcType="VARCHAR"/>
+        <result column="PRINCIPAL_TAX" property="principalTax" jdbcType="VARCHAR"/>
+        <result column="INCOME_TAX" property="incomeTax" jdbcType="VARCHAR"/>
+        <result column="PRINCIPAL_BALANCE" property="principalBalance" jdbcType="VARCHAR"/>
+        <result column="SERVICE_CHARGE_FUNCTION" property="serviceChargeFunction" jdbcType="VARCHAR"/>
+        <result column="PAYMENT_STATUS" property="paymentStatus" jdbcType="VARCHAR"/>
+        <result column="OVERDUE_START_DATE" property="overdueStartDate" jdbcType="VARCHAR"/>
+        <result column="OVERDUE_DAYS" property="overdueDays" jdbcType="VARCHAR"/>
+        <result column="OVERDUE_90_DATE" property="overdue90Date" jdbcType="VARCHAR"/>
+        <result column="COLLECT_DATE" property="collectDate" jdbcType="VARCHAR"/>
+        <result column="CONTRACT_STATUS" property="contractStatus" jdbcType="VARCHAR"/>
+        <result column="SHOULD_INCOME" property="shouldIncome" jdbcType="VARCHAR" />
+        <result column="SOURCE_VEHICLE" property="sourceVehicle" jdbcType="VARCHAR" />
+        <result column="INVOICE_ENTITY" property="invoiceEntity" jdbcType="VARCHAR" />
+        <result column="ACC_ENTITY" property="accEntity" jdbcType="VARCHAR" />
+        <result column="APPLY_STATUS" property="applyStatus" jdbcType="VARCHAR" />
+        <result column="ACTUAL_INCOME" property="actualIncome" jdbcType="VARCHAR" />
+        <result column="SUB_COM_VALUE" property="subComValue" jdbcType="VARCHAR" />
+        <result column="BELONG_COM_VALUE" property="belongComValue" jdbcType="VARCHAR" />
+        <result column="INVOICE_COM_VALUE" property="invoiceComValue" jdbcType="VARCHAR" />
+
+        <result column="ACTUAL_MONTHLY_INCOME" property="actualMonthlyIncome" jdbcType="VARCHAR" />
+        <result column="ACTUAL_CARRY_INTEREST" property="actualCarryInterest" jdbcType="VARCHAR" />
+        <result column="ACTUAL_SERVICE_CHARGE" property="actualServiceCharge" jdbcType="VARCHAR" />
+
+        <result column="ATTRIBUTE6" property="attribute6" jdbcType="VARCHAR" />
+        <result column="ATTRIBUTE7" property="attribute7" jdbcType="VARCHAR" />
+        <result column="ATTRIBUTE8" property="attribute8" jdbcType="VARCHAR" />
+        <result column="ATTRIBUTE9" property="attribute9" jdbcType="VARCHAR" />
+    </resultMap>
+
+
+    <insert id="batchInsertArInterface" parameterType="java.util.List">
+        INSERT INTO yxhscs_itf_ar_interface(
+        APPLY_NUM,
+        CONTRACT_START_DATE,
+        CUSTOMER_NAME,
+        UNIQUE_CODE,
+        PROD_SCHEME_NAME,
+        LEASE_TYPE,
+        LEASE_COMPANY,
+        SUB_COMPANY,
+        SERIAL_NUMBER,
+        SCHEDULED_REPAYMENT_DATE,
+        INCOME_PERIOD,
+        RENTAL_INCOME_I1,
+        RENTAL_INCOME_I2,
+        RECE_PRINCIPAL,
+        RECE_INTEREST_I1,
+        RECE_INTEREST_I2,
+        PREPAID_RENT_PER_PERIOD,
+        SHALL_CARRY_INTEREST,
+        POST_FEE,
+        SERVICE_CHARGE_I1,
+        SERVICE_CHARGE_I2,
+        PRINCIPAL_TAX,
+        INCOME_TAX,
+        PRINCIPAL_BALANCE,
+        PAYMENT_STATUS,
+        OVERDUE_DAYS,
+        CONTRACT_STATUS,
+        SERVICE_CHARGE_FUNCTION,
+        OVERDUE_START_DATE,
+        OVERDUE_90_DATE,
+        COLLECT_DATE,
+        SHOULD_INCOME,
+        SOURCE_VEHICLE,
+        INVOICE_ENTITY,
+        ACC_ENTITY,
+        APPLY_STATUS,
+        ACTUAL_INCOME,
+        ACCOUNTING_STATUS,
+        ACCOUNTING_DATE,
+        SUB_COM_VALUE,
+        BELONG_COM_VALUE,
+        INVOICE_COM_VALUE,
+        ACTUAL_MONTHLY_INCOME,
+        ACTUAL_CARRY_INTEREST,
+        ACTUAL_SERVICE_CHARGE,
+        ATTRIBUTE6,
+        ATTRIBUTE7,
+        ATTRIBUTE8,
+        ATTRIBUTE9
+        )
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.applyNum},
+            #{item.contractStartDate},
+            #{item.customerName},
+            #{item.uniqueCode},
+            #{item.prodSchemeName},
+            #{item.leaseType},
+            #{item.leaseCompany},
+            #{item.subCompany},
+            #{item.serialNumber},
+            #{item.scheduledRepaymentDate},
+            #{item.incomePeriod},
+            #{item.rentalIncomeI1},
+            #{item.rentalIncomeI2},
+            #{item.recePrincipal},
+            #{item.receInterestI1},
+            #{item.receInterestI2},
+            #{item.prepaidRentPerPeriod},
+            #{item.shallCarryInterest},
+            #{item.postFee},
+            #{item.serviceChargeI1},
+            #{item.serviceChargeI2},
+            #{item.principalTax},
+            #{item.incomeTax},
+            #{item.principalBalance},
+            #{item.paymentStatus},
+            #{item.overdueDays},
+            #{item.contractStatus},
+            #{item.serviceChargeFunction},
+            #{item.overdueStartDate},
+            #{item.overdue90Date},
+            #{item.collectDate},
+            #{item.shouldIncome},
+            #{item.sourceVehicle},
+            #{item.invoiceEntity},
+            #{item.accEntity},
+            #{item.applyStatus},
+            #{item.actualIncome},
+            #{item.accountingStatus},
+            #{item.accountingDate},
+            #{item.subComValue},
+            #{item.belongComValue},
+            #{item.invoiceComValue},
+            #{item.actualMonthlyIncome},
+            #{item.actualCarryInterest},
+            #{item.actualServiceCharge},
+            #{item.attribute6},
+            #{item.attribute7},
+            #{item.attribute8},
+            #{item.attribute9}
+            )
+        </foreach>
+    </insert>
+
+    <select id="queryNeedUpdateArInterface" resultMap="BaseResultMap">
+      SELECT
+        *
+        from yxhscs_itf_ar_interface
+          where ATTRIBUTE1 is NULL or datediff(now(),ATTRIBUTE1)  > 0
+          ORDER BY  APPLY_NUM
+    </select>
+
+    <update id="updateArInterfaceData" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";">
+            UPDATE yxhscs_itf_ar_interface
+            SET
+            <if test="item.accountingStatus == null or item.accountingStatus == ''">
+                ACCOUNTING_STATUS = 'NEW',
+            </if>
+                ATTRIBUTE11 ='Y',
+                LAST_UPDATE_DATE = NOW(),
+                ACTUAL_INCOME =#{item.actualIncome},
+                ACTUAL_MONTHLY_INCOME =#{item.actualMonthlyIncome},
+                ACTUAL_CARRY_INTEREST =#{item.actualCarryInterest},
+                ACTUAL_SERVICE_CHARGE =#{item.actualServiceCharge}
+            WHERE
+            ar_interface_id = #{item.arInterfaceId}
+        </foreach>
+    </update>
+
+    <select id="getItfArByIds" parameterType="java.util.List" resultMap="BaseResultMap">
+
+        SELECT
+        *
+        FROM
+        yxhscs_itf_ar_interface
+        WHERE APPLY_NUM in
+        <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+            #{item.attribute1,jdbcType=DECIMAL}
+        </foreach>
+        <if test="item.attribute2 !=null">
+            AND
+            SERIAL_NUMBER in
+            <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+                #{item.attribute2,jdbcType=DECIMAL}
+            </foreach>
+        </if>
+        ORDER BY APPLY_NUM
+            ,
+            SERIAL_NUMBER
+
+    </select>
+
+    <select id="queryInShallPeriod" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM yxhscs_itf_ar_interface
+          WHERE INCOME_PERIOD = #{date}
+    </select>
+
+    <update id="updateArPaymentStatus" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";">
+            UPDATE yxhscs_itf_ar_interface
+             SET
+            <choose>
+                <when test="item.amount >0">
+                    PAYMENT_STATUS = '结束',
+                    OVERDUE_START_DATE = NULL ,
+                    OVERDUE_90_DATE = NULL ,
+                    OVERDUE_DAYS = '0',
+                </when>
+                <otherwise>
+                    PAYMENT_STATUS = '生效',
+                </otherwise>
+            </choose>
+                ATTRIBUTE1 = now()
+            WHERE
+              APPLY_NUM = #{item.attribute1}
+            AND
+              SERIAL_NUMBER = #{item.attribute2}
+        </foreach>
+    </update>
+
+    <select id="querUpdateActualIncome" resultMap="BaseResultMap" parameterType="java.util.List">
+        select * from
+        yxhscs_itf_ar_interface
+        where apply_num in
+        <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+            #{item.attribute1,jdbcType=DECIMAL}
+        </foreach>
+    </select>
+
+    <select id="queryActualIncome" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT  * FROM yxhscs_itf_ar_interface
+        WHERE CONTRACT_STATUS IN ('生效', '合同已生效')
+        AND APPLY_STATUS in ('06-合同已生效', '07-客户已提车', '08-合同已放款', '客户已提车')
+        AND ATTRIBUTE11 IS NULL
+        AND  INCOME_PERIOD = substring_index(#{incomePeriod}, '-', 2) limit 50000
+    </select>
+
+
+    <select id="queryMonthRaw" resultMap="BaseResultMap" parameterType="java.lang.String">
+
+        SELECT
+            *
+        FROM
+            yxhscs_itf_ar_interface
+        WHERE
+            APPLY_NUM IN (
+                SELECT
+                    tt.apply_num
+                FROM
+                    (
+                        SELECT
+                            APPLY_NUM
+                        FROM
+                            yxhscs_itf_ar_interface
+                        WHERE
+                            attribute10 IS NULL
+                        AND INCOME_PERIOD = #{strDate, jdbcType=VARCHAR}
+                        GROUP BY
+                            APPLY_NUM
+                        LIMIT 1500
+                    ) tt
+            )
+        ORDER BY
+            APPLY_NUM,
+            CONVERT (SERIAL_NUMBER, SIGNED)
+    </select>
+
+
+    <update id="updateMonthFlag" parameterType="java.util.List">
+        UPDATE yxhscs_itf_ar_interface
+        SET ATTRIBUTE10 =  'Y'
+        WHERE AR_INTERFACE_ID in
+        <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+            #{item.arInterfaceId,jdbcType=DECIMAL}
+        </foreach>
+    </update>
+
+
+
+    <update id="updatePreValue" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";">
+            UPDATE yxhscs_itf_ar_interface
+            SET PREPAID_RENT_PER_PERIOD = #{item.prepaidRentPerPeriod,jdbcType=VARCHAR},
+                SHOULD_INCOME = #{item.shouldIncome,jdbcType=VARCHAR}
+            WHERE APPLY_NUM =#{item.applyNum,jdbcType=VARCHAR}
+            AND  SERIAL_NUMBER = #{item.serialNumber,jdbcType=VARCHAR}
+        </foreach>
+    </update>
+
+
+
+
+</mapper>

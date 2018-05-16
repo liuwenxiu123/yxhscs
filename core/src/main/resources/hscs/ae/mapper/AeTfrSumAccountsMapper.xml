@@ -1,0 +1,1384 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hscs.ae.mapper.AeTfrSumAccountsMapper">
+    <resultMap id="BaseResultMap" type="hscs.ae.dto.AeTfrSumAccounts">
+        <result column="TFR_SUM_ACCOUNT_ID" property="tfrSumAccountId" jdbcType="DECIMAL" />
+        <result column="ACCOUNT_HEADER_ID" property="accountHeaderId" jdbcType="DECIMAL" />
+        <result column="EVENT_BATCH_ID" property="eventBatchId" jdbcType="DECIMAL" />
+        <result column="ACCOUNT_HEADER_NAME" property="accountHeaderName" jdbcType="VARCHAR" />
+        <result column="EVENT_HEADER_ID" property="eventHeaderId" jdbcType="DECIMAL" />
+        <result column="EVENT_HEADER_NAME" property="eventHeaderName" jdbcType="DECIMAL" />
+        <result column="LINE_COUNTS" property="lineCounts" jdbcType="DECIMAL" />
+        <result column="ACCOUNTING_DATE" property="accountingDate" jdbcType="DATE" />
+        <result column="ACCOUNTING_STATUS" property="accountingStatus" jdbcType="VARCHAR" />
+        <result column="ACCOUNTING_REMARKS" property="accountingRemarks" jdbcType="VARCHAR" />
+        <result column="ACCOUNTING_STATUS_MEANING" property="accountingStatusMeaning" jdbcType="VARCHAR" />
+        <result column="DOCUMENT_HEADER_NUM" property="documentHeaderNum" jdbcType="VARCHAR" />
+        <result column="DOCUMENT_LINE_NUM" property="documentLineNum" jdbcType="VARCHAR" />
+        <result column="DELIVERY_STATUS" property="deliveryStatus" jdbcType="VARCHAR" />
+        <result column="DELIVERY_STATUS_MEANING" property="deliveryStatusMeaning" jdbcType="VARCHAR" />
+        <result column="DELIVERY_REMARKS" property="deliveryRemarks" jdbcType="VARCHAR" />
+        <result column="TFR_SUM_ACCOUNT_NUM" property="tfrSumAccountNum" jdbcType="VARCHAR" />
+        <result column="CREATION_DATE" property="creationDate" jdbcType="DATE" />
+        <result column="SOURCE_TABLE" property="sourceTable" jdbcType="VARCHAR" />
+        <result column="CERTIFICATE_HEADER_ID" property="certificateHeaderId" jdbcType="VARCHAR" />
+        <result column="CERTIFICATE_LINE_ID" property="certificateLineId" jdbcType="VARCHAR" />
+        <result column="FEEDBACK_MES_ID" property="feedbackMesId" jdbcType="DECIMAL" />
+        <result column="VALUE1" property="value1" jdbcType="VARCHAR" />
+        <result column="VALUE2" property="value2" jdbcType="VARCHAR" />
+        <result column="VALUE3" property="value3" jdbcType="VARCHAR" />
+        <result column="VALUE4" property="value4" jdbcType="VARCHAR" />
+        <result column="VALUE5" property="value5" jdbcType="VARCHAR" />
+        <result column="VALUE6" property="value6" jdbcType="VARCHAR" />
+        <result column="VALUE7" property="value7" jdbcType="VARCHAR" />
+        <result column="VALUE8" property="value8" jdbcType="VARCHAR" />
+        <result column="VALUE9" property="value9" jdbcType="VARCHAR" />
+        <result column="VALUE10" property="value10" jdbcType="VARCHAR" />
+        <result column="VALUE11" property="value11" jdbcType="VARCHAR" />
+        <result column="VALUE12" property="value12" jdbcType="VARCHAR" />
+        <result column="VALUE13" property="value13" jdbcType="VARCHAR" />
+        <result column="VALUE14" property="value14" jdbcType="VARCHAR" />
+        <result column="VALUE15" property="value15" jdbcType="VARCHAR" />
+        <result column="VALUE16" property="value16" jdbcType="VARCHAR" />
+        <result column="VALUE17" property="value17" jdbcType="VARCHAR" />
+        <result column="VALUE18" property="value18" jdbcType="VARCHAR" />
+        <result column="VALUE19" property="value19" jdbcType="VARCHAR" />
+        <result column="VALUE20" property="value20" jdbcType="VARCHAR" />
+        <result column="VALUE21" property="value21" jdbcType="VARCHAR" />
+        <result column="VALUE22" property="value22" jdbcType="VARCHAR" />
+        <result column="VALUE23" property="value23" jdbcType="VARCHAR" />
+        <result column="VALUE24" property="value24" jdbcType="VARCHAR" />
+        <result column="VALUE25" property="value25" jdbcType="VARCHAR" />
+        <result column="VALUE26" property="value26" jdbcType="VARCHAR" />
+        <result column="VALUE27" property="value27" jdbcType="VARCHAR" />
+        <result column="VALUE28" property="value28" jdbcType="VARCHAR" />
+        <result column="VALUE29" property="value29" jdbcType="VARCHAR" />
+        <result column="VALUE30" property="value30" jdbcType="VARCHAR" />
+        <result column="VALUE31" property="value31" jdbcType="VARCHAR" />
+        <result column="VALUE32" property="value32" jdbcType="VARCHAR" />
+        <result column="VALUE33" property="value33" jdbcType="VARCHAR" />
+        <result column="VALUE34" property="value34" jdbcType="VARCHAR" />
+        <result column="VALUE35" property="value35" jdbcType="VARCHAR" />
+        <result column="VALUE36" property="value36" jdbcType="VARCHAR" />
+        <result column="VALUE37" property="value37" jdbcType="VARCHAR" />
+        <result column="VALUE38" property="value38" jdbcType="VARCHAR" />
+        <result column="VALUE39" property="value39" jdbcType="VARCHAR" />
+        <result column="VALUE40" property="value40" jdbcType="VARCHAR" />
+        <result column="VALUE41" property="value41" jdbcType="VARCHAR" />
+        <result column="VALUE42" property="value42" jdbcType="VARCHAR" />
+        <result column="VALUE43" property="value43" jdbcType="VARCHAR" />
+        <result column="VALUE44" property="value44" jdbcType="VARCHAR" />
+        <result column="VALUE45" property="value45" jdbcType="VARCHAR" />
+        <result column="VALUE46" property="value46" jdbcType="VARCHAR" />
+        <result column="VALUE47" property="value47" jdbcType="VARCHAR" />
+        <result column="VALUE48" property="value48" jdbcType="VARCHAR" />
+        <result column="VALUE49" property="value49" jdbcType="VARCHAR" />
+        <result column="VALUE50" property="value50" jdbcType="VARCHAR" />
+        <result column="VALUE51" property="value51" jdbcType="VARCHAR" />
+        <result column="VALUE52" property="value52" jdbcType="VARCHAR" />
+        <result column="VALUE53" property="value53" jdbcType="VARCHAR" />
+        <result column="VALUE54" property="value54" jdbcType="VARCHAR" />
+        <result column="VALUE55" property="value55" jdbcType="VARCHAR" />
+        <result column="VALUE56" property="value56" jdbcType="VARCHAR" />
+        <result column="VALUE57" property="value57" jdbcType="VARCHAR" />
+        <result column="VALUE58" property="value58" jdbcType="VARCHAR" />
+        <result column="VALUE59" property="value59" jdbcType="VARCHAR" />
+        <result column="VALUE60" property="value60" jdbcType="VARCHAR" />
+        <result column="VALUE61" property="value61" jdbcType="VARCHAR" />
+        <result column="VALUE62" property="value62" jdbcType="VARCHAR" />
+        <result column="VALUE63" property="value63" jdbcType="VARCHAR" />
+        <result column="VALUE64" property="value64" jdbcType="VARCHAR" />
+        <result column="VALUE65" property="value65" jdbcType="VARCHAR" />
+        <result column="VALUE66" property="value66" jdbcType="VARCHAR" />
+        <result column="VALUE67" property="value67" jdbcType="VARCHAR" />
+        <result column="VALUE68" property="value68" jdbcType="VARCHAR" />
+        <result column="VALUE69" property="value69" jdbcType="VARCHAR" />
+        <result column="VALUE70" property="value70" jdbcType="VARCHAR" />
+        <result column="VALUE71" property="value71" jdbcType="VARCHAR" />
+        <result column="VALUE72" property="value72" jdbcType="VARCHAR" />
+        <result column="VALUE73" property="value73" jdbcType="VARCHAR" />
+        <result column="VALUE74" property="value74" jdbcType="VARCHAR" />
+        <result column="VALUE75" property="value75" jdbcType="VARCHAR" />
+        <result column="VALUE76" property="value76" jdbcType="VARCHAR" />
+        <result column="VALUE77" property="value77" jdbcType="VARCHAR" />
+        <result column="VALUE78" property="value78" jdbcType="VARCHAR" />
+        <result column="VALUE79" property="value79" jdbcType="VARCHAR" />
+        <result column="VALUE80" property="value80" jdbcType="VARCHAR" />
+        <result column="VALUE81" property="value81" jdbcType="VARCHAR" />
+        <result column="VALUE82" property="value82" jdbcType="VARCHAR" />
+        <result column="VALUE83" property="value83" jdbcType="VARCHAR" />
+        <result column="VALUE84" property="value84" jdbcType="VARCHAR" />
+        <result column="VALUE85" property="value85" jdbcType="VARCHAR" />
+        <result column="VALUE86" property="value86" jdbcType="VARCHAR" />
+        <result column="VALUE87" property="value87" jdbcType="VARCHAR" />
+        <result column="VALUE88" property="value88" jdbcType="VARCHAR" />
+        <result column="VALUE89" property="value89" jdbcType="VARCHAR" />
+        <result column="VALUE90" property="value90" jdbcType="VARCHAR" />
+        <result column="VALUE91" property="value91" jdbcType="VARCHAR" />
+        <result column="VALUE92" property="value92" jdbcType="VARCHAR" />
+        <result column="VALUE93" property="value93" jdbcType="VARCHAR" />
+        <result column="VALUE94" property="value94" jdbcType="VARCHAR" />
+        <result column="VALUE95" property="value95" jdbcType="VARCHAR" />
+        <result column="VALUE96" property="value96" jdbcType="VARCHAR" />
+        <result column="VALUE97" property="value97" jdbcType="VARCHAR" />
+        <result column="VALUE98" property="value98" jdbcType="VARCHAR" />
+        <result column="VALUE99" property="value99" jdbcType="VARCHAR" />
+        <result column="VALUE100" property="value100" jdbcType="VARCHAR" />
+        <result column="VALUE101" property="value101" jdbcType="VARCHAR" />
+        <result column="VALUE102" property="value102" jdbcType="VARCHAR" />
+        <result column="VALUE103" property="value103" jdbcType="VARCHAR" />
+        <result column="VALUE104" property="value104" jdbcType="VARCHAR" />
+        <result column="VALUE105" property="value105" jdbcType="VARCHAR" />
+        <result column="VALUE106" property="value106" jdbcType="VARCHAR" />
+        <result column="VALUE107" property="value107" jdbcType="VARCHAR" />
+        <result column="VALUE108" property="value108" jdbcType="VARCHAR" />
+        <result column="VALUE109" property="value109" jdbcType="VARCHAR" />
+        <result column="VALUE110" property="value110" jdbcType="VARCHAR" />
+        <result column="VALUE111" property="value111" jdbcType="VARCHAR" />
+        <result column="VALUE112" property="value112" jdbcType="VARCHAR" />
+        <result column="VALUE113" property="value113" jdbcType="VARCHAR" />
+        <result column="VALUE114" property="value114" jdbcType="VARCHAR" />
+        <result column="VALUE115" property="value115" jdbcType="VARCHAR" />
+        <result column="VALUE116" property="value116" jdbcType="VARCHAR" />
+        <result column="VALUE117" property="value117" jdbcType="VARCHAR" />
+        <result column="VALUE118" property="value118" jdbcType="VARCHAR" />
+        <result column="VALUE119" property="value119" jdbcType="VARCHAR" />
+        <result column="VALUE120" property="value120" jdbcType="VARCHAR" />
+        <result column="VALUE121" property="value121" jdbcType="VARCHAR" />
+        <result column="VALUE122" property="value122" jdbcType="VARCHAR" />
+        <result column="VALUE123" property="value123" jdbcType="VARCHAR" />
+        <result column="VALUE124" property="value124" jdbcType="VARCHAR" />
+        <result column="VALUE125" property="value125" jdbcType="VARCHAR" />
+        <result column="VALUE126" property="value126" jdbcType="VARCHAR" />
+        <result column="VALUE127" property="value127" jdbcType="VARCHAR" />
+        <result column="VALUE128" property="value128" jdbcType="VARCHAR" />
+        <result column="VALUE129" property="value129" jdbcType="VARCHAR" />
+        <result column="VALUE130" property="value130" jdbcType="VARCHAR" />
+        <result column="VALUE131" property="value131" jdbcType="VARCHAR" />
+        <result column="VALUE132" property="value132" jdbcType="VARCHAR" />
+        <result column="VALUE133" property="value133" jdbcType="VARCHAR" />
+        <result column="VALUE134" property="value134" jdbcType="VARCHAR" />
+        <result column="VALUE135" property="value135" jdbcType="VARCHAR" />
+        <result column="VALUE136" property="value136" jdbcType="VARCHAR" />
+        <result column="VALUE137" property="value137" jdbcType="VARCHAR" />
+        <result column="VALUE138" property="value138" jdbcType="VARCHAR" />
+        <result column="VALUE139" property="value139" jdbcType="VARCHAR" />
+        <result column="VALUE140" property="value140" jdbcType="VARCHAR" />
+        <result column="VALUE141" property="value141" jdbcType="VARCHAR" />
+        <result column="VALUE142" property="value142" jdbcType="VARCHAR" />
+        <result column="VALUE143" property="value143" jdbcType="VARCHAR" />
+        <result column="VALUE144" property="value144" jdbcType="VARCHAR" />
+        <result column="VALUE145" property="value145" jdbcType="VARCHAR" />
+        <result column="VALUE146" property="value146" jdbcType="VARCHAR" />
+        <result column="VALUE147" property="value147" jdbcType="VARCHAR" />
+        <result column="VALUE148" property="value148" jdbcType="VARCHAR" />
+        <result column="VALUE149" property="value149" jdbcType="VARCHAR" />
+        <result column="VALUE150" property="value150" jdbcType="VARCHAR" />
+        <result column="VALUE151" property="value151" jdbcType="VARCHAR" />
+        <result column="VALUE152" property="value152" jdbcType="VARCHAR" />
+        <result column="VALUE153" property="value153" jdbcType="VARCHAR" />
+        <result column="VALUE154" property="value154" jdbcType="VARCHAR" />
+        <result column="VALUE155" property="value155" jdbcType="VARCHAR" />
+        <result column="VALUE156" property="value156" jdbcType="VARCHAR" />
+        <result column="VALUE157" property="value157" jdbcType="VARCHAR" />
+        <result column="VALUE158" property="value158" jdbcType="VARCHAR" />
+        <result column="VALUE159" property="value159" jdbcType="VARCHAR" />
+        <result column="VALUE160" property="value160" jdbcType="VARCHAR" />
+        <result column="VALUE161" property="value161" jdbcType="VARCHAR" />
+        <result column="VALUE162" property="value162" jdbcType="VARCHAR" />
+        <result column="VALUE163" property="value163" jdbcType="VARCHAR" />
+        <result column="VALUE164" property="value164" jdbcType="VARCHAR" />
+        <result column="VALUE165" property="value165" jdbcType="VARCHAR" />
+        <result column="VALUE166" property="value166" jdbcType="VARCHAR" />
+        <result column="VALUE167" property="value167" jdbcType="VARCHAR" />
+        <result column="VALUE168" property="value168" jdbcType="VARCHAR" />
+        <result column="VALUE169" property="value169" jdbcType="VARCHAR" />
+        <result column="VALUE170" property="value170" jdbcType="VARCHAR" />
+        <result column="VALUE171" property="value171" jdbcType="VARCHAR" />
+        <result column="VALUE172" property="value172" jdbcType="VARCHAR" />
+        <result column="VALUE173" property="value173" jdbcType="VARCHAR" />
+        <result column="VALUE174" property="value174" jdbcType="VARCHAR" />
+        <result column="VALUE175" property="value175" jdbcType="VARCHAR" />
+        <result column="VALUE176" property="value176" jdbcType="VARCHAR" />
+        <result column="VALUE177" property="value177" jdbcType="VARCHAR" />
+        <result column="VALUE178" property="value178" jdbcType="VARCHAR" />
+        <result column="VALUE179" property="value179" jdbcType="VARCHAR" />
+        <result column="VALUE180" property="value180" jdbcType="VARCHAR" />
+        <result column="VALUE181" property="value181" jdbcType="VARCHAR" />
+        <result column="VALUE182" property="value182" jdbcType="VARCHAR" />
+        <result column="VALUE183" property="value183" jdbcType="VARCHAR" />
+        <result column="VALUE184" property="value184" jdbcType="VARCHAR" />
+        <result column="VALUE185" property="value185" jdbcType="VARCHAR" />
+        <result column="VALUE186" property="value186" jdbcType="VARCHAR" />
+        <result column="VALUE187" property="value187" jdbcType="VARCHAR" />
+        <result column="VALUE188" property="value188" jdbcType="VARCHAR" />
+        <result column="VALUE189" property="value189" jdbcType="VARCHAR" />
+        <result column="VALUE190" property="value190" jdbcType="VARCHAR" />
+        <result column="VALUE191" property="value191" jdbcType="VARCHAR" />
+        <result column="VALUE192" property="value192" jdbcType="VARCHAR" />
+        <result column="VALUE193" property="value193" jdbcType="VARCHAR" />
+        <result column="VALUE194" property="value194" jdbcType="VARCHAR" />
+        <result column="VALUE195" property="value195" jdbcType="VARCHAR" />
+        <result column="VALUE196" property="value196" jdbcType="VARCHAR" />
+        <result column="VALUE197" property="value197" jdbcType="VARCHAR" />
+        <result column="VALUE198" property="value198" jdbcType="VARCHAR" />
+        <result column="VALUE199" property="value199" jdbcType="VARCHAR" />
+        <result column="VALUE200" property="value200" jdbcType="VARCHAR" />
+        <result column="PROGRAM_ID" property="programId" jdbcType="DECIMAL" />
+        <result column="REQUEST_ID" property="requestId" jdbcType="DECIMAL" />
+    </resultMap>
+    <resultMap id="AccountLineResultMap" type="hscs.ae.dto.AeAccountLines">
+        <result column="COLUMN_NAME" property="columnName" jdbcType="VARCHAR" />
+        <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    </resultMap>
+    <select id="getEStateId" resultMap="BaseResultMap">
+        SELECT TFR_SUM_ACCOUNT_ID
+        from hscs_ae_tfr_sum_accounts
+        where DELIVERY_STATUS = 'E'
+    </select>
+    <select id="getBySumIds" resultMap="BaseResultMap">
+        SELECT
+            i.TFR_SUM_ACCOUNT_ID,
+            i.ACCOUNT_HEADER_ID,
+            i.EVENT_HEADER_ID,
+            i.LINE_COUNTS,
+            i.ACCOUNTING_DATE,
+            i.ACCOUNTING_STATUS,
+            i.ACCOUNTING_REMARKS,
+            i.DOCUMENT_HEADER_NUM,
+            i.DOCUMENT_LINE_NUM,
+            i.DELIVERY_STATUS,
+            i.DELIVERY_REMARKS,
+           VALUE1,VALUE2,VALUE3,VALUE4,VALUE5,VALUE6,VALUE7,
+        VALUE8,VALUE9,VALUE10,VALUE11,VALUE12,VALUE13,VALUE14,VALUE15,VALUE16,VALUE17,VALUE18,VALUE19,
+        VALUE20,VALUE21,VALUE22,VALUE23,VALUE24,VALUE25,VALUE26,VALUE27,VALUE28,VALUE29,VALUE30,VALUE31,
+        VALUE32,VALUE33,VALUE34,VALUE35,VALUE36,VALUE37,VALUE38,VALUE39,VALUE40,VALUE41,VALUE42,VALUE43,
+        VALUE44,VALUE45,VALUE46,VALUE47,VALUE48,VALUE49,VALUE50,VALUE51,VALUE52,VALUE53,VALUE54,VALUE55,
+        VALUE56,VALUE57,VALUE58,VALUE59,VALUE60,VALUE61,VALUE62,VALUE63,VALUE64,VALUE65,VALUE66,VALUE67,VALUE68,
+        VALUE69,VALUE70,VALUE71,VALUE72,VALUE73,VALUE74,VALUE75,VALUE76,VALUE77,VALUE78,VALUE79,VALUE80,VALUE81,
+        VALUE82,VALUE83,VALUE84,VALUE85,VALUE86,VALUE87,VALUE88,VALUE89,VALUE90,VALUE91,VALUE92,VALUE93,VALUE94,
+        VALUE95,VALUE96,VALUE97,VALUE98,VALUE99,VALUE100,VALUE101,VALUE102,VALUE103,VALUE104,VALUE105,VALUE106,
+        VALUE107,VALUE108,VALUE109,VALUE110,VALUE111,VALUE112,VALUE113,VALUE114,VALUE115,VALUE116,VALUE117,VALUE118,
+        VALUE119,VALUE120,VALUE121,VALUE122,VALUE123,VALUE124,VALUE125,VALUE126,VALUE127,VALUE128,VALUE129,VALUE130,
+        VALUE131,VALUE132,VALUE133,VALUE134,VALUE135,VALUE136,VALUE137,VALUE138,VALUE139,VALUE140,VALUE141,VALUE142,
+        VALUE143,VALUE144,VALUE145,VALUE146,VALUE147,VALUE148,VALUE149,VALUE150,VALUE151,VALUE152,VALUE153,VALUE154,
+        VALUE155,VALUE156,VALUE157,VALUE158,VALUE159,VALUE160,VALUE161,VALUE162,VALUE163,VALUE164,VALUE165,VALUE166,VALUE167,
+        VALUE168,VALUE169,VALUE170,VALUE171,VALUE172,VALUE173,VALUE174,VALUE175,VALUE176,VALUE177,VALUE178,VALUE179,VALUE180,
+        VALUE181,VALUE182,VALUE183,VALUE184,VALUE185,VALUE186,VALUE187,VALUE188,VALUE189,VALUE190,VALUE191,VALUE192,VALUE193,
+        VALUE194,VALUE195,VALUE196,VALUE197,VALUE198,VALUE199,VALUE200,
+            i.OBJECT_VERSION_NUMBER,
+            i.CREATED_BY,
+            i.CREATION_DATE,
+            i.LAST_UPDATED_BY,
+            i.LAST_UPDATE_DATE,
+            i.LAST_UPDATE_LOGIN,
+            i.EVENT_BATCH_ID,
+            i.TFR_SUM_ACCOUNT_NUM,
+            i.CERTIFICATE_HEADER_ID,
+            i.CERTIFICATE_LINE_ID,
+            i.FEEDBACK_MES_ID
+            from hscs_ae_tfr_sum_accounts i
+            where i.TFR_SUM_ACCOUNT_ID in (${ids})
+    </select>
+    <select id="getByDate" parameterType="map" resultMap="BaseResultMap">
+        SELECT
+        i.TFR_SUM_ACCOUNT_ID,
+        i.ACCOUNT_HEADER_ID,
+        i.EVENT_HEADER_ID,
+        i.LINE_COUNTS,
+        i.ACCOUNTING_DATE,
+        i.ACCOUNTING_STATUS,
+        i.ACCOUNTING_REMARKS,
+        i.DOCUMENT_HEADER_NUM,
+        i.DOCUMENT_LINE_NUM,
+        i.DELIVERY_STATUS,
+        i.DELIVERY_REMARKS,
+        i.VALUE1,
+        i.VALUE2,
+        i.VALUE3,
+        i.VALUE4,
+        i.VALUE5,
+        i.VALUE6,
+        i.VALUE7,
+        i.VALUE8,
+        i.VALUE9,
+        i.VALUE10,
+        i.VALUE11,
+        i.VALUE12,
+        i.VALUE13,
+        i.VALUE14,
+        i.VALUE15,
+        i.VALUE16,
+        i.VALUE17,
+        i.VALUE18,
+        i.VALUE19,
+        i.VALUE20,
+        i.VALUE21,
+        i.VALUE22,
+        i.VALUE23,
+        i.VALUE24,
+        i.VALUE25,
+        i.VALUE26,
+        i.VALUE27,
+        i.VALUE28,
+        i.VALUE29,
+        i.VALUE30,
+        i.VALUE31,
+        i.VALUE32,
+        i.VALUE33,
+        i.VALUE34,
+        i.VALUE35,
+        i.VALUE36,
+        i.VALUE37,
+        i.VALUE38,
+        i.VALUE39,
+        i.VALUE40,
+        i.VALUE41,
+        i.VALUE42,
+        i.VALUE43,
+        i.VALUE44,
+        i.VALUE45,
+        i.VALUE46,
+        i.VALUE47,
+        i.VALUE48,
+        i.VALUE49,
+        i.VALUE50,
+        i.VALUE51,
+        i.VALUE52,
+        i.VALUE53,
+        i.VALUE54,
+        i.VALUE55,
+        i.VALUE56,
+        i.VALUE57,
+        i.VALUE58,
+        i.VALUE59,
+        i.VALUE60,
+        i.VALUE61,
+        i.VALUE62,
+        i.VALUE63,
+        i.VALUE64,
+        i.VALUE65,
+        i.VALUE66,
+        i.VALUE67,
+        i.VALUE68,
+        i.VALUE69,
+        i.VALUE70,
+        i.VALUE71,
+        i.VALUE72,
+        i.VALUE73,
+        i.VALUE74,
+        i.VALUE75,
+        i.VALUE76,
+        i.VALUE77,
+        i.VALUE78,
+        i.VALUE79,
+        i.VALUE80,
+        i.VALUE81,
+        i.VALUE82,
+        i.VALUE83,
+        i.VALUE84,
+        i.VALUE85,
+        i.VALUE86,
+        i.VALUE87,
+        i.VALUE88,
+        i.VALUE89,
+        i.VALUE90,
+        i.VALUE91,
+        i.VALUE92,
+        i.VALUE93,
+        i.VALUE94,
+        i.VALUE95,
+        i.VALUE96,
+        i.VALUE97,
+        i.VALUE98,
+        i.VALUE99,
+        i.VALUE100,
+        i.VALUE101,
+        i.VALUE102,
+        i.VALUE103,
+        i.VALUE104,
+        i.VALUE105,
+        i.VALUE106,
+        i.VALUE107,
+        i.VALUE108,
+        i.VALUE109,
+        i.VALUE110,
+        i.VALUE111,
+        i.VALUE112,
+        i.VALUE113,
+        i.VALUE114,
+        i.VALUE115,
+        i.VALUE116,
+        i.VALUE117,
+        i.VALUE118,
+        i.VALUE119,
+        i.VALUE120,
+        i.VALUE121,
+        i.VALUE122,
+        i.VALUE123,
+        i.VALUE124,
+        i.VALUE125,
+        i.VALUE126,
+        i.VALUE127,
+        i.VALUE128,
+        i.VALUE129,
+        i.VALUE130,
+        i.VALUE131,
+        i.VALUE132,
+        i.VALUE133,
+        i.VALUE134,
+        i.VALUE135,
+        i.VALUE136,
+        i.VALUE137,
+        i.VALUE138,
+        i.VALUE139,
+        i.VALUE140,
+        i.VALUE141,
+        i.VALUE142,
+        i.VALUE143,
+        i.VALUE144,
+        i.VALUE145,
+        i.VALUE146,
+        i.VALUE147,
+        i.VALUE148,
+        i.VALUE149,
+        i.VALUE150,
+        i.VALUE151,
+        i.VALUE152,
+        i.VALUE153,
+        i.VALUE154,
+        i.VALUE155,
+        i.VALUE156,
+        i.VALUE157,
+        i.VALUE158,
+        i.VALUE159,
+        i.VALUE160,
+        i.VALUE161,
+        i.VALUE162,
+        i.VALUE163,
+        i.VALUE164,
+        i.VALUE165,
+        i.VALUE166,
+        i.VALUE167,
+        i.VALUE168,
+        i.VALUE169,
+        i.VALUE170,
+        i.VALUE171,
+        i.VALUE172,
+        i.VALUE173,
+        i.VALUE174,
+        i.VALUE175,
+        i.VALUE176,
+        i.VALUE177,
+        i.VALUE178,
+        i.VALUE179,
+        i.VALUE180,
+        i.VALUE181,
+        i.VALUE182,
+        i.VALUE183,
+        i.VALUE184,
+        i.VALUE185,
+        i.VALUE186,
+        i.VALUE187,
+        i.VALUE188,
+        i.VALUE189,
+        i.VALUE190,
+        i.VALUE191,
+        i.VALUE192,
+        i.VALUE193,
+        i.VALUE194,
+        i.VALUE195,
+        i.VALUE196,
+        i.VALUE197,
+        i.VALUE198,
+        i.VALUE199,
+        i.VALUE200,
+        i.OBJECT_VERSION_NUMBER,
+        i.CREATED_BY,
+        i.CREATION_DATE,
+        i.LAST_UPDATED_BY,
+        i.LAST_UPDATE_DATE,
+        i.LAST_UPDATE_LOGIN,
+        i.EVENT_BATCH_ID,
+        i.TFR_SUM_ACCOUNT_NUM,
+        i.CERTIFICATE_HEADER_ID,
+        i.CERTIFICATE_LINE_ID,
+        i.FEEDBACK_MES_ID
+        FROM
+        hscs_ae_tfr_sum_accounts i
+        where 1 = 1
+        and i.ACCOUNTING_STATUS = 'ACCOUNTED_ERROR'
+        <choose>
+            <when test="accountingDateFrom!=null and accountingDateTo!=null">
+                AND   #{accountingDateFrom,jdbcType=DATE} &lt;= ACCOUNTING_DATE
+                AND  ACCOUNTING_DATE &lt;=   #{accountingDateTo,jdbcType=DATE}
+            </when>
+            <when test="accountingDateFrom!=null and accountingDateTo==null">
+                AND   #{accountingDateFrom,jdbcType=DATE} &lt;= ACCOUNTING_DATE
+            </when>
+            <when test="accountingDateFrom==null and accountingDateTo!=null">
+                AND   ACCOUNTING_DATE &lt;=   #{accountingDateTo,jdbcType=DATE}
+            </when>
+        </choose>
+    </select>
+    <select id="batchFindSum" resultMap="BaseResultMap">
+        SELECT
+        z.TFR_SUM_ACCOUNT_ID
+        FROM
+        hscs_ae_tfr_batch_events i,
+        hscs_ae_tfr_dtl_accounts j,
+        hscs_ae_tfr_sum_accounts z
+        WHERE
+        i.TFR_EVENT_BATCH_ID = j.TFR_EVENT_BATCH_ID
+        AND j.TFR_SUM_ACCOUNT_ID = z.TFR_SUM_ACCOUNT_ID
+        and i.TFR_EVENT_BATCH_ID in ( ${ids} )
+    </select>
+    <select id="getAllSumAccounts" parameterType="hscs.ae.dto.AeTfrSumAccounts" resultMap="BaseResultMap">
+        SELECT
+        hatsa.TFR_SUM_ACCOUNT_ID,
+        hatsa.ACCOUNT_HEADER_ID,
+        hatsa.EVENT_HEADER_ID,
+        haeb.EVENT_BATCH_NAME  EVENT_HEADER_NAME,
+        haec.BASIC_TABLE  SOURCE_TABLE,
+        hatsa.LINE_COUNTS,
+        hatsa.ACCOUNTING_DATE,
+        hatsa.ACCOUNTING_STATUS,
+        hatsa.ACCOUNTING_REMARKS,
+        hatsa.DOCUMENT_HEADER_NUM,
+        hatsa.DOCUMENT_LINE_NUM,
+        hatsa.DELIVERY_STATUS,
+        hatsa.DELIVERY_REMARKS,
+        hatsa.VALUE1,
+        hatsa.VALUE2,
+        hatsa.VALUE3,
+        hatsa.VALUE4,
+        hatsa.VALUE5,
+        hatsa.VALUE6,
+        hatsa.VALUE7,
+        hatsa.VALUE8,
+        hatsa.VALUE9,
+        hatsa.VALUE10,
+        hatsa.VALUE11,
+        hatsa.VALUE12,
+        hatsa.VALUE13,
+        hatsa.VALUE14,
+        hatsa.VALUE15,
+        hatsa.VALUE16,
+        hatsa.VALUE17,
+        hatsa.VALUE18,
+        hatsa.VALUE19,
+        hatsa.VALUE20,
+        hatsa.VALUE21,
+        hatsa.VALUE22,
+        hatsa.VALUE23,
+        hatsa.VALUE24,
+        hatsa.VALUE25,
+        hatsa.VALUE26,
+        hatsa.VALUE27,
+        hatsa.VALUE28,
+        hatsa.VALUE29,
+        hatsa.VALUE30,
+        hatsa.VALUE31,
+        hatsa.VALUE32,
+        hatsa.VALUE33,
+        hatsa.VALUE34,
+        hatsa.VALUE35,
+        hatsa.VALUE36,
+        hatsa.VALUE37,
+        hatsa.VALUE38,
+        hatsa.VALUE39,
+        hatsa.VALUE40,
+        hatsa.VALUE41,
+        hatsa.VALUE42,
+        hatsa.VALUE43,
+        hatsa.VALUE44,
+        hatsa.VALUE45,
+        hatsa.VALUE46,
+        hatsa.VALUE47,
+        hatsa.VALUE48,
+        hatsa.VALUE49,
+        hatsa.VALUE50,
+        hatsa.VALUE51,
+        hatsa.VALUE52,
+        hatsa.VALUE53,
+        hatsa.VALUE54,
+        hatsa.VALUE55,
+        hatsa.VALUE56,
+        hatsa.VALUE57,
+        hatsa.VALUE58,
+        hatsa.VALUE59,
+        hatsa.VALUE60,
+        hatsa.VALUE61,
+        hatsa.VALUE62,
+        hatsa.VALUE63,
+        hatsa.VALUE64,
+        hatsa.VALUE65,
+        hatsa.VALUE66,
+        hatsa.VALUE67,
+        hatsa.VALUE68,
+        hatsa.VALUE69,
+        hatsa.VALUE70,
+        hatsa.VALUE71,
+        hatsa.VALUE72,
+        hatsa.VALUE73,
+        hatsa.VALUE74,
+        hatsa.VALUE75,
+        hatsa.VALUE76,
+        hatsa.VALUE77,
+        hatsa.VALUE78,
+        hatsa.VALUE79,
+        hatsa.VALUE80,
+        hatsa.VALUE81,
+        hatsa.VALUE82,
+        hatsa.VALUE83,
+        hatsa.VALUE84,
+        hatsa.VALUE85,
+        hatsa.VALUE86,
+        hatsa.VALUE87,
+        hatsa.VALUE88,
+        hatsa.VALUE89,
+        hatsa.VALUE90,
+        hatsa.VALUE91,
+        hatsa.VALUE92,
+        hatsa.VALUE93,
+        hatsa.VALUE94,
+        hatsa.VALUE95,
+        hatsa.VALUE96,
+        hatsa.VALUE97,
+        hatsa.VALUE98,
+        hatsa.VALUE99,
+        hatsa.VALUE100,
+        hatsa.VALUE101,
+        hatsa.VALUE102,
+        hatsa.VALUE103,
+        hatsa.VALUE104,
+        hatsa.VALUE105,
+        hatsa.VALUE106,
+        hatsa.VALUE107,
+        hatsa.VALUE108,
+        hatsa.VALUE109,
+        hatsa.VALUE110,
+        hatsa.VALUE111,
+        hatsa.VALUE112,
+        hatsa.VALUE113,
+        hatsa.VALUE114,
+        hatsa.VALUE115,
+        hatsa.VALUE116,
+        hatsa.VALUE117,
+        hatsa.VALUE118,
+        hatsa.VALUE119,
+        hatsa.VALUE120,
+        hatsa.VALUE121,
+        hatsa.VALUE122,
+        hatsa.VALUE123,
+        hatsa.VALUE124,
+        hatsa.VALUE125,
+        hatsa.VALUE126,
+        hatsa.VALUE127,
+        hatsa.VALUE128,
+        hatsa.VALUE129,
+        hatsa.VALUE130,
+        hatsa.VALUE131,
+        hatsa.VALUE132,
+        hatsa.VALUE133,
+        hatsa.VALUE134,
+        hatsa.VALUE135,
+        hatsa.VALUE136,
+        hatsa.VALUE137,
+        hatsa.VALUE138,
+        hatsa.VALUE139,
+        hatsa.VALUE140,
+        hatsa.VALUE141,
+        hatsa.VALUE142,
+        hatsa.VALUE143,
+        hatsa.VALUE144,
+        hatsa.VALUE145,
+        hatsa.VALUE146,
+        hatsa.VALUE147,
+        hatsa.VALUE148,
+        hatsa.VALUE149,
+        hatsa.VALUE150,
+        hatsa.VALUE151,
+        hatsa.VALUE152,
+        hatsa.VALUE153,
+        hatsa.VALUE154,
+        hatsa.VALUE155,
+        hatsa.VALUE156,
+        hatsa.VALUE157,
+        hatsa.VALUE158,
+        hatsa.VALUE159,
+        hatsa.VALUE160,
+        hatsa.VALUE161,
+        hatsa.VALUE162,
+        hatsa.VALUE163,
+        hatsa.VALUE164,
+        hatsa.VALUE165,
+        hatsa.VALUE166,
+        hatsa.VALUE167,
+        hatsa.VALUE168,
+        hatsa.VALUE169,
+        hatsa.VALUE170,
+        hatsa.VALUE171,
+        hatsa.VALUE172,
+        hatsa.VALUE173,
+        hatsa.VALUE174,
+        hatsa.VALUE175,
+        hatsa.VALUE176,
+        hatsa.VALUE177,
+        hatsa.VALUE178,
+        hatsa.VALUE179,
+        hatsa.VALUE180,
+        hatsa.VALUE181,
+        hatsa.VALUE182,
+        hatsa.VALUE183,
+        hatsa.VALUE184,
+        hatsa.VALUE185,
+        hatsa.VALUE186,
+        hatsa.VALUE187,
+        hatsa.VALUE188,
+        hatsa.VALUE189,
+        hatsa.VALUE190,
+        hatsa.VALUE191,
+        hatsa.VALUE192,
+        hatsa.VALUE193,
+        hatsa.VALUE194,
+        hatsa.VALUE195,
+        hatsa.VALUE196,
+        hatsa.VALUE197,
+        hatsa.VALUE198,
+        hatsa.VALUE199,
+        hatsa.VALUE200,
+        hatsa.PROGRAM_ID,
+        hatsa.REQUEST_ID,
+        hatsa.CREATION_DATE,
+        hatsa.TFR_SUM_ACCOUNT_NUM
+        FROM
+        hscs_ae_tfr_sum_accounts hatsa
+        LEFT JOIN hscs_ae_event_headers HAEH ON HAEH.EVENT_HEADER_ID =HATSA.EVENT_HEADER_ID
+        LEFT JOIN hscs_ae_event_batches HAEB ON HAEB.EVENT_BATCH_ID=HAEH.EVENT_BATCH_ID
+        LEFT JOIN hscs_ae_event_category HAEC ON HAEB.EVENT_CATEGORY_CODE=HAEC.EVENT_CATEGORY_CODE
+<where>
+    <if test="null!=accountHeaderId">
+        AND hatsa.ACCOUNT_HEADER_ID=#{accountHeaderId}
+    </if>
+    <if test="null!=accountingDateFrom">
+        AND hatsa.ACCOUNTING_DATE  &gt;= #{accountingDateFrom}
+    </if>
+    <if test="null!=accountingDateTo">
+        AND  #{accountingDateTo} &gt;= hatsa.ACCOUNTING_DATE
+    </if>
+    <if test="null!=eventBatchId">
+        AND hatsa.EVENT_BATCH_ID=#{eventBatchId}
+    </if>
+    <if test="null!=sourceTable">
+        AND hatsa.EVENT_BATCH_ID in (SELECT haeb.EVENT_BATCH_ID FROM hscs_ae_event_category haec,hscs_ae_event_batches haeb
+        WHERE
+               haec.EVENT_CATEGORY_CODE=haeb.EVENT_CATEGORY_CODE
+              AND haec.BASIC_TABLE=#{sourceTable})
+    </if>
+    <if test="null!=accountingStatus">
+        AND hatsa.ACCOUNTING_STATUS=#{accountingStatus}
+    </if>
+    <if test="null!=documentHeaderNum">
+        AND hatsa.DOCUMENT_HEADER_NUM LIKE #{documentHeaderNum}
+    </if>
+    <if test="null!=creationDateFrom">
+        AND hatsa.CREATION_DATE  &gt;= #{creationDateFrom}
+    </if>
+    <if test="null!=creationDateTo">
+        AND  #{creationDateTo} &gt;= hatsa.CREATION_DATE
+    </if>
+    <if test="null!=tfrSumAccountNum">
+        AND hatsa.TFR_SUM_ACCOUNT_NUM LIKE #{tfrSumAccountNum}
+    </if>
+    <if test="null!=soaFrom">
+        AND (SELECT COLUMN_NAME FROM hscs_ae_account_lines WHERE FIELD_ATTRIBUTE='ACC' AND ACCOUNT_HEADER_ID=#{accountHeaderId})  &gt;=  #{soaFrom}
+    </if>
+    <if test="null!=soaTo">
+        AND #{soaFrom}  &gt;=  (SELECT COLUMN_NAME FROM hscs_ae_account_lines WHERE FIELD_ATTRIBUTE='ACC' AND ACCOUNT_HEADER_ID=#{accountHeaderId})
+    </if>
+
+    <if test="reference!=null">
+        AND hatsa.TFR_SUM_ACCOUNT_ID IN (SELECT A.TFR_SUM_ACCOUNT_ID FROM hscs_ae_tfr_dtl_accounts A,hscs_ae_tfr_batch_events B
+        where A.TFR_EVENT_BATCH_ID=B.TFR_EVENT_BATCH_ID AND A.TFR_SUM_ACCOUNT_ID IS NOT NULL AND B.REFERENCE=#{reference})
+    </if>
+
+</where>
+
+    </select>
+    <select id="getDynamicByAHId" parameterType="java.lang.Long" resultMap="AccountLineResultMap">
+        SELECT
+             COLUMN_NAME,
+             DESCRIPTION
+        FROM hscs_ae_account_lines
+        WHERE ACCOUNT_HEADER_ID=#{accountHeaderId} AND SUMMARY_FIELD_FLAG='Y' ORDER BY DISPLAY_ORDER
+    </select>
+    <select id="getSoaAccount" parameterType="java.lang.Long" resultType="java.lang.Long">
+        SELECT COUNT(COLUMN_NAME) FROM hscs_ae_account_lines WHERE FIELD_ATTRIBUTE='ACC' AND ACCOUNT_HEADER_ID=#{accountHeaderId}
+    </select>
+
+    <select id="excelExport" parameterType="hscs.ae.dto.AeTfrSumAccounts" resultMap="BaseResultMap">
+        SELECT
+        hatsa.TFR_SUM_ACCOUNT_ID,
+        hatsa.ACCOUNT_HEADER_ID,
+        hatsa.EVENT_HEADER_ID,
+        (
+        SELECT
+        haeb.EVENT_BATCH_NAME
+        FROM
+        hscs_ae_event_batches haeb
+        WHERE
+        haeb.EVENT_BATCH_ID =(SELECT EVENT_BATCH_ID FROM hscs_ae_event_headers haeh WHERE haeh.EVENT_HEADER_ID=hatsa.EVENT_HEADER_ID)
+        ) EVENT_HEADER_NAME,
+        (
+        SELECT haec.BASIC_TABLE FROM hscs_ae_event_category haec,hscs_ae_event_headers haeh,hscs_ae_event_batches haeb
+        WHERE haeh.EVENT_HEADER_ID=hatsa.EVENT_HEADER_ID AND haeh.EVENT_BATCH_ID=haeb.EVENT_BATCH_ID AND haec.EVENT_CATEGORY_CODE=haeb.EVENT_CATEGORY_CODE
+        ) SOURCE_TABLE,
+        hatsa.LINE_COUNTS,
+        hatsa.ACCOUNTING_DATE,
+        hatsa.ACCOUNTING_STATUS,
+        (
+        SELECT
+        scvb.MEANING
+        FROM
+        sys_code_value_b scvb
+        WHERE
+        scvb.CODE_ID = (SELECT CODE_ID FROM sys_code_b WHERE CODE = 'HSCS.AE.ACCOUNT_STATUS')
+        AND scvb.VALUE=hatsa.ACCOUNTING_STATUS
+        ) ACCOUNTING_STATUS_MEANING,
+        hatsa.ACCOUNTING_REMARKS,
+        hatsa.DOCUMENT_HEADER_NUM,
+        hatsa.DOCUMENT_LINE_NUM,
+        hatsa.DELIVERY_STATUS,
+        (
+        SELECT
+        scvb.MEANING
+        FROM
+        sys_code_value_b scvb
+        WHERE
+        scvb.CODE_ID = (SELECT CODE_ID FROM sys_code_b WHERE CODE = 'HSCS.AE.DELIVERY_STATUS')
+        AND scvb.VALUE=hatsa.DELIVERY_STATUS
+        ) DELIVERY_STATUS_MEANING,
+        hatsa.DELIVERY_REMARKS,
+        hatsa.VALUE1,
+        hatsa.VALUE2,
+        hatsa.VALUE3,
+        hatsa.VALUE4,
+        hatsa.VALUE5,
+        hatsa.VALUE6,
+        hatsa.VALUE7,
+        hatsa.VALUE8,
+        hatsa.VALUE9,
+        hatsa.VALUE10,
+        hatsa.VALUE11,
+        hatsa.VALUE12,
+        hatsa.VALUE13,
+        hatsa.VALUE14,
+        hatsa.VALUE15,
+        hatsa.VALUE16,
+        hatsa.VALUE17,
+        hatsa.VALUE18,
+        hatsa.VALUE19,
+        hatsa.VALUE20,
+        hatsa.VALUE21,
+        hatsa.VALUE22,
+        hatsa.VALUE23,
+        hatsa.VALUE24,
+        hatsa.VALUE25,
+        hatsa.VALUE26,
+        hatsa.VALUE27,
+        hatsa.VALUE28,
+        hatsa.VALUE29,
+        hatsa.VALUE30,
+        hatsa.VALUE31,
+        hatsa.VALUE32,
+        hatsa.VALUE33,
+        hatsa.VALUE34,
+        hatsa.VALUE35,
+        hatsa.VALUE36,
+        hatsa.VALUE37,
+        hatsa.VALUE38,
+        hatsa.VALUE39,
+        hatsa.VALUE40,
+        hatsa.VALUE41,
+        hatsa.VALUE42,
+        hatsa.VALUE43,
+        hatsa.VALUE44,
+        hatsa.VALUE45,
+        hatsa.VALUE46,
+        hatsa.VALUE47,
+        hatsa.VALUE48,
+        hatsa.VALUE49,
+        hatsa.VALUE50,
+        hatsa.VALUE51,
+        hatsa.VALUE52,
+        hatsa.VALUE53,
+        hatsa.VALUE54,
+        hatsa.VALUE55,
+        hatsa.VALUE56,
+        hatsa.VALUE57,
+        hatsa.VALUE58,
+        hatsa.VALUE59,
+        hatsa.VALUE60,
+        hatsa.VALUE61,
+        hatsa.VALUE62,
+        hatsa.VALUE63,
+        hatsa.VALUE64,
+        hatsa.VALUE65,
+        hatsa.VALUE66,
+        hatsa.VALUE67,
+        hatsa.VALUE68,
+        hatsa.VALUE69,
+        hatsa.VALUE70,
+        hatsa.VALUE71,
+        hatsa.VALUE72,
+        hatsa.VALUE73,
+        hatsa.VALUE74,
+        hatsa.VALUE75,
+        hatsa.VALUE76,
+        hatsa.VALUE77,
+        hatsa.VALUE78,
+        hatsa.VALUE79,
+        hatsa.VALUE80,
+        hatsa.VALUE81,
+        hatsa.VALUE82,
+        hatsa.VALUE83,
+        hatsa.VALUE84,
+        hatsa.VALUE85,
+        hatsa.VALUE86,
+        hatsa.VALUE87,
+        hatsa.VALUE88,
+        hatsa.VALUE89,
+        hatsa.VALUE90,
+        hatsa.VALUE91,
+        hatsa.VALUE92,
+        hatsa.VALUE93,
+        hatsa.VALUE94,
+        hatsa.VALUE95,
+        hatsa.VALUE96,
+        hatsa.VALUE97,
+        hatsa.VALUE98,
+        hatsa.VALUE99,
+        hatsa.VALUE100,
+        hatsa.VALUE101,
+        hatsa.VALUE102,
+        hatsa.VALUE103,
+        hatsa.VALUE104,
+        hatsa.VALUE105,
+        hatsa.VALUE106,
+        hatsa.VALUE107,
+        hatsa.VALUE108,
+        hatsa.VALUE109,
+        hatsa.VALUE110,
+        hatsa.VALUE111,
+        hatsa.VALUE112,
+        hatsa.VALUE113,
+        hatsa.VALUE114,
+        hatsa.VALUE115,
+        hatsa.VALUE116,
+        hatsa.VALUE117,
+        hatsa.VALUE118,
+        hatsa.VALUE119,
+        hatsa.VALUE120,
+        hatsa.VALUE121,
+        hatsa.VALUE122,
+        hatsa.VALUE123,
+        hatsa.VALUE124,
+        hatsa.VALUE125,
+        hatsa.VALUE126,
+        hatsa.VALUE127,
+        hatsa.VALUE128,
+        hatsa.VALUE129,
+        hatsa.VALUE130,
+        hatsa.VALUE131,
+        hatsa.VALUE132,
+        hatsa.VALUE133,
+        hatsa.VALUE134,
+        hatsa.VALUE135,
+        hatsa.VALUE136,
+        hatsa.VALUE137,
+        hatsa.VALUE138,
+        hatsa.VALUE139,
+        hatsa.VALUE140,
+        hatsa.VALUE141,
+        hatsa.VALUE142,
+        hatsa.VALUE143,
+        hatsa.VALUE144,
+        hatsa.VALUE145,
+        hatsa.VALUE146,
+        hatsa.VALUE147,
+        hatsa.VALUE148,
+        hatsa.VALUE149,
+        hatsa.VALUE150,
+        hatsa.VALUE151,
+        hatsa.VALUE152,
+        hatsa.VALUE153,
+        hatsa.VALUE154,
+        hatsa.VALUE155,
+        hatsa.VALUE156,
+        hatsa.VALUE157,
+        hatsa.VALUE158,
+        hatsa.VALUE159,
+        hatsa.VALUE160,
+        hatsa.VALUE161,
+        hatsa.VALUE162,
+        hatsa.VALUE163,
+        hatsa.VALUE164,
+        hatsa.VALUE165,
+        hatsa.VALUE166,
+        hatsa.VALUE167,
+        hatsa.VALUE168,
+        hatsa.VALUE169,
+        hatsa.VALUE170,
+        hatsa.VALUE171,
+        hatsa.VALUE172,
+        hatsa.VALUE173,
+        hatsa.VALUE174,
+        hatsa.VALUE175,
+        hatsa.VALUE176,
+        hatsa.VALUE177,
+        hatsa.VALUE178,
+        hatsa.VALUE179,
+        hatsa.VALUE180,
+        hatsa.VALUE181,
+        hatsa.VALUE182,
+        hatsa.VALUE183,
+        hatsa.VALUE184,
+        hatsa.VALUE185,
+        hatsa.VALUE186,
+        hatsa.VALUE187,
+        hatsa.VALUE188,
+        hatsa.VALUE189,
+        hatsa.VALUE190,
+        hatsa.VALUE191,
+        hatsa.VALUE192,
+        hatsa.VALUE193,
+        hatsa.VALUE194,
+        hatsa.VALUE195,
+        hatsa.VALUE196,
+        hatsa.VALUE197,
+        hatsa.VALUE198,
+        hatsa.VALUE199,
+        hatsa.VALUE200,
+        hatsa.PROGRAM_ID,
+        hatsa.REQUEST_ID,
+        hatsa.CREATION_DATE,
+        hatsa.TFR_SUM_ACCOUNT_NUM
+        FROM
+        hscs_ae_tfr_sum_accounts hatsa
+        <where>
+            <if test="null!=accountHeaderId">
+                AND hatsa.ACCOUNT_HEADER_ID=#{accountHeaderId}
+            </if>
+            <if test="null!=accountingDateFrom">
+                AND hatsa.ACCOUNTING_DATE  &gt;= #{accountingDateFrom}
+            </if>
+            <if test="null!=accountingDateTo">
+                AND  #{accountingDateTo} &gt;= hatsa.ACCOUNTING_DATE
+            </if>
+            <if test="null!=eventBatchId">
+                AND hatsa.EVENT_HEADER_ID in (SELECT EVENT_HEADER_ID FROM hscs_ae_event_headers WHERE EVENT_BATCH_ID=#{eventBatchId})
+            </if>
+            <if test="null!=sourceTable">
+                AND hatsa.EVENT_HEADER_ID in (SELECT haeh.EVENT_HEADER_ID FROM hscs_ae_event_category haec,hscs_ae_event_headers haeh,hscs_ae_event_batches haeb
+                WHERE
+                haeh.EVENT_BATCH_ID=haeb.EVENT_BATCH_ID
+                AND haec.EVENT_CATEGORY_CODE=haeb.EVENT_CATEGORY_CODE
+                AND haec.BASIC_TABLE=#{sourceTable})
+            </if>
+            <if test="null!=accountingStatus">
+                AND hatsa.ACCOUNTING_STATUS=#{accountingStatus}
+            </if>
+            <if test="null!=documentHeaderNum">
+                AND hatsa.DOCUMENT_HEADER_NUM LIKE #{documentHeaderNum}
+            </if>
+            <if test="null!=creationDateFrom">
+                AND hatsa.CREATION_DATE  &gt;= #{creationDateFrom}
+            </if>
+            <if test="null!=creationDateTo">
+                AND  #{creationDateTo} &gt;= hatsa.CREATION_DATE
+            </if>
+            <if test="null!=tfrSumAccountNum">
+                AND hatsa.TFR_SUM_ACCOUNT_NUM LIKE #{tfrSumAccountNum}
+            </if>
+            <if test="null!=soaFrom">
+                AND (SELECT COLUMN_NAME FROM hscs_ae_account_lines WHERE FIELD_ATTRIBUTE='ACC' AND ACCOUNT_HEADER_ID=#{accountHeaderId})  &gt;=  #{soaFrom}
+            </if>
+            <if test="null!=soaTo">
+                AND #{soaFrom}  &gt;=  (SELECT COLUMN_NAME FROM hscs_ae_account_lines WHERE FIELD_ATTRIBUTE='ACC' AND ACCOUNT_HEADER_ID=#{accountHeaderId})
+            </if>
+        </where>
+
+    </select>
+
+
+
+    <select id="getByNull" parameterType="hscs.ae.dto.AeTfrSumAccounts" resultMap="BaseResultMap">
+        SELECT *  FROM hscs_ae_tfr_sum_accounts i
+        where i.DELIVERY_STATUS = 'N'
+        and i.EVENT_HEADER_ID = #{eventHeaderId}
+        and i.ACCOUNTING_DATE = #{accountingDate}
+        ${groupingStr}
+        order by TFR_SUM_ACCOUNT_ID desc
+    </select>
+    <!--lov查询所用 add by daiqian.shi@hand-china.com on 2017年12月5日21:23:28-->
+    <select id="lovSelectSumAccount" parameterType="hscs.ae.dto.AeTfrSumAccounts" resultMap="BaseResultMap">
+        SELECT TFR_SUM_ACCOUNT_ID, TFR_SUM_ACCOUNT_NUM
+        FROM HSCS_AE_TFR_SUM_ACCOUNTS WHERE 1=1
+        <if test="tfrSumAccountNum!= null">
+            AND TFR_SUM_ACCOUNT_NUM like CONCAT('%',CONCAT(#{tfrSumAccountNum,
+				jdbcType=VARCHAR},'%'))
+        </if>
+    </select>
+
+    <select id="selectErrorSumForDel" parameterType="map" resultMap="BaseResultMap">
+        SELECT
+        i.TFR_SUM_ACCOUNT_ID,
+        i.ACCOUNT_HEADER_ID,
+        i.EVENT_HEADER_ID,
+        i.LINE_COUNTS,
+        i.ACCOUNTING_DATE,
+        i.ACCOUNTING_STATUS,
+        i.ACCOUNTING_REMARKS,
+        i.DOCUMENT_HEADER_NUM,
+        i.DOCUMENT_LINE_NUM,
+        i.DELIVERY_STATUS,
+        i.DELIVERY_REMARKS,
+        i.VALUE1,
+        i.VALUE2,
+        i.VALUE3,
+        i.VALUE4,
+        i.VALUE5,
+        i.VALUE6,
+        i.VALUE7,
+        i.VALUE8,
+        i.VALUE9,
+        i.VALUE10,
+        i.VALUE11,
+        i.VALUE12,
+        i.VALUE13,
+        i.VALUE14,
+        i.VALUE15,
+        i.VALUE16,
+        i.VALUE17,
+        i.VALUE18,
+        i.VALUE19,
+        i.VALUE20,
+        i.VALUE21,
+        i.VALUE22,
+        i.VALUE23,
+        i.VALUE24,
+        i.VALUE25,
+        i.VALUE26,
+        i.VALUE27,
+        i.VALUE28,
+        i.VALUE29,
+        i.VALUE30,
+        i.VALUE31,
+        i.VALUE32,
+        i.VALUE33,
+        i.VALUE34,
+        i.VALUE35,
+        i.VALUE36,
+        i.VALUE37,
+        i.VALUE38,
+        i.VALUE39,
+        i.VALUE40,
+        i.VALUE41,
+        i.VALUE42,
+        i.VALUE43,
+        i.VALUE44,
+        i.VALUE45,
+        i.VALUE46,
+        i.VALUE47,
+        i.VALUE48,
+        i.VALUE49,
+        i.VALUE50,
+        i.VALUE51,
+        i.VALUE52,
+        i.VALUE53,
+        i.VALUE54,
+        i.VALUE55,
+        i.VALUE56,
+        i.VALUE57,
+        i.VALUE58,
+        i.VALUE59,
+        i.VALUE60,
+        i.VALUE61,
+        i.VALUE62,
+        i.VALUE63,
+        i.VALUE64,
+        i.VALUE65,
+        i.VALUE66,
+        i.VALUE67,
+        i.VALUE68,
+        i.VALUE69,
+        i.VALUE70,
+        i.VALUE71,
+        i.VALUE72,
+        i.VALUE73,
+        i.VALUE74,
+        i.VALUE75,
+        i.VALUE76,
+        i.VALUE77,
+        i.VALUE78,
+        i.VALUE79,
+        i.VALUE80,
+        i.VALUE81,
+        i.VALUE82,
+        i.VALUE83,
+        i.VALUE84,
+        i.VALUE85,
+        i.VALUE86,
+        i.VALUE87,
+        i.VALUE88,
+        i.VALUE89,
+        i.VALUE90,
+        i.VALUE91,
+        i.VALUE92,
+        i.VALUE93,
+        i.VALUE94,
+        i.VALUE95,
+        i.VALUE96,
+        i.VALUE97,
+        i.VALUE98,
+        i.VALUE99,
+        i.VALUE100,
+        i.VALUE101,
+        i.VALUE102,
+        i.VALUE103,
+        i.VALUE104,
+        i.VALUE105,
+        i.VALUE106,
+        i.VALUE107,
+        i.VALUE108,
+        i.VALUE109,
+        i.VALUE110,
+        i.VALUE111,
+        i.VALUE112,
+        i.VALUE113,
+        i.VALUE114,
+        i.VALUE115,
+        i.VALUE116,
+        i.VALUE117,
+        i.VALUE118,
+        i.VALUE119,
+        i.VALUE120,
+        i.VALUE121,
+        i.VALUE122,
+        i.VALUE123,
+        i.VALUE124,
+        i.VALUE125,
+        i.VALUE126,
+        i.VALUE127,
+        i.VALUE128,
+        i.VALUE129,
+        i.VALUE130,
+        i.VALUE131,
+        i.VALUE132,
+        i.VALUE133,
+        i.VALUE134,
+        i.VALUE135,
+        i.VALUE136,
+        i.VALUE137,
+        i.VALUE138,
+        i.VALUE139,
+        i.VALUE140,
+        i.VALUE141,
+        i.VALUE142,
+        i.VALUE143,
+        i.VALUE144,
+        i.VALUE145,
+        i.VALUE146,
+        i.VALUE147,
+        i.VALUE148,
+        i.VALUE149,
+        i.VALUE150,
+        i.VALUE151,
+        i.VALUE152,
+        i.VALUE153,
+        i.VALUE154,
+        i.VALUE155,
+        i.VALUE156,
+        i.VALUE157,
+        i.VALUE158,
+        i.VALUE159,
+        i.VALUE160,
+        i.VALUE161,
+        i.VALUE162,
+        i.VALUE163,
+        i.VALUE164,
+        i.VALUE165,
+        i.VALUE166,
+        i.VALUE167,
+        i.VALUE168,
+        i.VALUE169,
+        i.VALUE170,
+        i.VALUE171,
+        i.VALUE172,
+        i.VALUE173,
+        i.VALUE174,
+        i.VALUE175,
+        i.VALUE176,
+        i.VALUE177,
+        i.VALUE178,
+        i.VALUE179,
+        i.VALUE180,
+        i.VALUE181,
+        i.VALUE182,
+        i.VALUE183,
+        i.VALUE184,
+        i.VALUE185,
+        i.VALUE186,
+        i.VALUE187,
+        i.VALUE188,
+        i.VALUE189,
+        i.VALUE190,
+        i.VALUE191,
+        i.VALUE192,
+        i.VALUE193,
+        i.VALUE194,
+        i.VALUE195,
+        i.VALUE196,
+        i.VALUE197,
+        i.VALUE198,
+        i.VALUE199,
+        i.VALUE200,
+        i.OBJECT_VERSION_NUMBER,
+        i.CREATED_BY,
+        i.CREATION_DATE,
+        i.LAST_UPDATED_BY,
+        i.LAST_UPDATE_DATE,
+        i.LAST_UPDATE_LOGIN,
+        i.EVENT_BATCH_ID,
+        i.TFR_SUM_ACCOUNT_NUM,
+        i.CERTIFICATE_HEADER_ID,
+        i.CERTIFICATE_LINE_ID,
+        i.FEEDBACK_MES_ID
+        FROM
+        hscs_ae_tfr_sum_accounts i
+        where 1 = 1
+        and i.ACCOUNTING_STATUS = 'ACCOUNTED_ERROR'
+        and NOT EXISTS (
+            SELECT
+            1
+            FROM
+            hscs_ae_tfr_dtl_accounts j
+            WHERE
+            i.TFR_SUM_ACCOUNT_ID = j.TFR_SUM_ACCOUNT_ID
+        )
+        <choose>
+            <when test="accountingDateFrom!=null and accountingDateTo!=null">
+                AND   #{accountingDateFrom,jdbcType=DATE} &lt;= i.ACCOUNTING_DATE
+                AND  i.ACCOUNTING_DATE &lt;=   #{accountingDateTo,jdbcType=DATE}
+            </when>
+            <when test="accountingDateFrom!=null and accountingDateTo==null">
+                AND   #{accountingDateFrom,jdbcType=DATE} &lt;= i.ACCOUNTING_DATE
+            </when>
+            <when test="accountingDateFrom==null and accountingDateTo!=null">
+                AND   i.ACCOUNTING_DATE &lt;=   #{accountingDateTo,jdbcType=DATE}
+            </when>
+        </choose>
+    </select>
+</mapper>

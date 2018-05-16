@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hscsm.core.itf.mapper.PubAlixSubcomMapper">
+    <resultMap id="BaseResultMap" type="hscsm.core.itf.dto.PubAlixSubcom">
+        <result column="ALIX_SUBCOM_ID" property="alixSubcomId" jdbcType="DECIMAL" />
+        <result column="BELONGCOM_NAME" property="belongcomName" jdbcType="VARCHAR" />
+        <result column="SUBCOM_NAME" property="subcomName" jdbcType="VARCHAR" />
+        <result column="SUBCOM_VALUE" property="subcomValue" jdbcType="VARCHAR" />
+        <result column="ENABLED_FLAG" property="enabledFlag" jdbcType="VARCHAR" />
+        <result column="LEDGER_NAME" property="ledgerName" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <select id="pubAlixSubcomLov" resultMap="BaseResultMap">
+        SELECT
+          spas.BELONGCOM_NAME,
+          spas.SUBCOM_NAME,
+          spas.SUBCOM_VALUE,
+          spas.LEDGER_NAME
+        FROM
+          yxhscs_pub_alix_subcom spas
+        WHERE
+        spas.ENABLED_FLAG = 'Y'
+        <if test="belongcomName != null">
+            AND spas.BELONGCOM_NAME LIKE concat('%',#{belongcomName},'%')
+        </if>
+        <if test="subcomName != null">
+            AND spas.SUBCOM_NAME LIKE concat('%',#{subcomName},'%')
+        </if>
+        <if test="ledgerName != null">
+            AND spas.LEDGER_NAME LIKE concat('%',#{ledgerName},'%')
+        </if>
+        <if test="subcomValue != null">
+            AND spas.SUBCOM_VALUE LIKE concat('%',#{subcomValue},'%')
+        </if>
+    </select>
+
+    <select id="pubAlixSubcomAllLov" resultMap="BaseResultMap">
+        SELECT
+            spas.BELONGCOM_NAME,
+            spas.SUBCOM_NAME,
+            spas.SUBCOM_VALUE,
+            spas.LEDGER_NAME
+        FROM
+            yxhscs_pub_alix_subcom spas
+        WHERE
+            1 = 1
+        <if test="belongcomName != null">
+            AND spas.BELONGCOM_NAME LIKE concat('%',#{belongcomName},'%')
+        </if>
+        <if test="subcomName != null">
+            AND spas.SUBCOM_NAME LIKE concat('%',#{subcomName},'%')
+        </if>
+        <if test="ledgerName != null">
+            AND spas.LEDGER_NAME LIKE concat('%',#{ledgerName},'%')
+        </if>
+        <if test="subcomValue != null">
+            AND spas.SUBCOM_VALUE LIKE concat('%',#{subcomValue},'%')
+        </if>
+    </select>
+
+</mapper>

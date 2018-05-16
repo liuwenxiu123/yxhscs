@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hscsm.core.itf.mapper.SysValueSetMapper">
+    <resultMap id="BaseResultMap" type="hscsm.core.itf.dto.SysValueSet">
+        <result column="VALUE_SET_ID" property="valueSetId" jdbcType="DECIMAL" />
+        <result column="VALUE_SET_NAME" property="valueSetName" jdbcType="VARCHAR" />
+        <result column="VALUE" property="value" jdbcType="VARCHAR" />
+        <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+        <result column="ENABLED_FLAG" property="enabledFlag" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <select id="debitChannelLov" resultMap="BaseResultMap">
+        SELECT
+        ysvs.VALUE,
+        ysvs.DESCRIPTION
+        FROM
+        yxhscs_sys_value_set ysvs
+        WHERE
+        ysvs.VALUE_SET_NAME = '扣款渠道'
+        AND ysvs.ENABLED_FLAG = 'Y'
+        <if test="value != null">
+            AND ysvs.VALUE LIKE concat('%',#{value},'%')
+        </if>
+        <if test="description != null">
+            AND ysvs.DESCRIPTION LIKE concat('%',#{description},'%')
+        </if>
+    </select>
+
+    <select id="receiptTypeLov" resultMap="BaseResultMap">
+        SELECT
+        ysvs.VALUE,
+        ysvs.DESCRIPTION
+        FROM
+        yxhscs_sys_value_set ysvs
+        WHERE
+        ysvs.VALUE_SET_NAME = '收款类型'
+        AND ysvs.ENABLED_FLAG = 'Y'
+        <if test="value != null">
+            AND ysvs.VALUE LIKE concat('%',#{value},'%')
+        </if>
+        <if test="description != null">
+            AND ysvs.DESCRIPTION LIKE concat('%',#{description},'%')
+        </if>
+    </select>
+
+    <select id="alixPaymentTypeLov" resultMap="BaseResultMap">
+        SELECT
+        ysvs.VALUE,
+        ysvs.DESCRIPTION
+        FROM
+        yxhscs_sys_value_set ysvs
+        WHERE
+        ysvs.VALUE_SET_NAME = 'ALIX放款付款类型'
+        AND ysvs.ENABLED_FLAG = 'Y'
+        <if test="value != null">
+            AND ysvs.VALUE LIKE concat('%',#{value},'%')
+        </if>
+        <if test="description != null">
+            AND ysvs.DESCRIPTION LIKE concat('%',#{description},'%')
+        </if>
+    </select>
+
+    <select id="leaseTypeLov" resultMap="BaseResultMap">
+        SELECT
+        ysvs.VALUE,
+        ysvs.DESCRIPTION
+        FROM
+        yxhscs_sys_value_set ysvs
+        WHERE
+        ysvs.VALUE_SET_NAME = '租赁类型'
+        AND ysvs.ENABLED_FLAG = 'Y'
+        <if test="value != null">
+            AND ysvs.VALUE LIKE concat('%',#{value},'%')
+        </if>
+        <if test="description != null">
+            AND ysvs.DESCRIPTION LIKE concat('%',#{description},'%')
+        </if>
+    </select>
+
+    <select id="businessTypeLov" resultMap="BaseResultMap">
+        SELECT
+        ysvs.VALUE,
+        ysvs.DESCRIPTION
+        FROM
+        yxhscs_sys_value_set ysvs
+        WHERE
+        ysvs.VALUE_SET_NAME = '业务类型'
+        AND ysvs.ENABLED_FLAG = 'Y'
+        <if test="value != null">
+            AND ysvs.VALUE LIKE concat('%',#{value},'%')
+        </if>
+        <if test="description != null">
+            AND ysvs.DESCRIPTION LIKE concat('%',#{description},'%')
+        </if>
+    </select>
+
+    <select id="contractTransactionLov" resultMap="BaseResultMap">
+        SELECT
+        ysvs.VALUE,
+        ysvs.DESCRIPTION
+        FROM
+        yxhscs_sys_value_set ysvs
+        WHERE
+        ysvs.VALUE_SET_NAME = '合同成交体外收款款项性质'
+        AND ysvs.ENABLED_FLAG = 'Y'
+        <if test="value != null">
+            AND ysvs.VALUE LIKE concat('%',#{value},'%')
+        </if>
+        <if test="description != null">
+            AND ysvs.DESCRIPTION LIKE concat('%',#{description},'%')
+        </if>
+    </select>
+
+    <select id="contractStatusLov" resultMap="BaseResultMap">
+        SELECT
+        ysvs.VALUE,
+        ysvs.DESCRIPTION
+        FROM
+        yxhscs_sys_value_set ysvs
+        WHERE
+        ysvs.VALUE_SET_NAME = '合同状态'
+        AND ysvs.ENABLED_FLAG = 'Y'
+        <if test="value != null">
+            AND ysvs.VALUE LIKE concat('%',#{value},'%')
+        </if>
+        <if test="description != null">
+            AND ysvs.DESCRIPTION LIKE concat('%',#{description},'%')
+        </if>
+    </select>
+
+    <select id="resourceCarTypeLov" resultMap="BaseResultMap">
+        SELECT
+        ysvs.VALUE,
+        ysvs.DESCRIPTION
+        FROM
+        yxhscs_sys_value_set ysvs
+        WHERE
+        ysvs.VALUE_SET_NAME = '资源车类型'
+        AND ysvs.ENABLED_FLAG = 'Y'
+        <if test="value != null">
+            AND ysvs.VALUE LIKE concat('%',#{value},'%')
+        </if>
+        <if test="description != null">
+            AND ysvs.DESCRIPTION LIKE concat('%',#{description},'%')
+        </if>
+    </select>
+
+    <select id="leasePropertyLov" resultMap="BaseResultMap">
+        SELECT
+        ysvs.VALUE,
+        ysvs.DESCRIPTION
+        FROM
+        yxhscs_sys_value_set ysvs
+        WHERE
+        ysvs.VALUE_SET_NAME = '租赁属性'
+        AND ysvs.ENABLED_FLAG = 'Y'
+        <if test="value != null">
+            AND ysvs.VALUE LIKE concat('%',#{value},'%')
+        </if>
+        <if test="description != null">
+            AND ysvs.DESCRIPTION LIKE concat('%',#{description},'%')
+        </if>
+    </select>
+
+</mapper>

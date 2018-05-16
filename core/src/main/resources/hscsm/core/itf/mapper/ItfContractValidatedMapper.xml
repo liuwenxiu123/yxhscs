@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hscsm.core.itf.mapper.ItfContractValidatedMapper">
+    <resultMap id="ContractDataResultMap" type="hscsm.core.itf.dto.ContractData">
+        <result column="APPLY_NUM" property="applyNum" />
+        <result column="CONTRACT_STATUS" property="contractStatus" />
+        <result column="CONTRACT_END_DATE" property="contractEndDate" />
+    </resultMap>
+
+    <select id="getContractDataByStatus" resultMap="ContractDataResultMap">
+        SELECT
+            hiil.VALUE2 AS APPLY_NUM,
+            hiil.VALUE8 AS CONTRACT_STATUS,
+            hiil.VALUE9 AS CONTRACT_END_DATE
+        FROM
+            hscs_itf_imp_headers hiih
+        LEFT JOIN
+            hscs_itf_imp_lines hiil ON hiil.HEADER_ID = hiih.HEADER_ID
+            AND hiil.PROCESS_STATUS = 'S'
+        WHERE
+            hiih.INTERFACE_NAME = 'ALIX_CANCEL_INTERFACE'
+        AND (
+            hiil.ATTRIBUTE2 IS NULL
+            OR hiil.ATTRIBUTE2 NOT IN ('Y','E')
+            )
+    </select>
+
+    <update id="updateItfImpLineStatus">
+        UPDATE hscs_itf_imp_lines
+        SET ATTRIBUTE2 = #{status}
+        WHERE VALUE2 = #{applyNum}
+    </update>
+
+    <update id="updateContractValidated">
+        UPDATE yxhscs_itf_contract_validated
+        SET
+            CONTRACT_STATUS = #{contractData.contractStatus},
+            CONTRACT_END_DATE = #{contractData.contractEndDate}
+        WHERE APPLY_NUM = #{contractData.applyNum}
+    </update>
+</mapper>

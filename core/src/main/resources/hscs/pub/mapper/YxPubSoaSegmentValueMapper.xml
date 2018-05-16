@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hscs.pub.mapper.YxPubSoaSegmentValueMapper">
+    <resultMap id="BaseResultMap" type="hscs.pub.dto.PubSoaSegmentValue">
+        <result column="SOA_VALUE_ID" property="soaValueId" jdbcType="DECIMAL"/>
+        <result column="TYPE_CODE" property="typeCode" jdbcType="VARCHAR"/>
+        <result column="VALUESET_NAME" property="valuesetName" jdbcType="VARCHAR"/>
+        <result column="SEGMENT_VALUE" property="segmentValue" jdbcType="VARCHAR"/>
+        <result column="DESCRIPTION" property="description" jdbcType="VARCHAR"/>
+        <result column="ENABLE_FLAG" property="enableFlag" jdbcType="VARCHAR"/>
+        <result column="START_ACTIVE_DATE" property="startActiveDate" jdbcType="DATE"/>
+        <result column="END_ACTIVE_DATE" property="endActiveDate" jdbcType="DATE"/>
+        <result column="FATHER_FLAG" property="fatherFlag" jdbcType="VARCHAR"/>
+        <result column="PARENT_COMPANY_ID" property="parentCompanyId" jdbcType="DECIMAL"/>
+        <result column="LEVEL_CODE" property="levelCode" jdbcType="VARCHAR"/>
+        <result column="FATHER_VALUE" property="fatherValue" jdbcType="VARCHAR"/>
+        <result column="SEGMENT1" property="segment1" jdbcType="VARCHAR"/>
+        <result column="SEGMENT2" property="segment2" jdbcType="VARCHAR"/>
+        <result column="SEGMENT3" property="segment3" jdbcType="VARCHAR"/>
+        <result column="SEGMENT4" property="segment4" jdbcType="VARCHAR"/>
+        <result column="SEGMENT5" property="segment5" jdbcType="VARCHAR"/>
+        <result column="SEGMENT6" property="segment6" jdbcType="VARCHAR"/>
+        <result column="SEGMENT7" property="segment7" jdbcType="VARCHAR"/>
+        <result column="SEGMENT8" property="segment8" jdbcType="VARCHAR"/>
+        <result column="SEGMENT9" property="segment9" jdbcType="VARCHAR"/>
+        <result column="SEGMENT10" property="segment10" jdbcType="VARCHAR"/>
+        <result column="SEGMENT11" property="segment11" jdbcType="VARCHAR"/>
+        <result column="SEGMENT12" property="segment12" jdbcType="VARCHAR"/>
+        <result column="SEGMENT13" property="segment13" jdbcType="VARCHAR"/>
+        <result column="SEGMENT14" property="segment14" jdbcType="VARCHAR"/>
+        <result column="SEGMENT15" property="segment15" jdbcType="VARCHAR"/>
+        <result column="SEGMENT16" property="segment16" jdbcType="VARCHAR"/>
+        <result column="SEGMENT17" property="segment17" jdbcType="VARCHAR"/>
+        <result column="SEGMENT18" property="segment18" jdbcType="VARCHAR"/>
+        <result column="SEGMENT19" property="segment19" jdbcType="VARCHAR"/>
+        <result column="SEGMENT20" property="segment20" jdbcType="VARCHAR"/>
+        <result column="SEGMENT21" property="segment21" jdbcType="VARCHAR"/>
+        <result column="SEGMENT22" property="segment22" jdbcType="VARCHAR"/>
+        <result column="SEGMENT23" property="segment23" jdbcType="VARCHAR"/>
+        <result column="SEGMENT24" property="segment24" jdbcType="VARCHAR"/>
+        <result column="SEGMENT25" property="segment25" jdbcType="VARCHAR"/>
+        <result column="SEGMENT26" property="segment26" jdbcType="VARCHAR"/>
+        <result column="SEGMENT27" property="segment27" jdbcType="VARCHAR"/>
+        <result column="SEGMENT28" property="segment28" jdbcType="VARCHAR"/>
+        <result column="SEGMENT29" property="segment29" jdbcType="VARCHAR"/>
+        <result column="SEGMENT30" property="segment30" jdbcType="VARCHAR"/>
+        <result column="PROGRAM_ID" property="programId" jdbcType="DECIMAL"/>
+        <result column="REQUEST_ID" property="requestId" jdbcType="DECIMAL"/>
+    </resultMap>
+
+    <resultMap id="BankAccountNameLovResultMap" type="hscs.pub.dto.PubBankAccounts" extends="com.hand.hap.mapper.StdMapper.STD">
+        <result column="ACCOUNT_ID" property="accountId" jdbcType="DECIMAL" />
+        <result column="COMPANY_CODE" property="companyCode" jdbcType="VARCHAR" />
+        <result column="COMPANY_NAME" property="companyName" jdbcType="VARCHAR" />
+        <result column="ACCOUNT_NUMBER" property="accountNumber" jdbcType="VARCHAR" />
+        <result column="ACCOUNT_NAME" property="accountName" jdbcType="VARCHAR" />
+        <result column="ACCOUNT_ALIAS" property="accountAlias" jdbcType="VARCHAR" />
+        <result column="BANK_ID" property="bankId" jdbcType="DECIMAL" />
+        <result column="BANK_NAME" property="bankName" jdbcType="VARCHAR" />
+        <result column="BANK_BRANCH_ID" property="bankBranchId" jdbcType="DECIMAL" />
+        <result column="BRANCH_NAME" property="branchName" jdbcType="VARCHAR" />
+        <result column="ACCOUNT_PROPERTY" property="accountProperty" jdbcType="VARCHAR" />
+        <result column="CURRENCY_ID" property="currencyId" jdbcType="DECIMAL" />
+        <result column="CURRENCY_NAME" property="currencyName" jdbcType="VARCHAR" />
+        <result column="SOA_COM_CODE" property="soaComCode" jdbcType="VARCHAR" />
+        <result column="SOA_ACC_CODE" property="soaAccCode" jdbcType="VARCHAR" />
+        <result column="SOA_SUBACC_CODE" property="soaSubaccCode" jdbcType="VARCHAR" />
+        <result column="SOA_COSTACC_CODE" property="soaCostaccCode" jdbcType="VARCHAR" />
+        <result column="SOA_DEPT_CODE" property="soaDeptCode" jdbcType="VARCHAR" />
+        <result column="DESCRIPTION1" property="description1" jdbcType="VARCHAR" />
+        <result column="DESCRIPTION2" property="description2" jdbcType="VARCHAR" />
+        <result column="DESCRIPTION3" property="description3" jdbcType="VARCHAR" />
+        <result column="DESCRIPTION4" property="description4" jdbcType="VARCHAR" />
+        <result column="DESCRIPTION5" property="description5" jdbcType="VARCHAR" />
+        <result column="ACCOUNT_TYPE" property="accountType" jdbcType="VARCHAR" />
+        <result column="STATUS_CODE" property="statusCode" jdbcType="VARCHAR" />
+        <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+        <result column="PROGRAM_ID" property="programId" jdbcType="DECIMAL" />
+        <result column="REQUEST_ID" property="requestId" jdbcType="DECIMAL" />
+        <result column="currency_Code" property="currencyCode" jdbcType="VARCHAR" />
+        <result column="LEDGER_NAME" property="ledgerName" jdbcType="VARCHAR" />
+        <result column="company_Full_Name" property="companyFullName" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <select id="selectBankAccountNameLov" parameterType="hscs.pub.dto.PubBankAccounts"  resultMap="BankAccountNameLovResultMap">
+        SELECT
+            hpba.REQUEST_ID,
+            hpba.PROGRAM_ID,
+            hpba.OBJECT_VERSION_NUMBER,
+            hpba.CREATED_BY,
+            hpba.CREATION_DATE,
+            hpba.LAST_UPDATED_BY,
+            hpba.LAST_UPDATE_DATE,
+            hpba.LAST_UPDATE_LOGIN,
+            hpba.ACCOUNT_ID,
+            hpba.COMPANY_CODE,
+            hpba.ACCOUNT_NUMBER,
+            hpba.ACCOUNT_NAME,
+            hpba.ACCOUNT_ALIAS,
+            hpba.BANK_ID,
+            hpb.BANK_NAME,
+            hpba.BANK_BRANCH_ID,
+            hpbb.BRANCH_NAME,
+            hpba.ACCOUNT_PROPERTY,
+            hpba.CURRENCY_ID,
+            hpba.SOA_COM_CODE,
+            hpba.SOA_ACC_CODE,
+            hpba.SOA_SUBACC_CODE,
+            hpba.SOA_COSTACC_CODE,
+            hpba.SOA_DEPT_CODE,
+            hpba.ACCOUNT_TYPE,
+            hpba.STATUS_CODE,
+            hpba.DESCRIPTION,
+            hpcd.CURRENCY_CODE,
+            hpba.LEDGER_NAME,
+            fcb.company_full_name
+        FROM
+            hscs_pub_bank_accounts hpba
+        LEFT JOIN HSCS_PUB_CURRENCY_DETAILS hpcd ON hpcd.CURRENCY_ID = hpba.CURRENCY_ID
+        LEFT JOIN hscs_pub_bank_branch hpbb ON hpbb.BANK_BRANCH_ID = hpba.BANK_BRANCH_ID
+        LEFT JOIN hscs_pub_bank hpb ON hpb.BANK_ID = hpba.BANK_ID
+        LEFT JOIN fnd_company_b fcb ON fcb.company_code = hpba.COMPANY_CODE
+        LEFT JOIN hscs_pub_company_info_b hpcbjoin ON hpcbjoin.fnd_company_id = fcb.company_id
+        LEFT JOIN HSCS_PUB_SOA_SEGMENT_VALUE hpssv ON (
+            hpssv.SEGMENT_VALUE = fcb.COMPANY_CODE
+            AND hpssv.TYPE_CODE = 'COM'
+        )
+        WHERE 1=1
+        AND hpba.STATUS_CODE='VALID'
+        <if test="accountId!=null">
+            AND hpba.ACCOUNT_ID = #{accountId}
+        </if>
+        <if test="accountName!=null">
+            AND hpba.ACCOUNT_NAME = #{accountName}
+        </if>
+        <if test="companyCode!=null and companyCode!=''">
+            AND hpba.company_code LIKE #{companyCode}
+        </if>
+        <if test="accountNumber!=null and accountNumber!=''">
+            AND hpba.ACCOUNT_NUMBER LIKE #{accountNumber}
+        </if>
+        <if test="ledgerName!=null and ledgerName!=''">
+            AND hpba.ACCOUNT_NUMBER LIKE #{ledgerName}
+        </if>
+        <if test="bankId!=null">
+            AND hpba.bank_id =#{bankId}
+        </if>
+        <if test="bankBranchId!=null">
+            AND hpba.BANK_BRANCH_ID =#{bankBranchId}
+        </if>
+        <if test="statusCode!=null and statusCode!=''">
+            AND hpba.STATUS_CODE =#{statusCode}
+        </if>
+        GROUP BY
+            hpba.REQUEST_ID,
+            hpba.PROGRAM_ID,
+            hpba.OBJECT_VERSION_NUMBER,
+            hpba.CREATED_BY,
+            hpba.CREATION_DATE,
+            hpba.LAST_UPDATED_BY,
+            hpba.LAST_UPDATE_DATE,
+            hpba.LAST_UPDATE_LOGIN,
+            hpba.ACCOUNT_ID,
+            hpba.COMPANY_CODE,
+            hpba.ACCOUNT_NUMBER,
+            hpba.ACCOUNT_NAME,
+            hpba.ACCOUNT_ALIAS,
+            hpba.BANK_ID,
+            hpb.BANK_NAME,
+            hpba.BANK_BRANCH_ID,
+            hpbb.BRANCH_NAME,
+            hpba.ACCOUNT_PROPERTY,
+            hpba.CURRENCY_ID,
+            hpba.SOA_COM_CODE,
+            hpba.SOA_ACC_CODE,
+            hpba.SOA_SUBACC_CODE,
+            hpba.SOA_COSTACC_CODE,
+            hpba.SOA_DEPT_CODE,
+            hpba.ACCOUNT_TYPE,
+            hpba.STATUS_CODE,
+            hpba.DESCRIPTION,
+            hpcd.CURRENCY_CODE,
+            hpba.LEDGER_NAME,
+            fcb.company_full_name
+    </select>
+
+    <select id="selectSoaIcValidValue" parameterType="hscs.pub.dto.PubSoaSegmentValue" resultMap="BaseResultMap">
+        SELECT soa.soa_value_id,
+            soa.type_code,
+            soa.valueset_name,
+            soa.segment_value,
+            soa.description,
+            soa.enable_flag,
+            soa.start_active_date,
+            soa.end_active_date,
+            soa.father_flag,
+            soa.level_code,
+            soa.father_value,
+            soa.segment1,
+            soa.segment2
+        FROM hscs_pub_soa_segment_value soa
+        WHERE soa.type_code = 'IC'
+        AND soa.enable_flag = 'Y'
+        AND soa.father_flag = 'N'
+        AND (soa.end_active_date IS NULL OR soa.end_active_date > current_timestamp)
+        AND (soa.start_active_date IS NULL OR current_timestamp > soa.start_active_date)
+        <if test="description!=null">
+            and description LIKE concat('%',#{description},'%')
+        </if>
+        <if test="segmentValue!=null">
+            and segment_value LIKE concat('%',#{segmentValue},'%')
+        </if>
+        <if test="valuesetName!=null">
+            and valueset_name = #{valuesetName,jdbcType=VARCHAR}
+        </if>
+        <if test="fatherValue!=null">
+            and father_value = #{fatherValue,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+
+    <select id="selectSoaIcValidValueAll" parameterType="hscs.pub.dto.PubSoaSegmentValue" resultMap="BaseResultMap">
+        SELECT soa.soa_value_id,
+            soa.type_code,
+            soa.valueset_name,
+            soa.segment_value,
+            soa.description,
+            soa.enable_flag,
+            soa.start_active_date,
+            soa.end_active_date,
+            soa.father_flag,
+            soa.level_code,
+            soa.father_value,
+            soa.segment1,
+            soa.segment2
+        FROM hscs_pub_soa_segment_value soa
+        WHERE soa.type_code = 'IC'
+        AND soa.enable_flag = 'Y'
+        AND soa.father_flag = 'N'
+        AND (soa.end_active_date IS NULL OR soa.end_active_date > current_timestamp)
+        AND (soa.start_active_date IS NULL OR current_timestamp > soa.start_active_date)
+        <if test="description!=null">
+            and description LIKE concat('%',#{description},'%')
+        </if>
+        <if test="segmentValue!=null">
+            and segment_Value LIKE concat('%',#{segmentValue},'%')
+        </if>
+        <if test="enableFlag!=null">
+            and enable_flag = #{enableFlag,jdbcType=VARCHAR}
+        </if>
+        <if test="fatherFlag!=null">
+            and father_flag = #{fatherFlag,jdbcType=VARCHAR}
+        </if>
+        <if test="fatherValue!=null">
+            and father_value = #{fatherValue,jdbcType=VARCHAR}
+        </if>
+    </select>
+</mapper>

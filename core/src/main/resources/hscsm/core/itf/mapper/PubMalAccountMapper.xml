@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hscsm.core.itf.mapper.PubMalAccountMapper">
+    <resultMap id="BaseResultMap" type="hscsm.core.itf.dto.PubMalAccount">
+        <result column="MAL_ACCCOUNT_ID" property="malAcccountId" jdbcType="DECIMAL" />
+        <result column="ABS_NUM" property="absNum" jdbcType="VARCHAR" />
+        <result column="ACCOUNT_NUM" property="accountNum" jdbcType="VARCHAR" />
+        <result column="REC_ENTITY" property="recEntity" jdbcType="VARCHAR" />
+        <result column="REC_COM" property="recCom" jdbcType="VARCHAR" />
+        <result column="REC_IC" property="recIc" jdbcType="VARCHAR" />
+        <result column="REC_LEDGER" property="recLedger" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <select id="PubMalAccountLov" resultMap="BaseResultMap">
+        SELECT
+          ypma.ABS_NUM,
+          ypma.ACCOUNT_NUM,
+          ypma.REC_ENTITY,
+          ypma.REC_COM,
+          ypma.REC_IC,
+          ypma.REC_LEDGER
+        FROM
+            yxhscs_pub_mal_account ypma
+        WHERE 1 = 1
+        <if test="absNum != null">
+            AND ypma.ABS_NUM LIKE concat('%',#{absNum},'%')
+        </if>
+        <if test="accountNum != null">
+            AND ypma.ACCOUNT_NUM LIKE concat('%',#{accountNum},'%')
+        </if>
+        <if test="recEntity != null">
+            AND ypma.REC_ENTITY LIKE concat('%',#{recEntity},'%')
+        </if>
+        <if test="recCom != null">
+            AND ypma.REC_COM LIKE concat('%',#{recCom},'%')
+        </if>
+    </select>
+
+
+</mapper>
