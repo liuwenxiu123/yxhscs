@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
+<!-- 添加一行新的注释-->
     <groupId>hscsm</groupId>
     <artifactId>hscsmParent</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <properties>
-        <!--<hap.version>2.1.4-Release</hap.version>-->
+        <!--<hap.version>2.1.4-Release修改</hap.version>-->
         <hap.version>3.3.2-RELEASE</hap.version>
         <hscs.version>1.2.8a-SNAPSHOT</hscs.version>
         <hitf.version>1.0-SNAPSHOT</hitf.version>
